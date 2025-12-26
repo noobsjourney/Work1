@@ -1,0 +1,435 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Mode-Aware Anti-Jamming for Dynamic Spectrum Sharing UAV Networks: Joint Spectrum and Trajectory Optimization}
+
+\author{
+}
+
+\maketitle
+
+\begin{abstract}
+Unmanned aerial vehicle (UAV) communications under dynamic spectrum sharing are vulnerable to intentional jamming, 
+especially when the jammer switches among different interference patterns such as constant, sweep, and random jamming. 
+Existing learning-based approaches typically rely on implicit adaptation to interference, which often 
+results in slow reaction and degraded reliability under abrupt jamming pattern transitions.
+To address this issue, we propose a mode-aware anti-jamming framework for dynamic spectrum sharing UAV networks. 
+By exploiting short-window spectrum observations, the UAV explicitly estimates the belief state of the current 
+jamming mode and incorporates it into a hybrid learning scheme that jointly optimizes spectrum allocation 
+and UAV trajectory control. Specifically, Proximal Policy Optimization (PPO) is adopted for discrete spectrum allocation, 
+while a continuous-control learning algorithm is used for trajectory optimization with a reliability-oriented reward design.
+Simulation results show that the proposed approach achieves faster throughput recovery and improved robustness under pattern-switching
+jamming compared with baseline methods.
+\end{abstract}
+
+\begin{IEEEkeywords}
+UAV communications, dynamic spectrum sharing, anti-jamming, styling, reinforcement learning
+\end{IEEEkeywords}
+
+\section{Introduction}
+Unmanned aerial vehicles (UAVs) have become an important component of low-altitude wireless networks, enabling flexible and on-demand communication services such as emergency coverage, 
+temporary hotspots, and aerial relaying. Due to the scarcity of dedicated spectrum, UAV systems often operate under dynamic spectrum sharing (DSS) frameworks, where secondary UAV links coexist with incumbent primary users (PUs). 
+While DSS improves spectrum efficiency, it also exposes UAV communications to severe and highly dynamic interference, particularly in adversarial environments with intentional jamming.In practice, a jammer rarely adopts a fixed interference strategy. Instead, it may switch among multiple jamming patterns, such as constant jamming, sweep jamming, and random jamming, 
+to increase uncertainty and disrupt adaptive communication schemes. Such pattern-switching jamming leads to abrupt and non-stationary interference dynamics, 
+which can cause frequent quality-of-service (QoS) degradation and communication outages. For low-altitude UAV missions,
+ensuring fast recovery of communication quality after interference transitions is often more critical than optimizing long-term average throughput.
+
+To address spectrum scarcity and interference, extensive research has investigated joint spectrum allocation and UAV trajectory optimization. 
+By exploiting the UAV’s mobility and flexible spectrum access, learning-based approaches can adapt resource allocation and flight trajectories in dynamic environments. 
+In particular, reinforcement learning (RL) has been widely applied to handle the coupled discrete–continuous optimization inherent in spectrum assignment and UAV movement. 
+However, most existing methods treat interference as an exogenous disturbance and directly include raw interference measurements in the state space, 
+elying on the learning agent to implicitly infer jammer behavior from long-term reward feedback. Under pattern-switching jamming, 
+this implicit learning results in an effectively non-stationary environment, 
+where the learned policy tends to converge to conservative average-case behaviors and exhibits slow adaptation when the jamming pattern changes.
+
+This observation reveals a key limitation of existing designs: the lack of explicit awareness of jamming patterns prevents fast reaction to abrupt interference transitions. 
+In contrast to throughput-oriented formulations, anti-jamming UAV communications require rapid frequency agility and timely decision updates to restore link quality with minimal delay. 
+Motivated by this challenge, we focus on a pattern-switching jamming scenario and investigate how explicit 
+jamming cognition can be leveraged to improve the responsiveness and robustness of DSS-enabled UAV communications.
+
+In this paper, we propose a mode-aware anti-jamming framework that explicitly decouples jamming cognition from control. 
+The jammer behavior is modeled as a finite-mode pattern-switching process. Using short-window spectrum observations, 
+the UAV rapidly estimates the posterior distribution of the current jamming mode, referred to as a belief state. 
+This belief state is then incorporated into the decision-making process to condition both spectrum allocation and trajectory control, 
+enabling instantaneous policy adaptation upon jamming mode transitions. Moreover, to capture practical frequency agility constraints, 
+we explicitly introduce a frequency switching cost into the optimization objective, balancing fast reaction to interference and stable spectrum usage.
+
+To solve the resulting problem, we develop a hybrid learning framework that jointly optimizes discrete spectrum allocation and continuous UAV trajectory control. 
+A Proximal Policy Optimization (PPO) agent is employed to learn the spectrum allocation policy, while a continuous-control agent, 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figure/System_Model.jpg}
+  \caption{Dynamic spectrum sharing UAV network under pattern-switching jamming, where the C-UAV performs jamming mode awareness and 
+  jointly optimizes spectrum allocation and trajectory to ensure reliable communications.}
+  \label{fig:System_Model}
+\end{figure}
+such as TD3 or SAC, optimizes the UAV trajectory. Both agents are conditioned on the jamming mode belief and trained using 
+a reliability-oriented reward 
+that penalizes QoS outages and excessive frequency switching while ensuring PU protection. Simulation results under constant, sweep, and random pattern-switching 
+jamming demonstrate that the proposed mode-aware approach achieves significantly faster throughput recovery and improved robustness compared with baseline schemes 
+relying on implicit interference learning.
+
+The main contributions of this paper are summarized as follows:
+
+$\bullet$ 
+
+$\bullet$ 
+
+$\bullet$ 
+
+The remainder of this paper is organized as follows. Section II introduces the system model, including the dynamic spectrum sharing UAV network 
+and the pattern-switching jamming scenario. Section III presents the proposed mode-aware anti-jamming framework, including jamming mode recognition 
+and the joint spectrum allocation and trajectory control scheme. Simulation results and performance evaluations are provided in Section IV. Finally, the paper concludes with Section V.
+
+\section{System Model}
+
+\subsection{Scenario Description}
+
+We consider a UAV-enabled dynamic spectrum sharing (DSS) network under intentional pattern-switching jamming,    % outline
+as illustrated in Fig. 1. The network consists of a primary network and a cognitive UAV-assisted secondary network, 
+which coexist over a set of licensed spectrum bands.
+
+The primary network includes a primary base station and $J$ primary users (PUs).  % scenario description
+The PUs are indexed by $j \in \mathcal{J} \triangleq \{1,2,\ldots,J\}$.
+In order to serve more SUs and provide better services, a wideband spectrum is divided into $M$ sub-carrier spectrum bands.
+The spectrum bands are indexed by $m \in \mathcal{M} \triangleq \{1,2,\ldots,M\}$.
+Each PU is allocated one dedicated licensed spectrum band to avoid intra-primary interference.
+The secondary network comprises a cognitive UAV serving $K$ ground secondary users (SUs).
+The SUs are indexed by $k \in \mathcal{K} \triangleq \{1,2,\ldots,K\}$.
+The C-UAV operates as an aerial secondary base station, providing downlink communications to SUs by opportunistically accessing the licensed spectrum 
+while ensuring that the interference inflicted on the primary network remains within acceptable limits.
+
+A three-dimensional Cartesian coordinate system is adopted. % position model
+The horizontal locations of the PBS, the $j$-th PU, the $k$-th SU, the C-UAV and the J-UAV at time slot $n$ are denoted by
+$\mathbf{w}_b=(x_b, y_b)$, $\mathbf{w}_{p,j}=(x_{p,j}, y_{p,j})$, $\mathbf{w}_{s,k}=(x_{s,k}, y_{s,k})$, $\mathbf{q}_c=(x_{c}, y_{c})$ and $\mathbf{q}_{jam}=(x_{jam}, y_{jam})$ respectively.
+These UAVs fly at a fixed altitude $H_c$.
+The total communication duration $T$ is divided into $N$ equal-length time slots, each with duration $\Delta t = T/N$.
+Due to the short duration of each slot, the C-UAV is assumed to be quasi-static within one slot. 
+Let $n \in \mathcal{N} \triangleq \{1,2,\ldots,N\}$ denote the set of time steps. The dynamic positions of the SUs can be formulated as
+\begin{equation}
+\begin{aligned}
+x_{s,k}[n+1] &= x_{s,k}[n] + v_s \cos\bigl(\phi_{s,k}[n]\bigr), \\
+y_{s,k}[n+1] &= y_{s,k}[n] + v_s \sin\bigl(\phi_{s,k}[n]\bigr),
+\end{aligned}
+\label{eq:SU_Motion}
+\end{equation}
+where $\phi_{s,k}[n] \in [-\pi,\pi]$ represents the direction of the $k$-th SU.
+The SUs move at a fixed speed $v_{s}$.
+Similarly, the dynamic position of the C-UAV can be formulated as
+\begin{equation}
+\begin{aligned}
+x_{c}[n+1] &= x_{c}[n] + v_c \cos\bigl(\phi[n]\bigr), \\
+y_{c}[n+1] &= y_{c}[n] + v_c \sin\bigl(\phi[n]\bigr),
+\end{aligned}
+\label{eq:UAV_Motion}
+\end{equation}
+where $v_c$ is the constant flight speed, and $\phi[n] $ denotes the heading angle of the UAV at time slot $n$.
+The distamce between the C-UAV and the $k$-th SU, and that between the PBS and the $j$-th PU at time slot $n$ are respectively given as,
+\begin{equation}
+\begin{aligned}
+d_{c,k}[n] &= \sqrt{\bigl\lVert \mathbf{q}_c[n] - \mathbf{w}_{s,k}[n] \bigr\rVert^2 + H_c^2}, \\
+d_{p,k}[n] &= \sqrt{\bigl\lVert \mathbf{w}_b[n] - \mathbf{w}_{p,j}[n] \bigr\rVert^2},
+\end{aligned}
+\label{eq:distances}
+\end{equation}
+
+The wireless channel between the UAV and the ground users is dominated by the line-of-sight (LoS) link. % channel model
+Let $\beta_{\mathrm{ref}}$ represent the channel power gain at the reference distance of $1$~m.
+Thus, the channel power gain from the C-UAV to the $k$-th SU can be expressed as
+\begin{equation}
+h_{k,n}^{\mathrm{LoS}} = \beta_{\mathrm{ref}} d_{c,k}[n]^{-2},
+\label{eq:los_channel}
+\end{equation}
+where $d_{c,k}[n]$ represents the distance between the C-UAV and the $k$-th SU
+at time slot $n$. The channel model between the PBS and the ground users is different from that
+between the UAV and the ground users.It is required to consider both the distance-dependent path loss with exponent
+$\varphi \geq 2$ and small-scale Rayleigh fading. 
+Thus, the channel power gains from the PBS to the $j$-th PU can be given as
+\begin{equation}
+h_{j,n}^{g} = \beta_{\mathrm{ref}} d_{p,j}[n]^{-\varphi} \zeta_j,
+\label{eq:pbs_pu_channel}
+\end{equation}
+where $d_{p,j}[n]$ is the distance between the PBS and the $j$-th PU at time slot $n$.
+The random variable $\zeta_j$ follows an exponential distribution with unit mean,
+which accounts for the Rayleigh fading.
+
+Unlike conventional fixed or random jamming models, the J-UAV is assumed to adopt a pattern-switching strategy. % jamming model
+Let $z[n] \in \mathcal{Z} \triangleq \{\text{Constant}, \text{Sweep}, \text{Random}\}$
+denote the jamming mode at time slot $n$, corresponding to constant jamming,
+sweep jamming, and random jamming, respectively.
+The jamming mode evolves over time according to a finite-state stochastic process.
+In particular, the mode transition is modeled as a first-order Markov chain, i.e.,
+\begin{equation}\label{eq:markov_jamming}
+\begin{aligned}
+\Pr\!\left(z[n+1] = z' \mid z[n] = z\right)
+&= \Pi_{z,z'}, \quad z,z' \in \mathcal{Z}.
+\end{aligned}
+\end{equation}
+where $\boldsymbol{\Pi}$ denotes the mode transition probability matrix.
+The transition probabilities are not known to the C-UAV, 
+and the instantaneous jamming mode cannot be directly observed.
+The pattern-switching behavior of the jammer directly translates
+into time-varying and non-stationary interference across the spectrum.
+
+Considering the sub-carrier allocation, the binary variables % allocation model
+$\rho_{k,n}[m]$ and $\rho_{jam,n}[m]$ are introduced to characterize
+the spectrum usage of the SUs and the J-UAV, respectively.Specifically, 
+$\rho_{k,n}[m] = 1$ indicates that the $m$-th sub-carrier is
+assigned to the $k$-th SU at time slot $n$, and $\rho_{k,n}[m] = 0$ otherwise.
+Each PU operates on a preassigned orthogonal sub-carrier with a
+fixed transmit power. The J-UAV dynamically occupies sub-carriers according to its current jamming
+mode, which is captured by the jamming indicator $\rho_{jam,n}[m]$.
+When $\rho_{jam,n}[m] = 1$, the $m$-th sub-carrier is subject to
+intentional interference from the jammer at time slot $n$.
+Based on the sub-carrier availability and the time-varying jamming condition, 
+the C-UAV aims to dynamically adapt the spectrum allocation for the SUs, 
+such that the communication quality can be rapidly restored after jamming pattern changes, 
+while opportunistically accessing the licensed spectrum and guaranteeing the quality-of-service requirements 
+of the primary network.
+
+The SINR of the $k$-th SU and the $j$-th PU in the $m$-th sub-band can be % SINR && Rate
+respectively expressed as
+\begin{subequations}\label{eq:sinr}
+\begin{align}
+\gamma_{m,k,n}^{s}&=\frac{\rho_{k,n}[m] P_c h_{k,n}^{\mathrm{LoS}}}{\sigma^2 + P_m^b h_{k,n}^{g} + \rho_{n}^{\mathrm{jam}}[m] P_J h_{k,n}^{\mathrm{LoS}}}, \label{eq:sinr_su} \\
+\gamma_{m,j,n}^{p}&=\frac{P_m^b h_{j,n}^{g}}{\sigma^2 + \sum_{k=1}^{K} \rho_{k,n}[m] P_c h_{j,n}^{\mathrm{LoS}} + \rho_{n}^{\mathrm{jam}}[m] P_J h_{j,n}^{\mathrm{LoS}}}, \label{eq:sinr_pu}
+\end{align}
+\end{subequations}
+where $P_c$ and $P_J$ denote the transmission powers of the C-UAV and the
+jamming UAV, respectively, and $P_m^b$ denotes the transmission power of the PBS
+in the $m$-th sub-band. Moreover, $\sigma^2$ is the noise power.
+Then, the achievable data transmission rate of the $k$-th SU and the $j$-th PU
+can be respectively expressed as
+\begin{subequations}\label{eq:rate}
+\begin{align}
+R_{m,k,n}^{s}&= B \log_2\!\left(1 + \gamma_{m,k,n}^{s}\right), \label{eq:rate_su} \\
+R_{m,j,n}^{p}&= B \log_2\!\left(1 + \gamma_{m,j,n}^{p}\right), \label{eq:rate_pu}
+\end{align}
+\end{subequations}
+where $B$ denotes the bandwidth for each sub-band.
+
+\subsection{Problem Formulation}
+In this paper, we address a joint spectrum allocation and UAV trajectory optimization problem in a dynamic spectrum 
+sharing UAV network under pattern-switching jamming, 
+aiming to achieve fast recovery and reliable communication for secondary users while satisfying the primary user protection constraints.
+Accordingly, the optimization problem is formulated as follows:
+\begin{align}
+\mathbf{P1:}\quad
+\max_{\boldsymbol{\rho},\,\boldsymbol{\phi}} \quad
+& \frac{1}{N} \sum_{n=1}^{N} \sum_{k=1}^{K} \sum_{m=1}^{M}
+R^{\mathrm{s}}_{m,k,n}
+-\frac{\lambda_{\mathrm{out}}}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}
+\mathbb I^{\mathrm{out}}_{k,n}
+\tag{9a}
+\\
+\text{s.t.}\quad
+& \sum_{m=1}^{M} R^{p}_{m,j,n} \ge R^{\min}_{j},
+\quad \forall j\in\mathcal J,\ \forall n\in\mathcal N,
+\tag{9b}
+\\
+& \rho_{k,n}[m]\in\{0,1\},
+\quad \forall k\in\mathcal K,\ \forall m\in\mathcal M,\ \forall n\in\mathcal N,
+\tag{9c}
+\\
+& \sum_{k=1}^{K} \rho_{k,n}[m] \le 1,
+\quad \forall m\in\mathcal M,\ \forall n\in\mathcal N,
+\tag{9d}
+\\
+& |\phi[n]| \le \pi,
+\quad \forall n\in\mathcal N.
+\tag{9e}
+\end{align}
+where $R^{\min}_j$ denotes the minimum transmission rate requirement of the $j$-th PU,
+and $\boldsymbol{\rho}=\{\rho_{k,n}[m]\}_{k\in\mathcal K,m\in\mathcal M,n\in\mathcal N}$
+represents the spectrum allocation policy for the SUs.
+Constraint~(9b) guarantees the quality-of-service requirements of the PUs in the dynamic spectrum sharing environment.
+Constraints~(9c) and~(9d) indicate that each sub-carrier can be assigned to at most one SU at each time slot
+to avoid intra-secondary interference.
+Constraint~(9e) specifies that the heading angle of the C-UAV is constrained within the interval $[-\pi,\pi]$,
+ensuring feasible UAV mobility.
+
+\section{Our proposed Method}
+
+\subsection{Abbreviations and Acronyms}\label{AA}
+
+\subsection{Units}
+\begin{itemize}
+\item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as ``3.5-inch disk drive''.
+\item Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.
+\item Do not mix complete spellings and abbreviations of units: ``Wb/m\textsuperscript{2}'' or ``webers per square meter'', not ``webers/m\textsuperscript{2}''. Spell out units when they appear in text: ``. . . a few henries'', not ``. . . a few H''.
+\item Use a zero before decimal points: ``0.25'', not ``.25''. Use ``cm\textsuperscript{3}'', not ``cc''.)
+\end{itemize}
+
+\subsection{Equations}
+Number equations consecutively. To make your 
+equations more compact, you may use the solidus (~/~), the exp function, or 
+appropriate exponents. Italicize Roman symbols for quantities and variables, 
+but not Greek symbols. Use a long dash rather than a hyphen for a minus 
+sign. Punctuate equations with commas or periods when they are part of a 
+sentence, as in:
+\begin{equation}
+a+b=\gamma\label{eq}
+\end{equation}
+
+
+
+\subsection{\LaTeX-Specific Advice}
+
+Please use ``soft'' (e.g., \verb|\eqref{Eq}|) cross references instead
+
+
+{\BibTeX} does not work by magic. It doesn't get the bibliographic
+data from thin air but from .bib files. If you use {\BibTeX} to produce a
+bibliography you must send the .bib files. 
+
+{\LaTeX} can't read your mind. If you assign the same label to a
+subsubsection and a table, you might find that Table I has been cross
+referenced as Table IV-B3. 
+
+{\LaTeX} does not have precognitive abilities. If you put a
+\verb|\label| command before the command that updates the counter it's
+supposed to be using, the label will pick up the last counter to be
+cross referenced instead. In particular, a \verb|\label| command
+should not go before the caption of a figure or a table.
+
+Do not use \verb|\nonumber| inside the \verb|{array}| environment. It
+will not stop equation numbers inside \verb|{array}| (there won't be
+any anyway) and it might stop a wanted equation number in the
+surrounding equation.
+
+\subsection{Some Common Mistakes}\label{SCM}
+\begin{itemize}
+\item The word ``data'' is plural, not singular.
+\item The subscript for the permeability of vacuum $\mu_{0}$, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ``o''.
+\item In American English, commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
+\item A graph within a graph is an ``inset'', not an ``insert''. The word alternatively is preferred to the word ``alternately'' (unless you really mean something that alternates).
+\item Do not use the word ``essentially'' to mean ``approximately'' or ``effectively''.
+\item In your paper title, if the words ``that uses'' can accurately replace the word ``using'', capitalize the ``u''; if not, keep using lower-cased.
+\item Be aware of the different meanings of the homophones ``affect'' and ``effect'', ``complement'' and ``compliment'', ``discreet'' and ``discrete'', ``principal'' and ``principle''.
+\item Do not confuse ``imply'' and ``infer''.
+\item The prefix ``non'' is not a word; it should be joined to the word it modifies, usually without a hyphen.
+\item There is no period after the ``et'' in the Latin abbreviation ``et al.''.
+\item The abbreviation ``i.e.'' means ``that is'', and the abbreviation ``e.g.'' means ``for example''.
+\end{itemize}
+An excellent style manual for science writers is \cite{b7}.
+
+\subsection{Authors and Affiliations}
+\textbf{The class file is designed for, but not limited to, six authors.} A 
+minimum of one author is required for all conference articles. Author names 
+should be listed starting from left to right and then moving down to the 
+next line. This is the author sequence that will be used in future citations 
+and by indexing services. Names should not be listed in columns nor group by 
+affiliation. Please keep your affiliations as succinct as possible (for 
+example, do not differentiate among departments of the same organization).
+
+\subsection{Identify the Headings}
+Headings, or heads, are organizational devices that guide the reader through 
+your paper. There are two types: component heads and text heads.
+
+Component heads identify the different components of your paper and are not 
+topically subordinate to each other. Examples include Acknowledgments and 
+References and, for these, the correct style to use is ``Heading 5''. Use 
+``figure caption'' for your Figure captions, and ``table head'' for your 
+table title. Run-in heads, such as ``Abstract'', will require you to apply a 
+style (in this case, italic) in addition to the style provided by the drop 
+down menu to differentiate the head from the text.
+
+Text heads organize the topics on a relational, hierarchical basis. For 
+example, the paper title is the primary text head because all subsequent 
+material relates and elaborates on this one topic. If there are two or more 
+sub-topics, the next level head (uppercase Roman numerals) should be used 
+and, conversely, if there are not at least two sub-topics, then no subheads 
+should be introduced.
+
+\subsection{Figures and Tables}
+\paragraph{Positioning Figures and Tables} Place figures and tables at the top and 
+bottom of columns. Avoid placing them in the middle of columns. Large 
+figures and tables may span across both columns. Figure captions should be 
+below the figures; table heads should appear above the tables. Insert 
+figures and tables after they are cited in the text. Use the abbreviation 
+``Fig.~\ref{fig}'', even at the beginning of a sentence.
+
+\begin{table}[htbp]
+\caption{Table Type Styles}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
+\cline{2-4} 
+\textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
+\hline
+copy& More table copy$^{\mathrm{a}}$& &  \\
+\hline
+\multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
+\end{tabular}
+\label{tab1}
+\end{center}
+\end{table}
+
+\begin{figure}[htbp]
+\caption{Example of a figure caption.}
+\label{fig}
+\end{figure}
+
+Figure Labels: Use 8 point Times New Roman for Figure labels. Use words 
+rather than symbols or abbreviations when writing Figure axis labels to 
+avoid confusing the reader. As an example, write the quantity 
+``Magnetization'', or ``Magnetization, M'', not just ``M''. If including 
+units in the label, present them within parentheses. Do not label axes only 
+with units. In the example, write ``Magnetization (A/m)'' or ``Magnetization 
+\{A[m(1)]\}'', not just ``A/m''. Do not label axes with a ratio of 
+quantities and units. For example, write ``Temperature (K)'', not 
+``Temperature/K''.
+
+\section*{Acknowledgment}
+
+The preferred spelling of the word ``acknowledgment'' in America is without 
+an ``e'' after the ``g''. Avoid the stilted expression ``one of us (R. B. 
+G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor 
+acknowledgments in the unnumbered footnote on the first page.
+
+\section*{References}
+
+Please number citations consecutively within brackets \cite{b1}. The 
+sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
+number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
+the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
+
+Number footnotes separately in superscripts. Place the actual footnote at 
+the bottom of the column in which it was cited. Do not put footnotes in the 
+abstract or reference list. Use letters for table footnotes.
+
+Unless there are six authors or more give all authors' names; do not use 
+``et al.''. Papers that have not been published, even if they have been 
+submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
+that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
+Capitalize only the first word in a paper title, except for proper nouns and 
+element symbols.
+
+For papers published in translation journals, please give the English 
+citation first, followed by the original foreign-language citation \cite{b6}.
+
+\begin{thebibliography}{00}
+\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
+\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
+\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
+\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
+\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
+\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
+\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+\end{thebibliography}
+\vspace{12pt}
+\color{red}
+IEEE conference templates contain guidance text for composing and formatting conference papers. Please ensure that all template text is removed from your conference paper prior to submission to the conference. Failure to remove the template text from your paper may result in your paper not being published.
+
+\end{document}
