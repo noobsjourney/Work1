@@ -37,12 +37,18 @@ UAV communications, dynamic spectrum sharing, anti-jamming, styling, reinforceme
 \end{IEEEkeywords}
 
 \section{Introduction}
-Unmanned aerial vehicles (UAVs) have become an important component of low-altitude wireless networks, enabling flexible and on-demand communication services such as emergency coverage, 
-temporary hotspots, and aerial relaying. Due to the scarcity of dedicated spectrum, UAV systems often operate under dynamic spectrum sharing (DSS) frameworks, where secondary UAV links coexist with incumbent primary users (PUs). 
-While DSS improves spectrum efficiency, it also exposes UAV communications to severe and highly dynamic interference, particularly in adversarial environments with intentional jamming.In practice, a jammer rarely adopts a fixed interference strategy. Instead, it may switch among multiple jamming patterns, such as constant jamming, sweep jamming, and random jamming, 
-to increase uncertainty and disrupt adaptive communication schemes. Such pattern-switching jamming leads to abrupt and non-stationary interference dynamics, 
-which can cause frequent quality-of-service (QoS) degradation and communication outages. For low-altitude UAV missions,
-ensuring fast recovery of communication quality after interference transitions is often more critical than optimizing long-term average throughput.
+Unmanned aerial vehicles (UAVs) have become a key enabler of low-altitude wireless networks, 
+providing flexible and on-demand communication services such as emergency coverage, temporary hotspots, and aerial relaying. 
+Due to the scarcity of dedicated spectrum, UAV systems commonly operate under dynamic spectrum sharing (DSS) frameworks, 
+where secondary UAV links coexist with incumbent primary users (PUs).
+Although DSS improves spectrum efficiency, it also exposes UAV communications to highly dynamic interference, 
+especially in adversarial environments with intentional jamming.
+In practice, jammers rarely employ a fixed strategy; instead, they switch among multiple jamming patterns, 
+such as constant, sweep, and random jamming, to increase uncertainty and hinder adaptive communication. 
+This pattern-switching behavior results in abrupt and non-stationary interference dynamics, 
+leading to frequent quality-of-service (QoS) degradation and communication outages. 
+For low-altitude UAV missions, rapid recovery of communication performance following interference transitions 
+is often more critical than optimizing long-term average throughput.
 
 To address spectrum scarcity and interference, extensive research has investigated joint spectrum allocation and UAV trajectory optimization. 
 By exploiting the UAV’s mobility and flexible spectrum access, learning-based approaches can adapt resource allocation and flight trajectories in dynamic environments. 
@@ -74,10 +80,7 @@ A Proximal Policy Optimization (PPO) agent is employed to learn the spectrum all
   \label{fig:System_Model}
 \end{figure}
 such as TD3 or SAC, optimizes the UAV trajectory. Both agents are conditioned on the jamming mode belief and trained using 
-a reliability-oriented reward 
-that penalizes QoS outages and excessive frequency switching while ensuring PU protection. Simulation results under constant, sweep, and random pattern-switching 
-jamming demonstrate that the proposed mode-aware approach achieves significantly faster throughput recovery and improved robustness compared with baseline schemes 
-relying on implicit interference learning.
+a reliability-oriented reward that penalizes QoS outages while ensuring PU protection. 
 
 The main contributions of this paper are summarized as follows:
 
@@ -101,10 +104,10 @@ which coexist over a set of licensed spectrum bands.
 
 The primary network includes a primary base station and $J$ primary users (PUs).  % scenario description
 The PUs are indexed by $j \in \mathcal{J} \triangleq \{1,2,\ldots,J\}$.
-In order to serve more SUs and provide better services, a wideband spectrum is divided into $M$ sub-carrier spectrum bands.
+In order to serve more secondary users (SUs) and provide better services, a wideband spectrum is divided into $M$ sub-carrier spectrum bands.
 The spectrum bands are indexed by $m \in \mathcal{M} \triangleq \{1,2,\ldots,M\}$.
-Each PU is allocated one dedicated licensed spectrum band to avoid intra-primary interference.
-The secondary network comprises a cognitive UAV serving $K$ ground secondary users (SUs).
+To eliminate mutual interference among PUs, each PU is assigned an exclusive licensed spectrum band.
+The secondary network comprises a cognitive UAV serving $K$ ground SUs.
 The SUs are indexed by $k \in \mathcal{K} \triangleq \{1,2,\ldots,K\}$.
 The C-UAV operates as an aerial secondary base station, providing downlink communications to SUs by opportunistically accessing the licensed spectrum 
 while ensuring that the interference inflicted on the primary network remains within acceptable limits.
@@ -134,7 +137,7 @@ y_{c}[n+1] &= y_{c}[n] + v_c \sin\bigl(\phi[n]\bigr),
 \label{eq:UAV_Motion}
 \end{equation}
 where $v_c$ is the constant flight speed, and $\phi[n] $ denotes the heading angle of the UAV at time slot $n$.
-The distamce between the C-UAV and the $k$-th SU, and that between the PBS and the $j$-th PU at time slot $n$ are respectively given as,
+The distance between the C-UAV and the $k$-th SU, and that between the PBS and the $j$-th PU at time slot $n$ are respectively given as,
 \begin{equation}
 \begin{aligned}
 d_{c,k}[n] &= \sqrt{\bigl\lVert \mathbf{q}_c[n] - \mathbf{w}_{s,k}[n] \bigr\rVert^2 + H_c^2}, \\
@@ -147,7 +150,7 @@ The wireless channel between the UAV and the ground users is dominated by the li
 Let $\beta_{\mathrm{ref}}$ represent the channel power gain at the reference distance of $1$~m.
 Thus, the channel power gain from the C-UAV to the $k$-th SU can be expressed as
 \begin{equation}
-h_{k,n}^{\mathrm{LoS}} = \beta_{\mathrm{ref}} d_{c,k}[n]^{-2},
+h_{C,k,n}^{\mathrm{LoS}} = \beta_{\mathrm{ref}} d_{c,k}[n]^{-2},
 \label{eq:los_channel}
 \end{equation}
 where $d_{c,k}[n]$ represents the distance between the C-UAV and the $k$-th SU
@@ -156,7 +159,7 @@ between the UAV and the ground users.It is required to consider both the distanc
 $\varphi \geq 2$ and small-scale Rayleigh fading. 
 Thus, the channel power gains from the PBS to the $j$-th PU can be given as
 \begin{equation}
-h_{j,n}^{g} = \beta_{\mathrm{ref}} d_{p,j}[n]^{-\varphi} \zeta_j,
+h_{j,n}^{\mathrm{NLoS}} = \beta_{\mathrm{ref}} d_{p,j}[n]^{-\varphi} \zeta_j,
 \label{eq:pbs_pu_channel}
 \end{equation}
 where $d_{p,j}[n]$ is the distance between the PBS and the $j$-th PU at time slot $n$.
@@ -182,14 +185,14 @@ The pattern-switching behavior of the jammer directly translates
 into time-varying and non-stationary interference across the spectrum.
 
 Considering the sub-carrier allocation, the binary variables % allocation model
-$\rho_{k,n}[m]$ and $\rho_{jam,n}[m]$ are introduced to characterize
+$\rho_{k,n}[m]$ and $\rho_{J,n}[m]$ are introduced to characterize
 the spectrum usage of the SUs and the J-UAV, respectively.Specifically, 
 $\rho_{k,n}[m] = 1$ indicates that the $m$-th sub-carrier is
-assigned to the $k$-th SU at time slot $n$, and $\rho_{k,n}[m] = 0$ otherwise.
+assigned to the $k$-th SU at time slot $n$, and $\rho_{J,n}[m] = 0$ otherwise.
 Each PU operates on a preassigned orthogonal sub-carrier with a
 fixed transmit power. The J-UAV dynamically occupies sub-carriers according to its current jamming
-mode, which is captured by the jamming indicator $\rho_{jam,n}[m]$.
-When $\rho_{jam,n}[m] = 1$, the $m$-th sub-carrier is subject to
+mode, which is captured by the jamming indicator $\rho_{J,n}[m]$.
+When $\rho_{J,n}[m] = 1$, the $m$-th sub-carrier is subject to
 intentional interference from the jammer at time slot $n$.
 Based on the sub-carrier availability and the time-varying jamming condition, 
 the C-UAV aims to dynamically adapt the spectrum allocation for the SUs, 
@@ -201,12 +204,11 @@ The SINR of the $k$-th SU and the $j$-th PU in the $m$-th sub-band can be % SINR
 respectively expressed as
 \begin{subequations}\label{eq:sinr}
 \begin{align}
-\gamma_{m,k,n}^{s}&=\frac{\rho_{k,n}[m] P_c h_{k,n}^{\mathrm{LoS}}}{\sigma^2 + P_m^b h_{k,n}^{g} + \rho_{n}^{\mathrm{jam}}[m] P_J h_{k,n}^{\mathrm{LoS}}}, \label{eq:sinr_su} \\
-\gamma_{m,j,n}^{p}&=\frac{P_m^b h_{j,n}^{g}}{\sigma^2 + \sum_{k=1}^{K} \rho_{k,n}[m] P_c h_{j,n}^{\mathrm{LoS}} + \rho_{n}^{\mathrm{jam}}[m] P_J h_{j,n}^{\mathrm{LoS}}}, \label{eq:sinr_pu}
+\gamma_{m,k,n}^{s}&=\frac{\rho_{k,n}[m] P_c h_{C,k,n}^{\mathrm{LoS}}}{\sigma^2 + P_m^b h_{k,n}^{\mathrm{NLoS}} + \rho_{J,n}[m] P_J h_{J,k,n}^{\mathrm{LoS}}}, \label{eq:sinr_su} \\
+\gamma_{m,j,n}^{p}&=\frac{P_m^b h_{j,n}^{\mathrm{NLoS}}}{\sigma^2 + \sum_{k=1}^{K} \rho_{k,n}[m] P_c h_{C,j,n}^{\mathrm{LoS}} + \rho_{J,n}[m] P_J h_{J,j,n}^{\mathrm{LoS}}}, \label{eq:sinr_pu}
 \end{align}
 \end{subequations}
-where $P_c$ and $P_J$ denote the transmission powers of the C-UAV and the
-jamming UAV, respectively, and $P_m^b$ denotes the transmission power of the PBS
+where $P_c$ and $P_J$ denote the transmission powers of the C-UAV and the J-UAV, respectively, and $P_m^b$ denotes the transmission power of the PBS
 in the $m$-th sub-band. Moreover, $\sigma^2$ is the noise power.
 Then, the achievable data transmission rate of the $k$-th SU and the $j$-th PU
 can be respectively expressed as
@@ -218,11 +220,24 @@ R_{m,j,n}^{p}&= B \log_2\!\left(1 + \gamma_{m,j,n}^{p}\right), \label{eq:rate_pu
 \end{subequations}
 where $B$ denotes the bandwidth for each sub-band.
 
+To capture communication reliability under pattern-switching jamming, we introduce a QoS threshold $R_{\mathrm{th}}$.
+An outage event is declared when the achievable rate of an SU falls below $R_{\mathrm{th}}$.
+Accordingly, the outage indicator is defined as
+\begin{equation}
+\mathbb I^{\mathrm{out}}_{k,n} \triangleq \mathbf 1\!\left\{R_k[n] < R_{\mathrm{th}}\right\},
+\quad \forall k\in\mathcal K,\ \forall n\in\mathcal N,
+\end{equation}
+where $\mathbf 1\{\cdot\}$ equals 1 if the condition holds and 0 otherwise.
+This definition penalizes each outage time slot; thus, longer outage durations yield larger cumulative penalties,
+which encourages fast recovery after jamming pattern transitions.
+
+
 \subsection{Problem Formulation}
 In this paper, we address a joint spectrum allocation and UAV trajectory optimization problem in a dynamic spectrum 
 sharing UAV network under pattern-switching jamming, 
 aiming to achieve fast recovery and reliable communication for secondary users while satisfying the primary user protection constraints.
 Accordingly, the optimization problem is formulated as follows:
+\begin{subequations}
 \begin{align}
 \mathbf{P1:}\quad
 \max_{\boldsymbol{\rho},\,\boldsymbol{\phi}} \quad
@@ -230,98 +245,40 @@ Accordingly, the optimization problem is formulated as follows:
 R^{\mathrm{s}}_{m,k,n}
 -\frac{\lambda_{\mathrm{out}}}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}
 \mathbb I^{\mathrm{out}}_{k,n}
-\tag{9a}
 \\
 \text{s.t.}\quad
 & \sum_{m=1}^{M} R^{p}_{m,j,n} \ge R^{\min}_{j},
 \quad \forall j\in\mathcal J,\ \forall n\in\mathcal N,
-\tag{9b}
 \\
 & \rho_{k,n}[m]\in\{0,1\},
 \quad \forall k\in\mathcal K,\ \forall m\in\mathcal M,\ \forall n\in\mathcal N,
-\tag{9c}
 \\
 & \sum_{k=1}^{K} \rho_{k,n}[m] \le 1,
 \quad \forall m\in\mathcal M,\ \forall n\in\mathcal N,
-\tag{9d}
 \\
 & |\phi[n]| \le \pi,
 \quad \forall n\in\mathcal N.
-\tag{9e}
 \end{align}
-where $R^{\min}_j$ denotes the minimum transmission rate requirement of the $j$-th PU,
-and $\boldsymbol{\rho}=\{\rho_{k,n}[m]\}_{k\in\mathcal K,m\in\mathcal M,n\in\mathcal N}$
-represents the spectrum allocation policy for the SUs.
-Constraint~(9b) guarantees the quality-of-service requirements of the PUs in the dynamic spectrum sharing environment.
-Constraints~(9c) and~(9d) indicate that each sub-carrier can be assigned to at most one SU at each time slot
-to avoid intra-secondary interference.
-Constraint~(9e) specifies that the heading angle of the C-UAV is constrained within the interval $[-\pi,\pi]$,
-ensuring feasible UAV mobility.
-III
+\end{subequations}
+To jointly account for throughput performance and communication reliability, 
+a reliability-aware objective function is adopted. Specifically, the achievable rate of the secondary users 
+is maximized, while a penalty term is introduced to capture QoS outages. 
+This outage penalty discourages prolonged service interruptions caused by dynamic jamming 
+and implicitly promotes fast recovery of communication quality after jamming pattern transitions.
+In problem~(10), $R^{\min}_j$ denotes the minimum transmission rate requirement of the $j$-th PU, 
+and $\boldsymbol{\rho}=\{\rho_{k,n}[m]\}_{k\in\mathcal K,m\in\mathcal M,n\in\mathcal N}$ 
+represents the spectrum allocation policy for the SUs. 
+Constraint~(10b) ensures the QoS requirements of the PUs in the dynamic spectrum sharing environment. 
+Constraints~(10c) and~(10d) enforce orthogonal sub-carrier allocation among SUs to avoid intra-secondary interference. 
+Constraint~(10e) restricts the heading angle of the C-UAV within the interval $[-\pi,\pi]$, 
+guaranteeing feasible UAV mobility.
+\section{Jamming Mode Recognition}
 
 \section{Our proposed Method}
-
 \subsection{Abbreviations and Acronyms}\label{AA}
-
 \subsection{Units}
-\begin{itemize}
-\item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as ``3.5-inch disk drive''.
-\item Avoid combining SI and CGS units, such as current in amperes and magnetic field in oersteds. This often leads to confusion because equations do not balance dimensionally. If you must use mixed units, clearly state the units for each quantity that you use in an equation.
-\item Do not mix complete spellings and abbreviations of units: ``Wb/m\textsuperscript{2}'' or ``webers per square meter'', not ``webers/m\textsuperscript{2}''. Spell out units when they appear in text: ``. . . a few henries'', not ``. . . a few H''.
-\item Use a zero before decimal points: ``0.25'', not ``.25''. Use ``cm\textsuperscript{3}'', not ``cc''.)
-\end{itemize}
-
-\subsection{Equations}
-Number equations consecutively. To make your 
-equations more compact, you may use the solidus (~/~), the exp function, or 
-appropriate exponents. Italicize Roman symbols for quantities and variables, 
-but not Greek symbols. Use a long dash rather than a hyphen for a minus 
-sign. Punctuate equations with commas or periods when they are part of a 
-sentence, as in:
-\begin{equation}
-a+b=\gamma\label{eq}
-\end{equation}
-
-
-
 \subsection{\LaTeX-Specific Advice}
-
-Please use ``soft'' (e.g., \verb|\eqref{Eq}|) cross references instead
-
-
-{\BibTeX} does not work by magic. It doesn't get the bibliographic
-data from thin air but from .bib files. If you use {\BibTeX} to produce a
-bibliography you must send the .bib files. 
-
-{\LaTeX} can't read your mind. If you assign the same label to a
-subsubsection and a table, you might find that Table I has been cross
-referenced as Table IV-B3. 
-
-{\LaTeX} does not have precognitive abilities. If you put a
-\verb|\label| command before the command that updates the counter it's
-supposed to be using, the label will pick up the last counter to be
-cross referenced instead. In particular, a \verb|\label| command
-should not go before the caption of a figure or a table.
-
-Do not use \verb|\nonumber| inside the \verb|{array}| environment. It
-will not stop equation numbers inside \verb|{array}| (there won't be
-any anyway) and it might stop a wanted equation number in the
-surrounding equation.
-
 \subsection{Some Common Mistakes}\label{SCM}
-\begin{itemize}
-\item The word ``data'' is plural, not singular.
-\item The subscript for the permeability of vacuum $\mu_{0}$, and other common scientific constants, is zero with subscript formatting, not a lowercase letter ``o''.
-\item In American English, commas, semicolons, periods, question and exclamation marks are located within quotation marks only when a complete thought or name is cited, such as a title or full quotation. When quotation marks are used, instead of a bold or italic typeface, to highlight a word or phrase, punctuation should appear outside of the quotation marks. A parenthetical phrase or statement at the end of a sentence is punctuated outside of the closing parenthesis (like this). (A parenthetical sentence is punctuated within the parentheses.)
-\item A graph within a graph is an ``inset'', not an ``insert''. The word alternatively is preferred to the word ``alternately'' (unless you really mean something that alternates).
-\item Do not use the word ``essentially'' to mean ``approximately'' or ``effectively''.
-\item In your paper title, if the words ``that uses'' can accurately replace the word ``using'', capitalize the ``u''; if not, keep using lower-cased.
-\item Be aware of the different meanings of the homophones ``affect'' and ``effect'', ``complement'' and ``compliment'', ``discreet'' and ``discrete'', ``principal'' and ``principle''.
-\item Do not confuse ``imply'' and ``infer''.
-\item The prefix ``non'' is not a word; it should be joined to the word it modifies, usually without a hyphen.
-\item There is no period after the ``et'' in the Latin abbreviation ``et al.''.
-\item The abbreviation ``i.e.'' means ``that is'', and the abbreviation ``e.g.'' means ``for example''.
-\end{itemize}
 An excellent style manual for science writers is \cite{b7}.
 
 \subsection{Authors and Affiliations}

@@ -153,12 +153,8 @@ INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib5.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm
-INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
-INPUT c:/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-INPUT c:/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-INPUT c:/texlive/2025/texmf-dist/tex/latex/psnfss/ot1pcr.fd
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm
+INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmri7t.vf
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmrc7t.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
@@ -177,10 +173,6 @@ INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT c:/texlive/2025/texmf-dist/tex/latex/psnfss/omsptm.fd
 INPUT c:/texlive/2025/texmf-dist/tex/latex/psnfss/omsptm.fd
 INPUT c:/texlive/2025/texmf-dist/tex/latex/psnfss/omsptm.fd
-INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmri7t.vf
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
-INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/courier/pcrr7t.vf
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmrc7t.vf
@@ -204,7 +196,6 @@ INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
-INPUT c:/texlive/2025/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
