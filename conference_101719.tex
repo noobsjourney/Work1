@@ -141,7 +141,7 @@ The distance between the C-UAV and the $k$-th SU, and that between the PBS and t
 \begin{equation}
 \begin{aligned}
 d_{c,k}[n] &= \sqrt{\bigl\lVert \mathbf{q}_c[n] - \mathbf{w}_{s,k}[n] \bigr\rVert^2 + H_c^2}, \\
-d_{p,k}[n] &= \sqrt{\bigl\lVert \mathbf{w}_b[n] - \mathbf{w}_{p,j}[n] \bigr\rVert^2},
+d_{p,j}[n] &= \sqrt{\bigl\lVert \mathbf{w}_b[n] - \mathbf{w}_{p,j}[n] \bigr\rVert^2},
 \end{aligned}
 \label{eq:distances}
 \end{equation}
@@ -188,7 +188,7 @@ Considering the sub-carrier allocation, the binary variables % allocation model
 $\rho_{k,n}[m]$ and $\rho_{J,n}[m]$ are introduced to characterize
 the spectrum usage of the SUs and the J-UAV, respectively.Specifically, 
 $\rho_{k,n}[m] = 1$ indicates that the $m$-th sub-carrier is
-assigned to the $k$-th SU at time slot $n$, and $\rho_{J,n}[m] = 0$ otherwise.
+assigned to the $k$-th SU at time slot $n$, and $\rho_{k,n}[m] = 0$ otherwise.
 Each PU operates on a preassigned orthogonal sub-carrier with a
 fixed transmit power. The J-UAV dynamically occupies sub-carriers according to its current jamming
 mode, which is captured by the jamming indicator $\rho_{J,n}[m]$.
@@ -274,33 +274,117 @@ Constraint~(10e) restricts the heading angle of the C-UAV within the interval $[
 guaranteeing feasible UAV mobility.
 
 \section{Proposed Mode-Aware Anti-Jamming Framework}
-\subsection{Jamming Mode Recognition Module}
-\subsection{MDP Formulation with Mode-Aware State Representation}
-\subsection{Hybrid Learning-Based Solution Framework}
+\subsection{Jamming Mode Recognition}
+The jammer switches among finite modes $z[n] \in \mathcal{Z}$ following the Markov model in~(6).
+The C-UAV performs spectrum sensing and collects the per-slot interference-energy vector
+\begin{equation}
+\mathbf{I}[n] = [I_1[n], \ldots, I_M[n]] \in \mathbb{R}^{M},
+\end{equation}
+and forms a length-$L$ short window
+\begin{equation}
+\mathcal{I}[n] = \{\mathbf{I}[n-L+1], \ldots, \mathbf{I}[n]\} \in \mathbb{R}^{L \times M}.
+\end{equation}
+
+A lightweight recognizer $f_\theta(\cdot)$ maps $\mathcal{I}[n]$ to a mode probability vector
+\begin{equation}
+\boldsymbol{\pi}[n] = f_\theta(\mathcal{I}[n]) \in \mathbb{R}^{|\mathcal{Z}|}, 
+\quad \sum_{c=1}^{|\mathcal{Z}|} \pi_c[n] = 1,
+\end{equation}
+which provides semantic information of the current jamming behavior.We adopt a CNN--GRU classifier: a 1D-CNN encodes the spectral shape of each $\mathbf{I}[\cdot]$,
+and a GRU captures short-term temporal dynamics across $L$ slots.
+The model is trained offline using the cross-entropy loss
+\begin{equation}
+\mathcal{L}_{\mathrm{cls}}(\theta)
+=
+- \sum_{c=1}^{|\mathcal{Z}|} y_c[n]\log\big(\pi_c[n]\big),
+\end{equation}
+and is used online only for inference to output $\boldsymbol{\pi}[n]$.
+\subsection{Semantic-Aware MDP Formulation}
+Following the MDP formulation in the reference work, we incorporate the mode probability vector
+$\boldsymbol{\pi}[n]$ as a semantic descriptor of the interference environment to facilitate
+fast adaptation under mode-switching jamming.
+
+\textbf{\textit{State:}}
+The system state at slot $n$ is defined as
+\begin{equation}
+\mathbf{s}[n] = \big( \mathbf{q}[n],\, \mathbf{g}[n],\, \boldsymbol{\pi}[n] \big),
+\end{equation}
+where $\mathbf{q}[n]$ denotes the UAV position, $\mathbf{g}[n]$ represents channel and
+geometry-related features for rate evaluation, and $\boldsymbol{\pi}[n]$ encodes the
+high-level semantic belief of the current jamming behavior.
+
+\textbf{\textit{Action:}}
+The action consists of a discrete spectrum decision and a continuous mobility control,
+\begin{equation}
+\mathbf{a}[n] = \big( \mathbf{a}_s[n],\, a_t[n] \big),
+\end{equation}
+where $\mathbf{a}_s[n]$ is the discrete subcarrier allocation (equivalently,
+$\{\rho_{k,n}[m]\}$), and $a_t[n]=\phi[n]\in[-\pi,\pi]$ is the continuous heading angle.
+
+\textbf{\textit{Reward:}}
+Consistent with~(10), we adopt a reliability-aware reward defined as
+\begin{equation}
+r[n]=\sum_{k=1}^{K} R_k[n]-\lambda_{\mathrm{out}} \sum_{k=1}^{K} \mathbb{I}^{\mathrm{out}}_{k,n},
+\end{equation}
+where $\mathbb{I}^{\mathrm{out}}_{k,n}=\mathbb{I}\{R_k[n]<R_{\mathrm{th}}\}$.
+Since the outage penalty is applied on a per-slot basis, prolonged service interruption
+results in a larger cumulative loss, thereby explicitly encouraging fast recovery after
+jamming mode transitions. The PU protection constraint~(10b) is enforced during interaction,
+e.g., by rejecting infeasible actions or imposing a large penalty.
+\subsection{Hybrid PPO-TD3 Framework}
+Problem~(10) involves discrete spectrum allocation and continuous trajectory control.
+Thus, we employ a hybrid solver, where PPO is adopted for $\mathbf{a}_s[n]$ and TD3 is used
+for $a_t[n]$, both conditioned on the semantic-augmented state $\mathbf{s}[n]$.
+
+\textbf{\textit{PPO for Spectrum Allocation:}}
+Let $\pi_\psi(\mathbf{a}_s|\mathbf{s})$ denote the stochastic policy for spectrum allocation
+parameterized by $\psi$, where $\mathbf{a}_s[n]$ represents the subcarrier allocation decision
+at time slot $n$. PPO is adopted due to its strong training stability and robustness in
+discrete action spaces.
+
+At each time slot, the policy outputs a categorical distribution over candidate subcarriers.
+The objective of PPO is to maximize the expected discounted return while preventing
+excessively large policy updates. Specifically, PPO optimizes the clipped surrogate objective
+\begin{equation}
+\mathcal{L}^{\mathrm{PPO}}(\psi)=\mathbb{E}_{n}\Big[\min\!\big(r_n(\psi)\hat{A}_n,\,\mathrm{clip}(r_n(\psi),1-\epsilon,1+\epsilon)\hat{A}_n\big)\Big],\tag{20}
+\end{equation}
+where
+\begin{equation}
+r_n(\psi)=\frac{\pi_\psi(\mathbf{a}_s[n]|\mathbf{s}[n])}{\pi_{\psi_{\mathrm{old}}}(\mathbf{a}_s[n]|\mathbf{s}[n])},\tag{21}
+\end{equation}
+$\epsilon$ is the clipping parameter, and $\hat{A}_n$ denotes the advantage estimate.
+To reduce variance and improve sample efficiency, the advantage is computed using
+Generalized Advantage Estimation (GAE),
+\begin{equation}
+\hat{A}_n=\sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{n+l},\quad\delta_n=r[n] + \gamma V(\mathbf{s}[n+1]) - V(\mathbf{s}[n]),\tag{22}
+\end{equation}
+where $V(\cdot)$ is the value function, $\gamma$ is the discount factor, and $\lambda$
+controls the bias--variance tradeoff.
+By employing PPO, the spectrum allocation policy can be updated in a stable on-policy
+manner, even under non-stationary interference caused by jamming mode transitions.
 
 
+\textbf{\textit{TD3 for Trajectory Control:}}
+Let $\mu_\varphi(\mathbf{s})$ output the continuous control $a_t[n]$.
+TD3 employs two critics $Q_{\omega_1}$ and $Q_{\omega_2}$, and constructs the target
+\begin{equation}
+y[n]=r[n]+\gamma\min_{i=1,2}Q_{\omega_i^-}\big(\mathbf{s}[n+1],\,\tilde{a}_t[n+1]\big),
+\end{equation}
+where
+\begin{equation}
+\tilde{a}_t[n+1]=\mu_{\varphi^-}(\mathbf{s}[n+1]) + \eta
+\end{equation}
+with clipped smoothing noise $\eta$.
+The critics are trained by minimizing the squared TD error, while the actor is updated
+in a delayed manner by maximizing $Q_{\omega_1}(\mathbf{s},\mu_\varphi(\mathbf{s}))$.
+
+At each slot, the C-UAV obtains $\boldsymbol{\pi}[n]$ from the recognizer, constructs
+the semantic-augmented state $\mathbf{s}[n]$, and outputs $\mathbf{a}_s[n]$ via PPO and
+$a_t[n]=\phi[n]$ via TD3. PPO is updated using on-policy trajectories, while TD3 is
+trained with an experience replay buffer.
 \section{SIMULATION RESULTS}
 
-\section*{References}
-
-Please number citations consecutively within brackets \cite{b1}. The 
-sentence punctuation follows the bracket \cite{b2}. Refer simply to the reference 
-number, as in \cite{b3}---do not use ``Ref. \cite{b3}'' or ``reference \cite{b3}'' except at 
-the beginning of a sentence: ``Reference \cite{b3} was the first $\ldots$''
-
-Number footnotes separately in superscripts. Place the actual footnote at 
-the bottom of the column in which it was cited. Do not put footnotes in the 
-abstract or reference list. Use letters for table footnotes.
-
-Unless there are six authors or more give all authors' names; do not use 
-``et al.''. Papers that have not been published, even if they have been 
-submitted for publication, should be cited as ``unpublished'' \cite{b4}. Papers 
-that have been accepted for publication should be cited as ``in press'' \cite{b5}. 
-Capitalize only the first word in a paper title, except for proper nouns and 
-element symbols.
-
-For papers published in translation journals, please give the English 
-citation first, followed by the original foreign-language citation \cite{b6}.
+\section{Conclusion}
 
 \begin{thebibliography}{00}
 \bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.

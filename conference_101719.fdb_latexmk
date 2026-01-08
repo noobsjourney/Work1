@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1767424189.48716 "c:/Users/503/Desktop/mywork1/conference_101719.tex" "conference_101719.pdf" "conference_101719" 1767424190.75974 0
-  "c:/Users/503/Desktop/mywork1/conference_101719.tex" 1767424188 19944 d25feb5f9bba77cb4ead1d0f8b8a819f ""
+["pdflatex"] 1767845590.6429 "c:/Users/503/Desktop/mywork1/conference_101719.tex" "conference_101719.pdf" "conference_101719" 1767845591.72604 0
+  "c:/Users/503/Desktop/mywork1/conference_101719.tex" 1767845589 24468 19b0519d1d9284e96544076c00eff53e ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1764860140 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1764860642 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1764864470 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -31,9 +31,11 @@
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb" 1764858415 34811 78b52f49e893bcba91bd7581cdc144c0 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1764858415 30251 6afa5cb1d0204815a708a080681d4674 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1764858415 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb" 1764858415 37912 07513ec114ac737ab54cea0152f4424b ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb" 1764858415 36281 c355509802a035cadc5f15869451dcee ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb" 1764858415 36912 b448ef9ad9d7228ec3c6e71005136d55 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1764858415 35752 024fb6c41858982481f6968b5fc26508 ""
+  "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb" 1764858415 31809 8670ca339bf94e56da1fc21c80635e2a ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1764858415 32762 7fee39e011c23b3589931effd97b9702 ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1764858415 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb" 1764858415 32915 7bf7720c61a5b3a7ff25b0964421c9b6 ""
@@ -82,8 +84,8 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1764865255 5587484 30eee748fa419a911c40b0c750dd21ba ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1764865554 3635444 ac2670da82a63c160bf918af8bbf0f9c ""
   "c:/texlive/2025/texmf.cnf" 1764865223 713 e69b156964470283e0530f5060668171 ""
-  "conference_101719.aux" 1767424190 2410 35e52e42fc8bc3e475254da5f4de91d7 "pdflatex"
-  "conference_101719.tex" 1767424188 19944 d25feb5f9bba77cb4ead1d0f8b8a819f ""
+  "conference_101719.aux" 1767845591 2337 fab69d2f84747153d59704c5967179d4 "pdflatex"
+  "conference_101719.tex" 1767845589 24468 19b0519d1d9284e96544076c00eff53e ""
   "figure/System_Model.jpg" 1766654535 154509 9772a8fc7deecc625584e1c4d13d5dba ""
   (generated)
   "conference_101719.aux"
