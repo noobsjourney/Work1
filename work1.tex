@@ -299,8 +299,8 @@ The model is trained offline using the cross-entropy loss
 - \sum_{c=1}^{|\mathcal{Z}|} y_c[n]\log\big(\pi_c[n]\big),
 \end{equation}
 and is used online only for inference to output $\boldsymbol{\pi}[n]$.
-\subsection{Semantic-Aware MDP Formulation}
-Following the MDP formulation in the reference work, we incorporate the mode probability vector
+\subsection{Semantic-Augmented MDP Formulation}
+Following the MDP formulation in the reference work\cite{10233493}, we incorporate the mode probability vector
 $\boldsymbol{\pi}[n]$ as a semantic descriptor of the interference environment to facilitate
 fast adaptation under mode-switching jamming.
 
@@ -337,8 +337,8 @@ Thus, we employ a hybrid solver, where PPO is adopted for $\mathbf{a}_s[n]$ and 
 for $a_t[n]$, both conditioned on the semantic-augmented state $\mathbf{s}[n]$.
 
 \textbf{\textit{PPO for Spectrum Allocation:}}
-Let $\pi_\psi(\mathbf{a}_s|\mathbf{s})$ denote the stochastic policy for spectrum allocation
-parameterized by $\psi$, where $\mathbf{a}_s[n]$ represents the subcarrier allocation decision
+Let $\pi_\theta(\mathbf{a}_s|\mathbf{s})$ denote the stochastic policy for spectrum allocation
+parameterized by $\theta$, where $\mathbf{a}_s[n]$ represents the subcarrier allocation decision
 at time slot $n$. PPO is adopted due to its strong training stability and robustness in
 discrete action spaces.
 
@@ -346,17 +346,17 @@ At each time slot, the policy outputs a categorical distribution over candidate 
 The objective of PPO is to maximize the expected discounted return while preventing
 excessively large policy updates. Specifically, PPO optimizes the clipped surrogate objective
 \begin{equation}
-\mathcal{L}^{\mathrm{PPO}}(\psi)=\mathbb{E}_{n}\Big[\min\!\big(r_n(\psi)\hat{A}_n,\,\mathrm{clip}(r_n(\psi),1-\epsilon,1+\epsilon)\hat{A}_n\big)\Big],\tag{20}
+\begin{aligned}
+\mathcal{L}^{\mathrm{CLIP}}(\theta)&= \mathbb{E}_n \Big[\min\Big\{r_n(\theta)\hat{A}_n, \\&\qquad\operatorname{clip}\!\left(r_n(\theta),\,1-\epsilon,\,1+\epsilon\right)\hat{A}_n\Big\}\Big],
+\end{aligned}
 \end{equation}
-where
-\begin{equation}
-r_n(\psi)=\frac{\pi_\psi(\mathbf{a}_s[n]|\mathbf{s}[n])}{\pi_{\psi_{\mathrm{old}}}(\mathbf{a}_s[n]|\mathbf{s}[n])},\tag{21}
-\end{equation}
+where $r_n(\theta)=\frac{\pi_\theta(\mathbf{a}_s[n]\mid\mathbf{s}[n])}
+{\pi_{\theta_{\mathrm{old}}}(\mathbf{a}_s[n]\mid\mathbf{s}[n])}$ is the probability ratio between the new and old policies,
 $\epsilon$ is the clipping parameter, and $\hat{A}_n$ denotes the advantage estimate.
 To reduce variance and improve sample efficiency, the advantage is computed using
 Generalized Advantage Estimation (GAE),
 \begin{equation}
-\hat{A}_n=\sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{n+l},\quad\delta_n=r[n] + \gamma V(\mathbf{s}[n+1]) - V(\mathbf{s}[n]),\tag{22}
+\hat{A}_n=\sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{n+l},\quad\delta_n=r[n] + \gamma V(\mathbf{s}[n+1]) - V(\mathbf{s}[n]),
 \end{equation}
 where $V(\cdot)$ is the value function, $\gamma$ is the discount factor, and $\lambda$
 controls the bias--variance tradeoff.
@@ -386,15 +386,7 @@ trained with an experience replay buffer.
 
 \section{Conclusion}
 
-\begin{thebibliography}{00}
-\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
-\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
-\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
-\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
-\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
-\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
-\end{thebibliography}
-\vspace{12pt}
 
+\bibliographystyle{IEEEtran} 
+\bibliography{references}      
 \end{document}
