@@ -353,23 +353,44 @@ manner, even under non-stationary interference caused by jamming mode transition
 
 
 \textbf{\textit{TD3 for Trajectory Control:}}
-Let $\mu_\varphi(\mathbf{s})$ output the continuous control $a_t[n]$.
-TD3 employs two critics $Q_{\omega_1}$ and $Q_{\omega_2}$, and constructs the target
+Let $\mu_\varphi(s)$ denote the deterministic actor that outputs the continuous
+trajectory control $a_t[n] = \phi[n]$. To stabilize learning in the continuous
+action space, TD3 employs two critic networks $Q_{\omega_1}(s,a_t)$ and
+$Q_{\omega_2}(s,a_t)$ to mitigate overestimation bias.
+
+Given a transition $(s[n], a_t[n], r[n], s[n+1])$, the target value is constructed as
 \begin{equation}
-y[n]=r[n]+\gamma\min_{i=1,2}Q_{\omega_i^-}\big(\mathbf{s}[n+1],\,\tilde{a}_t[n+1]\big),
+y[n] = r[n] + \gamma \min_{i=1,2} Q_{\bar{\omega}_i}\!\left(s[n+1], \tilde{a}_t[n+1]\right),
 \end{equation}
 where
 \begin{equation}
-\tilde{a}_t[n+1]=\mu_{\varphi^-}(\mathbf{s}[n+1]) + \eta
+\tilde{a}_t[n+1] = \mu_{\bar{\varphi}}\!\left(s[n+1]\right) + \eta,\quad\eta \sim \mathrm{clip}\!\left(\mathcal{N}(0,\sigma^2), -c, c\right),
 \end{equation}
-with clipped smoothing noise $\eta$.
-The critics are trained by minimizing the squared TD error, while the actor is updated
-in a delayed manner by maximizing $Q_{\omega_1}(\mathbf{s},\mu_\varphi(\mathbf{s}))$.
+and $(\cdot)^{-}$ denotes the corresponding target networks. The clipped noise
+$\eta$ implements target policy smoothing to reduce sensitivity to function
+approximation errors.
 
-At each slot, the C-UAV obtains $\boldsymbol{\pi}[n]$ from the recognizer, constructs
-the semantic-augmented state $\mathbf{s}[n]$, and outputs $\mathbf{a}_s[n]$ via PPO and
-$a_t[n]=\phi[n]$ via TD3. PPO is updated using on-policy trajectories, while TD3 is
-trained with an experience replay buffer.
+The critic networks are updated by minimizing the squared temporal-difference
+error
+\begin{equation}
+\mathcal{L}_c(\omega_i)= \mathbb{E}\!\left[\left(Q_{\omega_i}\!\left(s[n], a_t[n]\right) - y[n]\right)^2\right],\quad i \in \{1,2\}.
+\end{equation}
+
+The actor is updated in a delayed manner by maximizing the Q-value estimated by
+the first critic,
+\begin{equation}
+\nabla_{\varphi} J(\varphi)=\mathbb{E}\!\left[\nabla_{\varphi} \mu_{\varphi}(s)\nabla_{a_t} Q_{\omega_1}(s,a_t)\big|_{a_t=\mu_{\varphi}(s)}\right],
+\end{equation}
+while the target networks are softly updated using Polyak averaging.
+
+At each time slot, the C-UAV first obtains the jamming mode probability vector
+$\boldsymbol{\pi}[n]$ from the recognition module, constructs the
+semantic-augmented state $s[n]$, and then outputs the discrete spectrum
+allocation $a_s[n]$ via PPO and the continuous trajectory action
+$a_t[n] = \phi[n]$ via TD3. PPO is updated using on-policy trajectories, whereas
+TD3 is trained off-policy with an experience replay buffer, enabling stable
+learning under pattern-switching jamming.
+
 \section{SIMULATION RESULTS}
 
 \section{Conclusion}
