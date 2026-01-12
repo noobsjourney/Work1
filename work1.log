@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  8 JAN 2026 17:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  12 JAN 2026 10:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -274,30 +274,35 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 <figure/System_Model.jpg, id=1, 538.26094pt x 371.88937pt>
 File: figure/System_Model.jpg Graphic file (type jpg)
 <use figure/System_Model.jpg>
-Package pdftex.def Info: figure/System_Model.jpg  used on input line 77.
+Package pdftex.def Info: figure/System_Model.jpg  used on input line 65.
 (pdftex.def)             Requested size: 252.0pt x 174.10707pt.
- [1{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
-
-
-]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 87.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 75.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 87.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 75.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [2 <./figure/System_Model.jpg>]
-Underfull \hbox (badness 6252) in paragraph at lines 223--226
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
+
+
+] [2 <./figure/System_Model.jpg>]
+Underfull \hbox (badness 6252) in paragraph at lines 211--214
 []\OT1/ptm/m/n/10 To cap-ture com-mu-ni-ca-tion re-li-a-bil-ity un-der pattern-
  []
 
 
-Overfull \hbox (12.05418pt too wide) detected at line 261
+Overfull \hbox (12.05418pt too wide) detected at line 249
 []
  []
 
-[3] (./work1.bbl)
+
+Underfull \vbox (badness 1371) has occurred while \output is active []
+
+ [3] (./work1.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -318,13 +323,13 @@ L3 programming layer <2025-11-14>
 Here is how much of TeX's memory you used:
  4210 strings out of 467537
  65302 string characters out of 5423704
- 497198 words of memory out of 5000000
+ 495198 words of memory out of 5000000
  33076 multiletter control sequences out of 15000+600000
  662698 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,13n,65p,384b,235s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on work1.pdf (4 pages, 398179 bytes).
+Output written on work1.pdf (4 pages, 387045 bytes).
 PDF statistics:
  119 PDF objects out of 1000 (max. 8388607)
  71 compressed objects within 1 object stream

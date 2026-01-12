@@ -19,21 +19,9 @@
 \maketitle
 
 \begin{abstract}
-Unmanned aerial vehicle (UAV) communications under dynamic spectrum sharing are vulnerable to intentional jamming, 
-especially when the jammer switches among different interference patterns such as constant, sweep, and random jamming. 
-Existing learning-based approaches typically rely on implicit adaptation to interference, which often 
-results in slow reaction and degraded reliability under abrupt jamming pattern transitions.
-To address this issue, we propose a mode-aware anti-jamming framework for dynamic spectrum sharing UAV networks. 
-By exploiting short-window spectrum observations, the UAV explicitly estimates the belief state of the current 
-jamming mode and incorporates it into a hybrid learning scheme that jointly optimizes spectrum allocation 
-and UAV trajectory control. Specifically, Proximal Policy Optimization (PPO) is adopted for discrete spectrum allocation, 
-while a continuous-control learning algorithm is used for trajectory optimization with a reliability-oriented reward design.
-Simulation results show that the proposed approach achieves faster throughput recovery and improved robustness under pattern-switching
-jamming compared with baseline methods.
 \end{abstract}
 
 \begin{IEEEkeywords}
-UAV communications, dynamic spectrum sharing, anti-jamming, styling, reinforcement learning
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -307,11 +295,11 @@ fast adaptation under mode-switching jamming.
 \textbf{\textit{State:}}
 The system state at slot $n$ is defined as
 \begin{equation}
-\mathbf{s}[n] = \big( \mathbf{q}[n],\, \mathbf{g}[n],\, \boldsymbol{\pi}[n] \big),
+\mathbf{s}[n] = \big(\mathbf{a}[n-1],\, \mathbf{q}_c[n-1],\, \mathbf{g}[n],\, \boldsymbol{\pi}[n] \big),
 \end{equation}
-where $\mathbf{q}[n]$ denotes the UAV position, $\mathbf{g}[n]$ represents channel and
+where $\mathbf{a}[n-1]$ denotes the previous action at slot $n-1$, $\mathbf{q}_c[n-1]$ denotes the previous UAV position at slot $n-1$, $\mathbf{g}[n]$ represents channel and
 geometry-related features for rate evaluation, and $\boldsymbol{\pi}[n]$ encodes the
-high-level semantic belief of the current jamming behavior.
+high-level semantic belief of the current jamming behavior. 
 
 \textbf{\textit{Action:}}
 The action consists of a discrete spectrum decision and a continuous mobility control,
