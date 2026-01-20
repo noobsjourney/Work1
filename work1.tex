@@ -86,27 +86,33 @@ and the joint spectrum allocation and trajectory control scheme. Simulation resu
 
 \subsection{Scenario Description}
 
-We consider a UAV-enabled dynamic spectrum sharing (DSS) network under intentional pattern-switching jamming,    % outline
+We consider a UAV-enabled dynamic spectrum sharing (DSS) network under intentional pattern-switching jamming,    % 概要
 as illustrated in Fig. 1. The network consists of a primary network and a cognitive UAV-assisted secondary network, 
-which coexist over a set of licensed spectrum bands.
+which coexist over a set of licensed spectrum bands. % 共同存在与一组授权频段上
 
-The primary network includes a primary base station and $J$ primary users (PUs).  % scenario description
+The primary network includes a primary base station and $J$ primary users (PUs).  % 场景描述
 The PUs are indexed by $j \in \mathcal{J} \triangleq \{1,2,\ldots,J\}$.
-In order to serve more secondary users (SUs) and provide better services, a wideband spectrum is divided into $M$ sub-carrier spectrum bands.
+In order to serve more secondary users (SUs) and provide better services, 
+a wideband spectrum is divided into $M$ sub-carrier spectrum bands.
 The spectrum bands are indexed by $m \in \mathcal{M} \triangleq \{1,2,\ldots,M\}$.
 To eliminate mutual interference among PUs, each PU is assigned an exclusive licensed spectrum band.
 The secondary network comprises a cognitive UAV serving $K$ ground SUs.
 The SUs are indexed by $k \in \mathcal{K} \triangleq \{1,2,\ldots,K\}$.
-The C-UAV operates as an aerial secondary base station, providing downlink communications to SUs by opportunistically accessing the licensed spectrum 
-while ensuring that the interference inflicted on the primary network remains within acceptable limits.
+The C-UAV operates as an aerial secondary base station, providing downlink communications to SUs by 
+opportunistically accessing the licensed spectrum 
+while ensuring that the interference inflicted on the primary network remains within acceptable limits. % 保证主用户网络的一个性能
 
-A three-dimensional Cartesian coordinate system is adopted. % position model
-The horizontal locations of the PBS, the $j$-th PU, the $k$-th SU, the C-UAV and the J-UAV at time slot $n$ are denoted by
-$\mathbf{w}_b=(x_b, y_b)$, $\mathbf{w}_{p,j}=(x_{p,j}, y_{p,j})$, $\mathbf{w}_{s,k}=(x_{s,k}, y_{s,k})$, $\mathbf{q}_c=(x_{c}, y_{c})$ and $\mathbf{q}_{jam}=(x_{jam}, y_{jam})$ respectively.
+A three-dimensional Cartesian coordinate system is adopted. % 位置模型
+The horizontal locations of the PBS, the $j$-th PU, the $k$-th SU, 
+the C-UAV and the J-UAV at time slot $n$ are denoted by
+$\mathbf{w}_b=(x_b, y_b)$, $\mathbf{w}_{p,j}=(x_{p,j}, y_{p,j})$, 
+$\mathbf{w}_{s,k}=(x_{s,k}, y_{s,k})$, 
+$\mathbf{q}_c=(x_{c}, y_{c})$ and $\mathbf{q}_{jam}=(x_{jam}, y_{jam})$ respectively.
 These UAVs fly at a fixed altitude $H_c$.
 The total communication duration $T$ is divided into $N$ equal-length time slots, each with duration $\Delta t = T/N$.
 Due to the short duration of each slot, the C-UAV is assumed to be quasi-static within one slot. 
-Let $n \in \mathcal{N} \triangleq \{1,2,\ldots,N\}$ denote the set of time steps. The dynamic positions of the SUs can be formulated as
+Let $n \in \mathcal{N} \triangleq \{1,2,\ldots,N\}$ denote the set of time slots. 
+The dynamic positions of the SUs can be formulated as
 \begin{equation}
 \begin{aligned}
 x_{s,k}[n+1] &= x_{s,k}[n] + v_s \cos\bigl(\phi_{s,k}[n]\bigr), \\
@@ -114,17 +120,17 @@ y_{s,k}[n+1] &= y_{s,k}[n] + v_s \sin\bigl(\phi_{s,k}[n]\bigr),
 \end{aligned}
 \label{eq:SU_Motion}
 \end{equation}
-where $\phi_{s,k}[n] \in [-\pi,\pi]$ represents the direction of the $k$-th SU.
+where $\phi_{s,k}[n] \in [-\pi,\pi]$ represents the direction of the $k$-th SU at time slot $n$.
 The SUs move at a fixed speed $v_{s}$.
 Similarly, the dynamic position of the C-UAV can be formulated as
 \begin{equation}
 \begin{aligned}
-x_{c}[n+1] &= x_{c}[n] + v_c \cos\bigl(\phi[n]\bigr), \\
-y_{c}[n+1] &= y_{c}[n] + v_c \sin\bigl(\phi[n]\bigr),
+x_{c}[n+1] &= x_{c}[n] + v_c \cos\bigl(\phi_{c}[n]\bigr), \\
+y_{c}[n+1] &= y_{c}[n] + v_c \sin\bigl(\phi_{c}[n]\bigr),
 \end{aligned}
 \label{eq:UAV_Motion}
 \end{equation}
-where $v_c$ is the constant flight speed, and $\phi[n] $ denotes the heading angle of the UAV at time slot $n$.
+where $v_c$ is the constant flight speed, and $\phi_{c}[n] \in [-\pi,\pi]$ denotes the direction of the C-UAV.
 The distance between the C-UAV and the $k$-th SU, and that between the PBS and the $j$-th PU at time slot $n$ are respectively given as,
 \begin{equation}
 \begin{aligned}
@@ -134,7 +140,7 @@ d_{p,j}[n] &= \sqrt{\bigl\lVert \mathbf{w}_b[n] - \mathbf{w}_{p,j}[n] \bigr\rVer
 \label{eq:distances}
 \end{equation}
 
-The wireless channel between the UAV and the ground users is dominated by the line-of-sight (LoS) link. % channel model
+The wireless channel between the UAV and the ground users is dominated by the line-of-sight (LoS) link. % 信道模型
 Let $\beta_{\mathrm{ref}}$ represent the channel power gain at the reference distance of $1$~m.
 Thus, the channel power gain from the C-UAV to the $k$-th SU can be expressed as
 \begin{equation}
@@ -147,14 +153,15 @@ between the UAV and the ground users.It is required to consider both the distanc
 $\varphi \geq 2$ and small-scale Rayleigh fading. 
 Thus, the channel power gains from the PBS to the $j$-th PU can be given as
 \begin{equation}
-h_{j,n}^{\mathrm{NLoS}} = \beta_{\mathrm{ref}} d_{p,j}[n]^{-\varphi} \zeta_j,
+h_{P,j,n}^{\mathrm{NLoS}} = \beta_{\mathrm{ref}} d_{p,j}[n]^{-\varphi} \zeta_j,
 \label{eq:pbs_pu_channel}
 \end{equation}
 where $d_{p,j}[n]$ is the distance between the PBS and the $j$-th PU at time slot $n$.
 The random variable $\zeta_j$ follows an exponential distribution with unit mean,
 which accounts for the Rayleigh fading.
 
-Unlike conventional fixed or random jamming models, the J-UAV is assumed to adopt a pattern-switching strategy. % jamming model
+Unlike conventional fixed or random jamming models,             % 干扰模型
+the J-UAV is assumed to adopt a pattern-switching strategy. 
 Let $z[n] \in \mathcal{Z} \triangleq \{\text{Constant}, \text{Sweep}, \text{Random}\}$
 denote the jamming mode at time slot $n$, corresponding to constant jamming,
 sweep jamming, and random jamming, respectively.
@@ -192,8 +199,8 @@ The SINR of the $k$-th SU and the $j$-th PU in the $m$-th sub-band can be % SINR
 respectively expressed as
 \begin{subequations}\label{eq:sinr}
 \begin{align}
-\gamma_{m,k,n}^{s}&=\frac{\rho_{k,n}[m] P_c h_{C,k,n}^{\mathrm{LoS}}}{\sigma^2 + P_m^b h_{k,n}^{\mathrm{NLoS}} + \rho_{J,n}[m] P_J h_{J,k,n}^{\mathrm{LoS}}}, \label{eq:sinr_su} \\
-\gamma_{m,j,n}^{p}&=\frac{P_m^b h_{j,n}^{\mathrm{NLoS}}}{\sigma^2 + \sum_{k=1}^{K} \rho_{k,n}[m] P_c h_{C,j,n}^{\mathrm{LoS}} + \rho_{J,n}[m] P_J h_{J,j,n}^{\mathrm{LoS}}}, \label{eq:sinr_pu}
+\gamma_{m,k,n}^{s}&=\frac{\rho_{k,n}[m] P_c h_{C,k,n}^{\mathrm{LoS}}}{\sigma^2 + P_m^b h_{P,k,n}^{\mathrm{NLoS}} + \rho_{J,n}[m] P_J h_{J,k,n}^{\mathrm{LoS}}}, \label{eq:sinr_su} \\
+\gamma_{m,j,n}^{p}&=\frac{P_m^b h_{P,j,n}^{\mathrm{NLoS}}}{\sigma^2 + \sum_{k=1}^{K} \rho_{k,n}[m] P_c h_{C,j,n}^{\mathrm{LoS}} + \rho_{J,n}[m] P_J h_{J,j,n}^{\mathrm{LoS}}}, \label{eq:sinr_pu}
 \end{align}
 \end{subequations}
 where $P_c$ and $P_J$ denote the transmission powers of the C-UAV and the J-UAV, respectively, and $P_m^b$ denotes the transmission power of the PBS
