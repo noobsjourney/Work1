@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  20 JAN 2026 21:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  21 JAN 2026 11:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -276,11 +276,11 @@ File: figure/System_Model.jpg Graphic file (type jpg)
 <use figure/System_Model.jpg>
 Package pdftex.def Info: figure/System_Model.jpg  used on input line 65.
 (pdftex.def)             Requested size: 252.0pt x 174.10707pt.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 75.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 76.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 75.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 76.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
@@ -290,17 +290,22 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ] [2 <./figure/System_Model.jpg>]
-Underfull \hbox (badness 6252) in paragraph at lines 218--221
-[]\OT1/ptm/m/n/10 To cap-ture com-mu-ni-ca-tion re-li-a-bil-ity un-der pattern-
- []
-
-
-Overfull \hbox (12.05418pt too wide) detected at line 256
+Overfull \hbox (4.16455pt too wide) detected at line 206
 []
  []
 
 
-Underfull \vbox (badness 1360) has occurred while \output is active []
+Underfull \hbox (badness 6252) in paragraph at lines 221--224
+[]\OT1/ptm/m/n/10 To cap-ture com-mu-ni-ca-tion re-li-a-bil-ity un-der pattern-
+ []
+
+
+Overfull \hbox (17.42522pt too wide) detected at line 268
+[]
+ []
+
+
+Underfull \vbox (badness 1365) has occurred while \output is active []
 
  [3] (./work1.bbl [4])
 
@@ -323,15 +328,15 @@ L3 programming layer <2025-11-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4210 strings out of 467537
- 65302 string characters out of 5423704
- 495198 words of memory out of 5000000
- 33076 multiletter control sequences out of 15000+600000
+ 4216 strings out of 467537
+ 65383 string characters out of 5423704
+ 497354 words of memory out of 5000000
+ 33082 multiletter control sequences out of 15000+600000
  662698 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,13n,65p,384b,255s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,13n,65p,394b,255s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on work1.pdf (5 pages, 281723 bytes).
+Output written on work1.pdf (5 pages, 283802 bytes).
 PDF statistics:
  122 PDF objects out of 1000 (max. 8388607)
  73 compressed objects within 1 object stream

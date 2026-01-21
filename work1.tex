@@ -63,8 +63,9 @@ A Proximal Policy Optimization (PPO) agent is employed to learn the spectrum all
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{figure/System_Model.jpg}
-  \caption{Dynamic spectrum sharing UAV network under pattern-switching jamming, where the C-UAV performs jamming mode awareness and 
-  jointly optimizes spectrum allocation and trajectory to ensure reliable communications.}
+  \caption{Dynamic spectrum sharing UAV network under pattern-switching jamming, 
+  where the C-UAV performs jamming mode awareness and jointly optimizes spectrum allocation, 
+  trajectory, and transmission power to ensure reliable communication.}
   \label{fig:System_Model}
 \end{figure}
 such as TD3 or SAC, optimizes the UAV trajectory. Both agents are conditioned on the jamming mode belief and trained using 
@@ -179,13 +180,14 @@ and the instantaneous jamming mode cannot be directly observed.
 The pattern-switching behavior of the jammer directly translates
 into time-varying and non-stationary interference across the spectrum.
 
-Considering the sub-carrier allocation, the binary variables % allocation model
+Considering the sub-carrier allocation, the binary variables % 频谱分配模型
 $\rho_{k,n}[m]$ and $\rho_{J,n}[m]$ are introduced to characterize
 the spectrum usage of the SUs and the J-UAV, respectively.Specifically, 
 $\rho_{k,n}[m] = 1$ indicates that the $m$-th sub-carrier is
 assigned to the $k$-th SU at time slot $n$, and $\rho_{k,n}[m] = 0$ otherwise.
 Each PU operates on a preassigned orthogonal sub-carrier with a
-fixed transmit power. The J-UAV dynamically occupies sub-carriers according to its current jamming
+fixed transmit power. 
+The J-UAV dynamically occupies sub-carriers according to its current jamming
 mode, which is captured by the jamming indicator $\rho_{J,n}[m]$.
 When $\rho_{J,n}[m] = 1$, the $m$-th sub-carrier is subject to
 intentional interference from the jammer at time slot $n$.
@@ -199,14 +201,15 @@ The SINR of the $k$-th SU and the $j$-th PU in the $m$-th sub-band can be % SINR
 respectively expressed as
 \begin{subequations}\label{eq:sinr}
 \begin{align}
-\gamma_{m,k,n}^{s}&=\frac{\rho_{k,n}[m] P_c h_{C,k,n}^{\mathrm{LoS}}}{\sigma^2 + P_m^b h_{P,k,n}^{\mathrm{NLoS}} + \rho_{J,n}[m] P_J h_{J,k,n}^{\mathrm{LoS}}}, \label{eq:sinr_su} \\
-\gamma_{m,j,n}^{p}&=\frac{P_m^b h_{P,j,n}^{\mathrm{NLoS}}}{\sigma^2 + \sum_{k=1}^{K} \rho_{k,n}[m] P_c h_{C,j,n}^{\mathrm{LoS}} + \rho_{J,n}[m] P_J h_{J,j,n}^{\mathrm{LoS}}}, \label{eq:sinr_pu}
+\gamma_{m,k,n}^{s}&=\frac{\rho_{k,n}[m] P_C[n] h_{C,k,n}^{\mathrm{LoS}}}{\sigma^2 + P_B h_{P,k,n}^{\mathrm{NLoS}} + \rho_{J,n}[m] P_J h_{J,k,n}^{\mathrm{LoS}}}, \label{eq:sinr_su} \\
+\gamma_{m,j,n}^{p}&=\frac{P_B h_{P,j,n}^{\mathrm{NLoS}}}{\sigma^2 + \sum_{k=1}^{K} \rho_{k,n}[m] P_C[n] h_{C,j,n}^{\mathrm{LoS}} + \rho_{J,n}[m] P_J h_{J,j,n}^{\mathrm{LoS}}}, \label{eq:sinr_pu}
 \end{align}
 \end{subequations}
-where $P_c$ and $P_J$ denote the transmission powers of the C-UAV and the J-UAV, respectively, and $P_m^b$ denotes the transmission power of the PBS
-in the $m$-th sub-band. Moreover, $\sigma^2$ is the noise power.
+where $P_B$ and $P_J$ denote the transmission power of the PBS and the J-UAV, respectively.
+$P_C[n] \in [P_C^{\min}, P_C^{\max}]$ denotes the transmit power of the C-UAV at time slot $n$.
+Moreover, $\sigma^2$ is the noise power.
 Then, the achievable data transmission rate of the $k$-th SU and the $j$-th PU
-can be respectively expressed as
+can be respectively expressed as  
 \begin{subequations}\label{eq:rate}
 \begin{align}
 R_{m,k,n}^{s}&= B \log_2\!\left(1 + \gamma_{m,k,n}^{s}\right), \label{eq:rate_su} \\
@@ -216,57 +219,75 @@ R_{m,j,n}^{p}&= B \log_2\!\left(1 + \gamma_{m,j,n}^{p}\right), \label{eq:rate_pu
 where $B$ denotes the bandwidth for each sub-band.
 
 To capture communication reliability under pattern-switching jamming, we introduce a QoS threshold $R_{\mathrm{th}}$.
-An outage event is declared when the achievable rate of an SU falls below $R_{\mathrm{th}}$.
+An outage event is declared when the achievable rate of a SU falls below $R_{\mathrm{th}}$.
 Accordingly, the outage indicator is defined as
 \begin{equation}
-\mathbb I^{\mathrm{out}}_{k,n} \triangleq \mathbf 1\!\left\{R_k[n] < R_{\mathrm{th}}\right\},
+\mathbb I^{\mathrm{out}}_{k,n} \triangleq \mathbf 1\!\left\{R_{k,n}^{s} < R_{\mathrm{th}}\right\},
 \quad \forall k\in\mathcal K,\ \forall n\in\mathcal N,
 \end{equation}
 where $\mathbf 1\{\cdot\}$ equals 1 if the condition holds and 0 otherwise.
 This definition penalizes each outage time slot; thus, longer outage durations yield larger cumulative penalties,
 which encourages fast recovery after jamming pattern transitions.
-
-
 \subsection{Problem Formulation}
-In this paper, we address a joint spectrum allocation and UAV trajectory optimization problem in a dynamic spectrum 
-sharing UAV network under pattern-switching jamming, 
-aiming to achieve fast recovery and reliable communication for secondary users while satisfying the primary user protection constraints.
+In this paper, we address a joint spectrum allocation, UAV trajectory control, 
+and transmission power adaptation problem in a dynamic spectrum sharing UAV network 
+under pattern-switching jamming, aiming to achieve fast recovery and reliable 
+communication for secondary users while satisfying the primary user protection 
+constraints. 
 Accordingly, the optimization problem is formulated as follows:
 \begin{subequations}
 \begin{align}
 \mathbf{P1:}\quad
-\max_{\boldsymbol{\rho},\,\boldsymbol{\phi}} \quad
+\max_{\boldsymbol{\rho},\,\boldsymbol{\phi},\,\mathbf{P}} \quad
 & \frac{1}{N} \sum_{n=1}^{N} \sum_{k=1}^{K} \sum_{m=1}^{M}
 R^{\mathrm{s}}_{m,k,n}
 -\frac{\lambda_{\mathrm{out}}}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}
 \mathbb I^{\mathrm{out}}_{k,n}
+\label{eq:P1_obj}
 \\
 \text{s.t.}\quad
-& \sum_{m=1}^{M} R^{p}_{m,j,n} \ge R^{\min}_{j},
+& \sum_{m=1}^{M} R^{\mathrm{p}}_{m,j,n} \ge R^{\min}_{j},
 \quad \forall j\in\mathcal J,\ \forall n\in\mathcal N,
+\label{eq:P1_PU}
 \\
 & \rho_{k,n}[m]\in\{0,1\},
 \quad \forall k\in\mathcal K,\ \forall m\in\mathcal M,\ \forall n\in\mathcal N,
+\label{eq:P1_binary}
 \\
 & \sum_{k=1}^{K} \rho_{k,n}[m] \le 1,
 \quad \forall m\in\mathcal M,\ \forall n\in\mathcal N,
+\label{eq:P1_orthogonal}
 \\
-& |\phi[n]| \le \pi,
+& |\phi_c[n]| \le \pi,
+\quad \forall n\in\mathcal N,
+\label{eq:P1_heading}
+\\
+& P_C^{\min} \le P_C[n] \le P_C^{\max},
 \quad \forall n\in\mathcal N.
-\end{align}
+\label{eq:P1_power}
+\end{align} 
 \end{subequations}
+
 To jointly account for throughput performance and communication reliability, 
-a reliability-aware objective function is adopted. Specifically, the achievable rate of the secondary users 
-is maximized, while a penalty term is introduced to capture QoS outages. 
-This outage penalty discourages prolonged service interruptions caused by dynamic jamming 
-and implicitly promotes fast recovery of communication quality after jamming pattern transitions.
-In problem~(10), $R^{\min}_j$ denotes the minimum transmission rate requirement of the $j$-th PU, 
-and $\boldsymbol{\rho}=\{\rho_{k,n}[m]\}_{k\in\mathcal K,m\in\mathcal M,n\in\mathcal N}$ 
+a reliability-aware objective function is adopted. Specifically, the achievable 
+rate of the secondary users is maximized, while a penalty term is introduced to 
+capture QoS outages. This outage penalty discourages prolonged service interruptions 
+caused by dynamic jamming and implicitly promotes fast recovery of communication 
+quality after jamming pattern transitions.
+In problem~(P1), $R^{\min}_j$ denotes the minimum transmission rate requirement of 
+the $j$-th PU, and 
+$\boldsymbol{\rho}=\{\rho_{k,n}[m]\}_{k\in\mathcal K,m\in\mathcal M,n\in\mathcal N}$ 
 represents the spectrum allocation policy for the SUs. 
-Constraint~(10b) ensures the QoS requirements of the PUs in the dynamic spectrum sharing environment. 
-Constraints~(10c) and~(10d) enforce orthogonal sub-carrier allocation among SUs to avoid intra-secondary interference. 
-Constraint~(10e) restricts the heading angle of the C-UAV within the interval $[-\pi,\pi]$, 
-guaranteeing feasible UAV mobility.
+The variable $\boldsymbol{\phi}=\{\phi[n]\}_{n\in\mathcal N}$ denotes the UAV heading 
+angle control sequence, while 
+$\mathbf{P}=\{P_C[n]\}_{n\in\mathcal N}$ represents the transmission power adaptation 
+policy of the cognitive UAV.
+Constraint~\eqref{eq:P1_PU} guarantees the QoS requirements of the PUs in the dynamic 
+spectrum sharing environment. Constraints~\eqref{eq:P1_binary} and~\eqref{eq:P1_orthogonal} 
+ensure orthogonal sub-carrier allocation among SUs to avoid intra-secondary interference. 
+Constraint~\eqref{eq:P1_heading} enforces feasible UAV mobility, while 
+constraint~\eqref{eq:P1_power} restricts the transmit power of the C-UAV within 
+practical limits.
 
 \section{Proposed Mode-Aware Anti-Jamming Framework}
 \subsection{Jamming Mode Recognition}
