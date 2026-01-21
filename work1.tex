@@ -65,7 +65,7 @@ A Proximal Policy Optimization (PPO) agent is employed to learn the spectrum all
   \includegraphics[width=\columnwidth]{figure/System_Model.jpg}
   \caption{Dynamic spectrum sharing UAV network under pattern-switching jamming, 
   where the C-UAV performs jamming mode awareness and jointly optimizes spectrum allocation, 
-  trajectory, and transmission power to ensure reliable communication.}
+  trajectory, and transmit power to ensure reliable communication.}
   \label{fig:System_Model}
 \end{figure}
 such as TD3 or SAC, optimizes the UAV trajectory. Both agents are conditioned on the jamming mode belief and trained using 
@@ -121,7 +121,7 @@ y_{s,k}[n+1] &= y_{s,k}[n] + v_s \sin\bigl(\phi_{s,k}[n]\bigr),
 \end{aligned}
 \label{eq:SU_Motion}
 \end{equation}
-where $\phi_{s,k}[n] \in [-\pi,\pi]$ represents the direction of the $k$-th SU at time slot $n$.
+where $\phi_{s,k}[n] \in [-\pi,\pi]$ denotes the direction of the $k$-th SU at time slot $n$.
 The SUs move at a fixed speed $v_{s}$.
 Similarly, the dynamic position of the C-UAV can be formulated as
 \begin{equation}
@@ -148,7 +148,7 @@ Thus, the channel power gain from the C-UAV to the $k$-th SU can be expressed as
 h_{C,k,n}^{\mathrm{LoS}} = \beta_{\mathrm{ref}} d_{c,k}[n]^{-2},
 \label{eq:los_channel}
 \end{equation}
-where $d_{c,k}[n]$ represents the distance between the C-UAV and the $k$-th SU
+where $d_{c,k}[n]$ denotes the distance between the C-UAV and the $k$-th SU
 at time slot $n$. The channel model between the PBS and the ground users is different from that
 between the UAV and the ground users.It is required to consider both the distance-dependent path loss with exponent
 $\varphi \geq 2$ and small-scale Rayleigh fading. 
@@ -205,7 +205,7 @@ respectively expressed as
 \gamma_{m,j,n}^{p}&=\frac{P_B h_{P,j,n}^{\mathrm{NLoS}}}{\sigma^2 + \sum_{k=1}^{K} \rho_{k,n}[m] P_C[n] h_{C,j,n}^{\mathrm{LoS}} + \rho_{J,n}[m] P_J h_{J,j,n}^{\mathrm{LoS}}}, \label{eq:sinr_pu}
 \end{align}
 \end{subequations}
-where $P_B$ and $P_J$ denote the transmission power of the PBS and the J-UAV, respectively.
+where $P_B$ and $P_J$ denote the transmit power of the PBS and the J-UAV, respectively.
 $P_C[n] \in [P_C^{\min}, P_C^{\max}]$ denotes the transmit power of the C-UAV at time slot $n$.
 Moreover, $\sigma^2$ is the noise power.
 Then, the achievable data transmission rate of the $k$-th SU and the $j$-th PU
@@ -228,13 +228,14 @@ Accordingly, the outage indicator is defined as
 where $\mathbf 1\{\cdot\}$ equals 1 if the condition holds and 0 otherwise.
 This definition penalizes each outage time slot; thus, longer outage durations yield larger cumulative penalties,
 which encourages fast recovery after jamming pattern transitions.
+
 \subsection{Problem Formulation}
 In this paper, we address a joint spectrum allocation, UAV trajectory control, 
-and transmission power adaptation problem in a dynamic spectrum sharing UAV network 
+and transmit power adaptation problem in a dynamic spectrum sharing UAV network 
 under pattern-switching jamming, aiming to achieve fast recovery and reliable 
 communication for secondary users while satisfying the primary user protection 
 constraints. 
-Accordingly, the optimization problem is formulated as follows:
+Accordingly, the optimization problem is formulated as follows
 \begin{subequations}
 \begin{align}
 \mathbf{P1:}\quad
@@ -245,8 +246,8 @@ R^{\mathrm{s}}_{m,k,n}
 \mathbb I^{\mathrm{out}}_{k,n}
 \label{eq:P1_obj}
 \\
-\text{s.t.}\quad
-& \sum_{m=1}^{M} R^{\mathrm{p}}_{m,j,n} \ge R^{\min}_{j},
+\text{s.t.}\quad 
+& \sum_{m=1}^{M} R_{m,j,n}^{p} \ge R^{\min}_{j},
 \quad \forall j\in\mathcal J,\ \forall n\in\mathcal N,
 \label{eq:P1_PU}
 \\
@@ -277,10 +278,10 @@ quality after jamming pattern transitions.
 In problem~(P1), $R^{\min}_j$ denotes the minimum transmission rate requirement of 
 the $j$-th PU, and 
 $\boldsymbol{\rho}=\{\rho_{k,n}[m]\}_{k\in\mathcal K,m\in\mathcal M,n\in\mathcal N}$ 
-represents the spectrum allocation policy for the SUs. 
+denotes the spectrum allocation policy for the SUs. 
 The variable $\boldsymbol{\phi}=\{\phi[n]\}_{n\in\mathcal N}$ denotes the UAV heading 
 angle control sequence, while 
-$\mathbf{P}=\{P_C[n]\}_{n\in\mathcal N}$ represents the transmission power adaptation 
+$\mathbf{P}=\{P_C[n]\}_{n\in\mathcal N}$ denotes the transmit power adaptation 
 policy of the cognitive UAV.
 Constraint~\eqref{eq:P1_PU} guarantees the QoS requirements of the PUs in the dynamic 
 spectrum sharing environment. Constraints~\eqref{eq:P1_binary} and~\eqref{eq:P1_orthogonal} 
@@ -301,63 +302,71 @@ and forms a length-$L$ short window
 \mathcal{I}[n] = \{\mathbf{I}[n-L+1], \ldots, \mathbf{I}[n]\} \in \mathbb{R}^{L \times M}.
 \end{equation}
 
-A lightweight recognizer $f_\theta(\cdot)$ maps $\mathcal{I}[n]$ to a mode probability vector
+A lightweight recognizer $f_\theta(\cdot)$ maps the input $\mathcal{I}[n]$ to a mode probability vector
 \begin{equation}
 \boldsymbol{\pi}[n] = f_\theta(\mathcal{I}[n]) \in \mathbb{R}^{|\mathcal{Z}|}, 
 \quad \sum_{c=1}^{|\mathcal{Z}|} \pi_c[n] = 1,
 \end{equation}
-which provides semantic information of the current jamming behavior.We adopt a CNN--GRU classifier: a 1D-CNN encodes the spectral shape of each $\mathbf{I}[\cdot]$,
-and a GRU captures short-term temporal dynamics across $L$ slots.
+which provides semantic information about the current jamming behavior.
+We adopt a CNN--GRU classifier, where a 1D CNN encodes the spectral characteristics of each $\mathbf{I}[\cdot]$,
+and a GRU captures short-term temporal dynamics over $L$ time slots.
 The model is trained offline using the cross-entropy loss
 \begin{equation}
 \mathcal{L}_{\mathrm{cls}}(\theta)
-=
-- \sum_{c=1}^{|\mathcal{Z}|} z_c[n]\log\big(\pi_c[n]\big),
+= -\sum_{c=1}^{|\mathcal{Z}|} z_c[n]\log\big(\pi_c[n]\big),
 \end{equation}
-and is used online only for inference to output $\boldsymbol{\pi}[n]$.
+where $z_c[n]$ denotes the one-hot encoded ground-truth jamming mode at time slot $n$.
+During online operation, the model is used solely for inference to output $\boldsymbol{\pi}[n]$.
 \subsection{Semantic-Augmented MDP Formulation}
 Following the MDP formulation in the reference work\cite{10233493}, we incorporate the mode probability vector
 $\boldsymbol{\pi}[n]$ as a semantic descriptor of the interference environment to facilitate
-fast adaptation under mode-switching jamming.
+fast adaptation under mode-switching jamming. 
 
 \textbf{\textit{State:}}
 The system state at slot $n$ is defined as
 \begin{equation}
 \mathbf{s}[n] = \big(\mathbf{a}[n-1],\, \mathbf{q}_c[n-1],\, \mathbf{g}[n],\, \boldsymbol{\pi}[n] \big),
 \end{equation}
-where $\mathbf{a}[n-1]$ denotes the previous action at slot $n-1$, $\mathbf{q}_c[n-1]$ denotes the previous UAV position at slot $n-1$, $\mathbf{g}[n]$ represents channel and
-geometry-related features for rate evaluation, and $\boldsymbol{\pi}[n]$ encodes the
-high-level semantic belief of the current jamming behavior. 
+where $\mathbf{a}[n-1]$ denotes the previous action at slot $n-1$, 
+$\mathbf{q}_c[n-1]$ denotes the previous UAV position at slot $n-1$, 
+$\mathbf{g}[n]$ denotes channel and geometry-related features for rate evaluation, 
+and $\boldsymbol{\pi}[n]$ encodes the high-level semantic belief of the current jamming behavior. 
 
-\textbf{\textit{Action:}}
-The action consists of a discrete spectrum decision and a continuous mobility control,
+\textbf{Action:} The action consists of a discrete spectrum decision and a continuous
+control vector,
 \begin{equation}
-\mathbf{a}[n] = \big( \mathbf{a}_s[n],\, a_t[n] \big),
+\mathbf{a}[n] = \big(\mathbf{a}_d[n],\, \mathbf{a}_c[n]\big),
 \end{equation}
-where $\mathbf{a}_s[n]$ is the discrete subcarrier allocation (equivalently,
-$\{\rho_{k,n}[m]\}$), and $a_t[n]=\phi[n]\in[-\pi,\pi]$ is the continuous heading angle.
+where $\mathbf{a}_d[n]$ is the discrete subcarrier allocation decision (equivalently,
+$\{\rho_{k,n}[m]\}$), and $\mathbf{a}_c[n]$ is the continuous control vector given by
+\begin{equation}
+\mathbf{a}_c[n] = \big(\phi_c[n],\, P_C[n]\big),
+\end{equation}
+with $\phi_c[n]\in[-\pi,\pi]$ and $P_C[n]\in[P_C^{\min},\,P_C^{\max}]$.
 
 \textbf{\textit{Reward:}}
-Consistent with~(10), we adopt a reliability-aware reward defined as
+Consistent with~(10), we adopt a reliability-aware reward that jointly captures
+the secondary throughput, outage reliability, and PU protection, defined as
 \begin{equation}
-r[n]=\sum_{k=1}^{K} R_k[n]-\lambda_{\mathrm{out}} \sum_{k=1}^{K} \mathbb{I}^{\mathrm{out}}_{k,n},
+r[n]=\sum_{k=1}^{K} R_k[n]-\lambda_{\mathrm{out}}\sum_{k=1}^{K}\mathbb{I}^{\mathrm{out}}_{k,n}-\lambda_{\mathrm{pu}}\sum_{j=1}^{J}\delta_j[n],
+\label{eq:reward_new}
 \end{equation}
-where $\mathbb{I}^{\mathrm{out}}_{k,n}=\mathbb{I}\{R_k[n]<R_{\mathrm{th}}\}$.
-Since the outage penalty is applied on a per-slot basis, prolonged service interruption
-results in a larger cumulative loss, thereby explicitly encouraging fast recovery after
-jamming mode transitions. The PU protection constraint~(10b) is enforced during interaction,
-e.g., by rejecting infeasible actions or imposing a large penalty.
+where $\mathbb{I}^{\mathrm{out}}_{k,n}=\mathbb{I}\{R_k[n]<R_{\mathrm{th}}\}$ and
+$\lambda_{\mathrm{pu}}>0$ controls the penalty strength for PU protection.
+Since the outage penalty is applied on a per-slot basis,
+prolonged service interruption
+results in a larger cumulative loss, thereby encouraging fast recovery after jamming mode transitions.
 \subsection{Hybrid PPO-TD3 Framework}
-Problem~(10) involves discrete spectrum allocation and continuous trajectory control.
-Thus, we employ a hybrid solver, where PPO is adopted for $\mathbf{a}_s[n]$ and TD3 is used
-for $a_t[n]$, both conditioned on the semantic-augmented state $\mathbf{s}[n]$.
+Problem~(10) involves discrete spectrum allocation and continuous joint control of UAV mobility
+and transmit power. Thus, we employ a hybrid solver, where PPO is adopted for the discrete spectrum
+decision $\mathbf{a}_d[n]$ and TD3 is used for the continuous control vector $\mathbf{a}_c[n]$,
+both conditioned on the semantic-augmented state $\mathbf{s}[n]$.
 
 \textbf{\textit{PPO for Spectrum Allocation:}}
-Let $\pi_\theta(\mathbf{a}_s|\mathbf{s})$ denote the stochastic policy for spectrum allocation
-parameterized by $\theta$, where $\mathbf{a}_s[n]$ represents the subcarrier allocation decision
+Let $\pi_\theta(\mathbf{a}_d|\mathbf{s})$ denote the stochastic policy for spectrum allocation
+parameterized by $\theta$, where $\mathbf{a}_d[n]$ denotes the subcarrier allocation decision
 at time slot $n$. PPO is adopted due to its strong training stability and robustness in
 discrete action spaces.
-
 At each time slot, the policy outputs a categorical distribution over candidate subcarriers.
 The objective of PPO is to maximize the expected discounted return while preventing
 excessively large policy updates. Specifically, PPO optimizes the clipped surrogate objective
@@ -366,8 +375,8 @@ excessively large policy updates. Specifically, PPO optimizes the clipped surrog
 \mathcal{L}^{\mathrm{CLIP}}(\theta)&= \mathbb{E}_n \Big[\min\Big\{r_n(\theta)\hat{A}_n, \\&\qquad\operatorname{clip}\!\left(r_n(\theta),\,1-\epsilon,\,1+\epsilon\right)\hat{A}_n\Big\}\Big],
 \end{aligned}
 \end{equation}
-where $r_n(\theta)=\frac{\pi_\theta(\mathbf{a}_s[n]\mid\mathbf{s}[n])}
-{\pi_{\theta_{\mathrm{old}}}(\mathbf{a}_s[n]\mid\mathbf{s}[n])}$ is the probability ratio between the new and old policies,
+where $r_n(\theta)=\frac{\pi_\theta(\mathbf{a}_d[n]\mid\mathbf{s}[n])}
+{\pi_{\theta_{\mathrm{old}}}(\mathbf{a}_d[n]\mid\mathbf{s}[n])}$ is the probability ratio between the new and old policies,
 $\epsilon$ is the clipping parameter, and $\hat{A}_n$ denotes the advantage estimate.
 To reduce variance and improve sample efficiency, the advantage is computed using
 Generalized Advantage Estimation (GAE),
@@ -376,48 +385,41 @@ Generalized Advantage Estimation (GAE),
 \end{equation}
 where $V(\cdot)$ is the value function, $\gamma$ is the discount factor, and $\lambda$
 controls the bias--variance tradeoff.
-By employing PPO, the spectrum allocation policy can be updated in a stable on-policy
-manner, even under non-stationary interference caused by jamming mode transitions.
-
 
 \textbf{\textit{TD3 for Trajectory Control:}}
-Let $\mu_\varphi(s)$ denote the deterministic actor that outputs the continuous
-trajectory control $a_t[n] = \phi[n]$. To stabilize learning in the continuous
-action space, TD3 employs two critic networks $Q_{\omega_1}(s,a_t)$ and
-$Q_{\omega_2}(s,a_t)$ to mitigate overestimation bias.
-
-Given a transition $(s[n], a_t[n], r[n], s[n+1])$, the target value is constructed as
+Let $\mu_{\varphi}(\mathbf{s})$ denote the deterministic actor that outputs the continuous control vector
 \begin{equation}
-y[n] = r[n] + \gamma \min_{i=1,2} Q_{\bar{\omega}_i}\!\left(s[n+1], \tilde{a}_t[n+1]\right),
+\mathbf{a}_c[n]=\mu_{\varphi}(\mathbf{s}[n])=\big(\phi_c[n],\,P_C[n]\big).
+\end{equation}
+To stabilize learning in the continuous action space, TD3 employs two critic networks
+$Q_{\omega_1}(\mathbf{s},\mathbf{a}_c)$ and $Q_{\omega_2}(\mathbf{s},\mathbf{a}_c)$ to mitigate overestimation bias.
+
+Given a transition $(\mathbf{s}[n],\mathbf{a}_c[n],r[n],\mathbf{s}[n+1])$, the target value is constructed as
+\begin{equation}
+y[n]=r[n]+\gamma\min_{i=1,2}Q_{\bar{\omega}_i}\big(\mathbf{s}[n+1],\tilde{\mathbf{a}}_c[n+1]\big),
 \end{equation}
 where
 \begin{equation}
-\tilde{a}_t[n+1] = \mu_{\bar{\varphi}}\!\left(s[n+1]\right) + \eta,\quad\eta \sim \mathrm{clip}\!\left(\mathcal{N}(0,\sigma^2), -c, c\right),
+\tilde{\mathbf{a}}_c[n+1]=\mu_{\bar{\varphi}}\big(\mathbf{s}[n+1]\big)+\boldsymbol{\eta},\quad
+\boldsymbol{\eta}\sim \mathrm{clip}\big(\mathcal{N}(0,\sigma^2),-c,c\big),
 \end{equation}
-and $(\cdot)^{-}$ denotes the corresponding target networks. The clipped noise
-$\eta$ implements target policy smoothing to reduce sensitivity to function
-approximation errors.
-
-The critic networks are updated by minimizing the squared temporal-difference
-error
+and $(\cdot)^{-}$ denotes the corresponding target networks.
+The critic networks are updated by minimizing the squared temporal-difference error
 \begin{equation}
-\mathcal{L}_c(\omega_i)= \mathbb{E}\!\left[\left(Q_{\omega_i}\!\left(s[n], a_t[n]\right) - y[n]\right)^2\right],\quad i \in \{1,2\}.
+L_c(\omega_i)=\mathbb{E}\Big[\big(Q_{\omega_i}(\mathbf{s}[n],\mathbf{a}_c[n]) - y[n]\big)^2\Big],\quad i\in\{1,2\}.
 \end{equation}
-
-The actor is updated in a delayed manner by maximizing the Q-value estimated by
-the first critic,
+The actor is updated in a delayed manner by maximizing the Q-value estimated by the first critic,
 \begin{equation}
-\nabla_{\varphi} J(\varphi)=\mathbb{E}\!\left[\nabla_{\varphi} \mu_{\varphi}(s)\nabla_{a_t} Q_{\omega_1}(s,a_t)\big|_{a_t=\mu_{\varphi}(s)}\right],
+\nabla_{\varphi}J(\varphi)=\mathbb{E}\Big[\nabla_{\varphi}\mu_{\varphi}(\mathbf{s})\nabla_{\mathbf{a}_c}Q_{\omega_1}(\mathbf{s},\mathbf{a}_c)
+\big|_{\mathbf{a}_c=\mu_{\varphi}(\mathbf{s})}\Big],
 \end{equation}
 while the target networks are softly updated using Polyak averaging.
 
-At each time slot, the C-UAV first obtains the jamming mode probability vector
-$\boldsymbol{\pi}[n]$ from the recognition module, constructs the
-semantic-augmented state $s[n]$, and then outputs the discrete spectrum
-allocation $a_s[n]$ via PPO and the continuous trajectory action
-$a_t[n] = \phi[n]$ via TD3. PPO is updated using on-policy trajectories, whereas
-TD3 is trained off-policy with an experience replay buffer, enabling stable
-learning under pattern-switching jamming.
+At each time slot, the C-UAV first obtains the jamming mode probability vector $\boldsymbol{\pi}[n]$
+from the recognition module, constructs the semantic-augmented state $\mathbf{s}[n]$, and then outputs the discrete
+spectrum allocation $\mathbf{a}_d[n]$ via PPO and the continuous joint control action
+$\mathbf{a}_c[n]=(\phi_c[n],P_C[n])$ via TD3. PPO is updated using on-policy trajectories,
+whereas TD3 is trained off-policy with an experience replay buffer, enabling stable learning under pattern-switching jamming.
 
 \section{SIMULATION RESULTS}
 
