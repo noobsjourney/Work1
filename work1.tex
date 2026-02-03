@@ -290,7 +290,7 @@ Constraint~\eqref{eq:P1_heading} enforces feasible UAV mobility, while
 constraint~\eqref{eq:P1_power} restricts the transmit power of the C-UAV within 
 practical limits.
 
-\section{Proposed Mode-Aware Anti-Jamming Framework}
+\section{Our Proposed Mode-Aware Anti-Jamming Framework}
 \subsection{Jamming Mode Recognition}
 The jammer switches among finite modes $z[n] \in \mathcal{Z}$ following the Markov model in~(6).
 The C-UAV performs spectrum sensing and collects the per-slot interference-energy vector
@@ -348,14 +348,21 @@ with $\phi_c[n]\in[-\pi,\pi]$ and $P_C[n]\in[P_C^{\min},\,P_C^{\max}]$.
 Consistent with~(10), we adopt a reliability-aware reward that jointly captures
 the secondary throughput, outage reliability, and PU protection, defined as
 \begin{equation}
-r[n]=\sum_{k=1}^{K} R_k[n]-\lambda_{\mathrm{out}}\sum_{k=1}^{K}\mathbb{I}^{\mathrm{out}}_{k,n}-\lambda_{\mathrm{pu}}\sum_{j=1}^{J}\delta_j[n],
-\label{eq:reward_new}
+r[n]
+=\alpha \sum_{k=1}^{K} R^{s}_{k}[n] + \beta \sum_{j=1}^{J} \delta_j[n] - \gamma \sum_{k=1}^{K}\mathbb{I}\!\left(R^{s}_{k}[n] < R_{\mathrm{th}}\right),
+\label{eq:reward}
 \end{equation}
-where $\mathbb{I}^{\mathrm{out}}_{k,n}=\mathbb{I}\{R_k[n]<R_{\mathrm{th}}\}$ and
-$\lambda_{\mathrm{pu}}>0$ controls the penalty strength for PU protection.
-Since the outage penalty is applied on a per-slot basis,
-prolonged service interruption
-results in a larger cumulative loss, thereby encouraging fast recovery after jamming mode transitions.
+where $\alpha,\beta,\gamma>0$ are constant coefficients, 
+$\delta_j[n]$ is a penalty term when the interference to the PUs exceeds the tolerated threshold and formulated as
+\begin{equation}
+\delta_j[n]=
+\begin{cases}
+0, & R^{p}_{j}[n] \ge R^{\min}_{j},\\
+R^{p}_{j}[n]-R^{\min}_{j}, & 0 \le R^{p}_{j}[n] < R^{\min}_{j},
+\end{cases}
+\tag{19}
+\end{equation}
+where $R^{p}_{j}[n]$ is the achievable rate of the $j$-th PU and $R^{\min}_{j}$ is its minimum rate requirement.
 \subsection{Hybrid PPO-TD3 Framework}
 Problem~(10) involves discrete spectrum allocation and continuous joint control of UAV mobility
 and transmit power. Thus, we employ a hybrid solver, where PPO is adopted for the discrete spectrum
