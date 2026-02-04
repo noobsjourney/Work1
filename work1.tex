@@ -337,12 +337,19 @@ control vector,
 \begin{equation}
 \mathbf{a}[n] = \big(\mathbf{a}_d[n],\, \mathbf{a}_c[n]\big),
 \end{equation}
-where $\mathbf{a}_d[n]$ is the discrete subcarrier allocation decision (equivalently,
-$\{\rho_{k,n}[m]\}$), and $\mathbf{a}_c[n]$ is the continuous control vector given by
+The discrete action $\mathbf{a}_d[n]$ represents a joint subcarrier allocation
+for all $K$ SUs at slot $n$, i.e.,
+\begin{equation}
+\mathbf{a}_d[n] = \big(a_1[n],\,a_2[n],\,\ldots,\,a_K[n]\big),
+\end{equation}
+where $a_k[n]\in\{1,2,\ldots,M\}$ denotes the selected subcarrier index for the
+$k$-th SU. Equivalently, $\mathbf{a}_d[n]$ can be mapped to the binary allocation
+variables $\{\rho_{k,n}[m]\}$ satisfying $\sum_{m=1}^{M}\rho_{k,n}[m]=1$ for each $k$.
+The continuous action $\mathbf{a}_c[n]$ is defined as
 \begin{equation}
 \mathbf{a}_c[n] = \big(\phi_c[n],\, P_C[n]\big),
 \end{equation}
-with $\phi_c[n]\in[-\pi,\pi]$ and $P_C[n]\in[P_C^{\min},\,P_C^{\max}]$.
+where $\phi_c[n]\in[-\pi,\pi]$ and $P_C[n]\in[P_C^{\min},\,P_C^{\max}]$.
 
 \textbf{\textit{Reward:}}
 Consistent with~(10), we adopt a reliability-aware reward that jointly captures
@@ -360,7 +367,6 @@ $\delta_j[n]$ is a penalty term when the interference to the PUs exceeds the tol
 0, & R^{p}_{j}[n] \ge R^{\min}_{j},\\
 R^{p}_{j}[n]-R^{\min}_{j}, & 0 \le R^{p}_{j}[n] < R^{\min}_{j},
 \end{cases}
-\tag{19}
 \end{equation}
 where $R^{p}_{j}[n]$ is the achievable rate of the $j$-th PU and $R^{\min}_{j}$ is its minimum rate requirement.
 \subsection{Hybrid PPO-TD3 Framework}
@@ -371,12 +377,19 @@ both conditioned on the semantic-augmented state $\mathbf{s}[n]$.
 
 \textbf{\textit{PPO for Spectrum Allocation:}}
 Let $\pi_\theta(\mathbf{a}_d|\mathbf{s})$ denote the stochastic policy for spectrum allocation
-parameterized by $\theta$, where $\mathbf{a}_d[n]$ denotes the subcarrier allocation decision
-at time slot $n$. PPO is adopted due to its strong training stability and robustness in
-discrete action spaces.
-At each time slot, the policy outputs a categorical distribution over candidate subcarriers.
-The objective of PPO is to maximize the expected discounted return while preventing
-excessively large policy updates. Specifically, PPO optimizes the clipped surrogate objective
+parameterized by $\theta$, where $\mathbf{a}_d[n]$ is the discrete joint subcarrier allocation decision
+at time slot $n$.
+Different from the multi-agent A2C design in~\cite{10233493}, we adopt a centralized PPO-based spectrum allocator.
+To avoid the exponential growth of the joint discrete action space, the policy is implemented in a factorized
+multi-discrete form as
+\begin{equation}
+\pi_\theta(\mathbf{a}_d|\mathbf{s})
+=
+\prod_{k=1}^{K}\pi_\theta^{(k)}\big(a_k|\mathbf{s}\big),
+\end{equation}
+where each $\pi_\theta^{(k)}(\cdot|\mathbf{s})$ is a categorical distribution over the $M$ candidate subcarriers.
+The objective of PPO is to maximize the expected discounted return while preventing excessively large policy updates.
+Specifically, PPO optimizes the clipped surrogate objective
 \begin{equation}
 \begin{aligned}
 \mathcal{L}^{\mathrm{CLIP}}(\theta)&= \mathbb{E}_n \Big[\min\Big\{r_n(\theta)\hat{A}_n, \\&\qquad\operatorname{clip}\!\left(r_n(\theta),\,1-\epsilon,\,1+\epsilon\right)\hat{A}_n\Big\}\Big],
@@ -385,10 +398,10 @@ excessively large policy updates. Specifically, PPO optimizes the clipped surrog
 where $r_n(\theta)=\frac{\pi_\theta(\mathbf{a}_d[n]\mid\mathbf{s}[n])}
 {\pi_{\theta_{\mathrm{old}}}(\mathbf{a}_d[n]\mid\mathbf{s}[n])}$ is the probability ratio between the new and old policies,
 $\epsilon$ is the clipping parameter, and $\hat{A}_n$ denotes the advantage estimate.
-To reduce variance and improve sample efficiency, the advantage is computed using
-Generalized Advantage Estimation (GAE),
+To reduce variance and improve sample efficiency, the advantage is computed using Generalized Advantage Estimation (GAE),
 \begin{equation}
-\hat{A}_n=\sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{n+l},\quad\delta_n=r[n] + \gamma V(\mathbf{s}[n+1]) - V(\mathbf{s}[n]),
+\hat{A}_n=\sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{n+l},\quad
+\delta_n=r[n] + \gamma V(\mathbf{s}[n+1]) - V(\mathbf{s}[n]),
 \end{equation}
 where $V(\cdot)$ is the value function, $\gamma$ is the discount factor, and $\lambda$
 controls the bias--variance tradeoff.
