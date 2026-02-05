@@ -383,11 +383,11 @@ Different from the multi-agent A2C design in~\cite{10233493}, we adopt a central
 To avoid the exponential growth of the joint discrete action space, the policy is implemented in a factorized
 multi-discrete form as
 \begin{equation}
-\pi_\theta(\mathbf{a}_d|\mathbf{s})
-=
-\prod_{k=1}^{K}\pi_\theta^{(k)}\big(a_k|\mathbf{s}\big),
+\pi_\theta(\mathbf{a}_d|\mathbf{s})=\prod_{k=1}^{K}\pi_\theta^{(k)}\big(a_k|\mathbf{s}\big),
 \end{equation}
 where each $\pi_\theta^{(k)}(\cdot|\mathbf{s})$ is a categorical distribution over the $M$ candidate subcarriers.
+To satisfy the orthogonal subcarrier constraint, action masking is adopted during action selection
+to prevent infeasible allocations and ensure that each subcarrier is assigned to at most one SU per slot.
 The objective of PPO is to maximize the expected discounted return while preventing excessively large policy updates.
 Specifically, PPO optimizes the clipped surrogate objective
 \begin{equation}
@@ -435,11 +435,11 @@ The actor is updated in a delayed manner by maximizing the Q-value estimated by 
 \end{equation}
 while the target networks are softly updated using Polyak averaging.
 
-At each time slot, the C-UAV first obtains the jamming mode probability vector $\boldsymbol{\pi}[n]$
-from the recognition module, constructs the semantic-augmented state $\mathbf{s}[n]$, and then outputs the discrete
-spectrum allocation $\mathbf{a}_d[n]$ via PPO and the continuous joint control action
-$\mathbf{a}_c[n]=(\phi_c[n],P_C[n])$ via TD3. PPO is updated using on-policy trajectories,
-whereas TD3 is trained off-policy with an experience replay buffer, enabling stable learning under pattern-switching jamming.
+At each time slot, the C-UAV obtains the jamming mode belief $\boldsymbol{\pi}[n]$, constructs the
+semantic-augmented state $\mathbf{s}[n]$, and jointly determines the spectrum allocation $\mathbf{a}_d[n]$
+and the continuous control action $\mathbf{a}_c[n]$ via PPO and TD3, respectively.
+PPO is trained on-policy, while TD3 is updated off-policy with an experience replay buffer,
+enabling stable learning under pattern-switching jamming.
 
 \section{SIMULATION RESULTS}
 
