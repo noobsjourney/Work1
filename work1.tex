@@ -369,10 +369,10 @@ R^{p}_{j}[n]-R^{\min}_{j}, & 0 \le R^{p}_{j}[n] < R^{\min}_{j},
 \end{cases}
 \end{equation}
 where $R^{p}_{j}[n]$ is the achievable rate of the $j$-th PU and $R^{\min}_{j}$ is its minimum rate requirement.
-\subsection{Hybrid PPO-TD3 Framework}
-Problem~(10) involves discrete spectrum allocation and continuous joint control of UAV mobility
+\subsection{Hybrid PPO-DDPG Framework}
+Problem~(10) involves discrete spectrum allocation, continuous joint control of UAV mobility
 and transmit power. Thus, we employ a hybrid solver, where PPO is adopted for the discrete spectrum
-decision $\mathbf{a}_d[n]$ and TD3 is used for the continuous control vector $\mathbf{a}_c[n]$,
+decision $\mathbf{a}_d[n]$ and DDPG is used for the continuous control vector $\mathbf{a}_c[n]$,
 both conditioned on the semantic-augmented state $\mathbf{s}[n]$.
 
 \textbf{\textit{PPO for Spectrum Allocation:}}
@@ -406,41 +406,22 @@ To reduce variance and improve sample efficiency, the advantage is computed usin
 where $V(\cdot)$ is the value function, $\gamma$ is the discount factor, and $\lambda$
 controls the bias--variance tradeoff.
 
-\textbf{\textit{TD3 for Trajectory Control:}}
-Let $\mu_{\varphi}(\mathbf{s})$ denote the deterministic actor that outputs the continuous control vector
+\textbf{\textit{DDPG for Trajectory/Power Control:}}
+Given the semantic-augmented state $\mathbf{s}[n]$, we employ DDPG to learn the continuous control policy
+in an off-policy manner. Specifically, the transition tuple $(\mathbf{s}[n],\mathbf{a}_c[n],r[n],\mathbf{s}[n+1])$
+is stored in a replay buffer, and mini-batches are uniformly sampled to update the critic network
+$Q_{\omega}(\mathbf{s},\mathbf{a}_c)$.
+For each sampled transition, the bootstrap target is constructed by the target networks as
 \begin{equation}
-\mathbf{a}_c[n]=\mu_{\varphi}(\mathbf{s}[n])=\big(\phi_c[n],\,P_C[n]\big).
+y[n]=r[n]+\gamma\,Q_{\bar{\omega}}\Big(\mathbf{s}[n+1],\,\mu_{\bar{\varphi}}(\mathbf{s}[n+1])\Big),
 \end{equation}
-To stabilize learning in the continuous action space, TD3 employs two critic networks
-$Q_{\omega_1}(\mathbf{s},\mathbf{a}_c)$ and $Q_{\omega_2}(\mathbf{s},\mathbf{a}_c)$ to mitigate overestimation bias.
-
-Given a transition $(\mathbf{s}[n],\mathbf{a}_c[n],r[n],\mathbf{s}[n+1])$, the target value is constructed as
+and the critic is trained by minimizing the temporal-difference loss
 \begin{equation}
-y[n]=r[n]+\gamma\min_{i=1,2}Q_{\bar{\omega}_i}\big(\mathbf{s}[n+1],\tilde{\mathbf{a}}_c[n+1]\big),
+L_c(\omega)=\mathbb{E}\Big[\big(Q_{\omega}(\mathbf{s}[n],\mathbf{a}_c[n]) - y[n]\big)^2\Big].
 \end{equation}
-where
-\begin{equation}
-\tilde{\mathbf{a}}_c[n+1]=\mu_{\bar{\varphi}}\big(\mathbf{s}[n+1]\big)+\boldsymbol{\eta},\quad
-\boldsymbol{\eta}\sim \mathrm{clip}\big(\mathcal{N}(0,\sigma^2),-c,c\big),
-\end{equation}
-and $(\cdot)^{-}$ denotes the corresponding target networks.
-The critic networks are updated by minimizing the squared temporal-difference error
-\begin{equation}
-L_c(\omega_i)=\mathbb{E}\Big[\big(Q_{\omega_i}(\mathbf{s}[n],\mathbf{a}_c[n]) - y[n]\big)^2\Big],\quad i\in\{1,2\}.
-\end{equation}
-The actor is updated in a delayed manner by maximizing the Q-value estimated by the first critic,
-\begin{equation}
-\nabla_{\varphi}J(\varphi)=\mathbb{E}\Big[\nabla_{\varphi}\mu_{\varphi}(\mathbf{s})\nabla_{\mathbf{a}_c}Q_{\omega_1}(\mathbf{s},\mathbf{a}_c)
-\big|_{\mathbf{a}_c=\mu_{\varphi}(\mathbf{s})}\Big],
-\end{equation}
-while the target networks are softly updated using Polyak averaging.
-
-At each time slot, the C-UAV obtains the jamming mode belief $\boldsymbol{\pi}[n]$, constructs the
-semantic-augmented state $\mathbf{s}[n]$, and jointly determines the spectrum allocation $\mathbf{a}_d[n]$
-and the continuous control action $\mathbf{a}_c[n]$ via PPO and TD3, respectively.
-PPO is trained on-policy, while TD3 is updated off-policy with an experience replay buffer,
-enabling stable learning under pattern-switching jamming.
-
+The actor is then updated to maximize the critic-evaluated Q-value, while the corresponding target networks
+are updated via Polyak averaging. At each time slot, PPO outputs the discrete spectrum allocation $\mathbf{a}_d[n]$
+(on-policy), and DDPG outputs the continuous control action $\mathbf{a}_c[n]$ (off-policy) based on $\mathbf{s}[n]$.
 \section{SIMULATION RESULTS}
 
 \section{Conclusion}
