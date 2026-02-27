@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex work1"] 1772162622.65774 "work1.aux" "work1.bbl" "work1" 1772163062.73427 0
+["bibtex work1"] 1772180046.74956 "work1.aux" "work1.bbl" "work1" 1772180049.13006 0
   "./references.bib" 1768978618 769 0605b5882e9b3992cae4122264e573bf ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1764861211 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "work1.aux" 1772163061 2697 ba11aad1958b6f2f08923ed86f16327f "pdflatex"
+  "work1.aux" 1772180048 2740 1374b10205fb034f82e8f36a82263106 "pdflatex"
   (generated)
   "work1.bbl"
   "work1.blg"
   (rewritten before read)
-["pdflatex"] 1772163060.86075 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1772163062.73505 0
-  "c:/Users/503/Desktop/mywork1/work1.tex" 1772163060 24575 cac319d4f8f74a51fcab94dd2fffd6f0 ""
+["pdflatex"] 1772180047.1808 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1772180049.13086 0
+  "c:/Users/503/Desktop/mywork1/work1.tex" 1772180044 22828 c2b46b830ee25711936961518b447a99 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1764860140 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1764860642 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1764864470 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -87,16 +87,19 @@
   "c:/texlive/2025/texmf-dist/tex/latex/ieeetran/IEEEtran.cls" 1764861211 281957 5b2e4fa15b0f7eabb840ebf67df4c0f7 ""
   "c:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def" 1764861523 30662 bfd6e864f4ffc5018b0e2b6260c3181c ""
   "c:/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg" 1764861642 678 4792914a8f45be57bb98413425e4c7af ""
+  "c:/texlive/2025/texmf-dist/tex/latex/mathtools/mathtools.sty" 1764862126 62711 3b0ed1d68b598a75677c10d16646d5e5 ""
+  "c:/texlive/2025/texmf-dist/tex/latex/mathtools/mhsetup.sty" 1764862126 5582 a43dedf8e5ec418356f1e9dfe5d29fc3 ""
   "c:/texlive/2025/texmf-dist/tex/latex/psnfss/ot1ptm.fd" 1764863143 961 15056f4a61917ceed3a44e4ac11fcc52 ""
+  "c:/texlive/2025/texmf-dist/tex/latex/tools/calc.sty" 1764864557 10374 2ffd4f27c7f90b8a300608069537743c ""
   "c:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty" 1764865008 55384 b454dec21c2d9f45ec0b793f0995b992 ""
   "c:/texlive/2025/texmf-dist/web2c/texmf.cnf" 1764858242 42213 4e2ca030e8e2640502016e9e45868dcb ""
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1764865255 5587484 30eee748fa419a911c40b0c750dd21ba ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1764865554 3635444 ac2670da82a63c160bf918af8bbf0f9c ""
   "c:/texlive/2025/texmf.cnf" 1764865223 713 e69b156964470283e0530f5060668171 ""
   "figure/System_Model.jpg" 1768912072 46191 a3b2e72775756f5429c6528867d28197 ""
-  "work1.aux" 1772163061 2697 ba11aad1958b6f2f08923ed86f16327f "pdflatex"
-  "work1.bbl" 1772162623 1195 d79d7a610f068dc4dea396d8707233c5 "bibtex work1"
-  "work1.tex" 1772163060 24575 cac319d4f8f74a51fcab94dd2fffd6f0 ""
+  "work1.aux" 1772180048 2740 1374b10205fb034f82e8f36a82263106 "pdflatex"
+  "work1.bbl" 1772180047 1195 d79d7a610f068dc4dea396d8707233c5 "bibtex work1"
+  "work1.tex" 1772180044 22828 c2b46b830ee25711936961518b447a99 ""
   (generated)
   "work1.aux"
   "work1.log"

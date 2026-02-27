@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{mathtools}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -50,16 +51,6 @@ This observation reveals a key limitation of existing designs: the lack of expli
 In contrast to throughput-oriented formulations, anti-jamming UAV communications require rapid frequency agility and timely decision updates to restore link quality with minimal delay. 
 Motivated by this challenge, we focus on a pattern-switching jamming scenario and investigate how explicit 
 jamming cognition can be leveraged to improve the responsiveness and robustness of DSS-enabled UAV communications.
-
-In this paper, we propose a mode-aware anti-jamming framework that explicitly decouples jamming cognition from control. 
-The jammer behavior is modeled as a finite-mode pattern-switching process. Using short-window spectrum observations, 
-the UAV rapidly estimates the posterior distribution of the current jamming mode, referred to as a belief state. 
-This belief state is then incorporated into the decision-making process to condition both spectrum allocation and trajectory control, 
-enabling instantaneous policy adaptation upon jamming mode transitions. Moreover, to capture practical frequency agility constraints, 
-we explicitly introduce a frequency switching cost into the optimization objective, balancing fast reaction to interference and stable spectrum usage.
-
-To solve the resulting problem, we develop a hybrid learning framework that jointly optimizes discrete spectrum allocation and continuous UAV trajectory control. 
-A Proximal Policy Optimization (PPO) agent is employed to learn the spectrum allocation policy, while a continuous-control agent, 
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{figure/System_Model.jpg}
@@ -68,23 +59,7 @@ A Proximal Policy Optimization (PPO) agent is employed to learn the spectrum all
   trajectory, and transmit power to ensure reliable communication.}
   \label{fig:System_Model}
 \end{figure}
-such as TD3 or SAC, optimizes the UAV trajectory. Both agents are conditioned on the jamming mode belief and trained using 
-a reliability-oriented reward that penalizes QoS outages while ensuring PU protection. 
-
-The main contributions of this paper are summarized as follows:
-
-$\bullet$ 
-
-$\bullet$ 
-
-$\bullet$ 
-
-The remainder of this paper is organized as follows. Section II introduces the system model, including the dynamic spectrum sharing UAV network 
-and the pattern-switching jamming scenario. Section III presents the proposed mode-aware anti-jamming framework, including jamming mode recognition 
-and the joint spectrum allocation and trajectory control scheme. Simulation results and performance evaluations are provided in Section IV. Finally, the paper concludes with Section V.
-
 \section{System Model}
-
 \subsection{Scenario Description}
 
 We consider a UAV-enabled dynamic spectrum sharing (DSS) network under intentional pattern-switching jamming,    % 概要
@@ -236,37 +211,34 @@ under pattern-switching jamming, aiming to achieve fast recovery and reliable
 communication for secondary users while satisfying the primary user protection 
 constraints. 
 Accordingly, the optimization problem is formulated as follows
-\begin{subequations}
+\begin{subequations}\label{eq:P1}
 \begin{align}
-\mathbf{P1:}\quad
-\max_{\boldsymbol{\rho},\,\boldsymbol{\phi},\,\mathbf{P}} \quad
-& \frac{1}{N} \sum_{n=1}^{N} \sum_{k=1}^{K} \sum_{m=1}^{M}
-R^{\mathrm{s}}_{m,k,n}
--\frac{\lambda_{\mathrm{out}}}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}
-\mathbb I^{\mathrm{out}}_{k,n}
-\label{eq:P1_obj}
-\\
-\text{s.t.}\quad 
+\textbf{P1:}\quad
+& \max_{\boldsymbol{\rho},\,\boldsymbol{\phi},\,\mathbf{P}} \quad
+\frac{1}{N} \sum_{n=1}^{N}\sum_{k=1}^{K}\sum_{m=1}^{M} R^{\mathrm{s}}_{m,k,n}
+-\frac{\lambda_{\mathrm{out}}}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}\mathbb{I}^{\mathrm{out}}_{k,n}
+\label{eq:P1_obj} \\
+\text{s.t.}\ \textbf{C1:}\quad
 & \sum_{m=1}^{M} R_{m,j,n}^{p} \ge R^{\min}_{j},
-\quad \forall j\in\mathcal J,\ \forall n\in\mathcal N,
-\label{eq:P1_PU}
-\\
+\quad \forall j\in\mathcal{J},\ \forall n\in\mathcal{N}
+\label{eq:P1_PU}\\
+\textbf{C2:}\quad
 & \rho_{k,n}[m]\in\{0,1\},
-\quad \forall k\in\mathcal K,\ \forall m\in\mathcal M,\ \forall n\in\mathcal N,
-\label{eq:P1_binary}
-\\
+\quad \forall k\in\mathcal{K},\ \forall m\in\mathcal{M},\ \forall n\in\mathcal{N}
+\label{eq:P1_binary}\\
+\textbf{C3:}\quad
 & \sum_{k=1}^{K} \rho_{k,n}[m] \le 1,
-\quad \forall m\in\mathcal M,\ \forall n\in\mathcal N,
-\label{eq:P1_orthogonal}
-\\
+\quad \forall m\in\mathcal{M},\ \forall n\in\mathcal{N}
+\label{eq:P1_orthogonal}\\
+\textbf{C4:}\quad
 & |\phi_c[n]| \le \pi,
-\quad \forall n\in\mathcal N,
-\label{eq:P1_heading}
-\\
+\quad \forall n\in\mathcal{N}
+\label{eq:P1_heading}\\
+\textbf{C5:}\quad
 & P_C^{\min} \le P_C[n] \le P_C^{\max},
-\quad \forall n\in\mathcal N.
+\quad \forall n\in\mathcal{N}
 \label{eq:P1_power}
-\end{align} 
+\end{align}
 \end{subequations}
 
 To jointly account for throughput performance and communication reliability, 
