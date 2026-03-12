@@ -395,6 +395,27 @@ The actor is then updated to maximize the critic-evaluated Q-value, while the co
 are updated via Polyak averaging. At each time slot, PPO outputs the discrete spectrum allocation $\mathbf{a}_d[n]$
 (on-policy), and DDPG outputs the continuous control action $\mathbf{a}_c[n]$ (off-policy) based on $\mathbf{s}[n]$.
 \section{SIMULATION RESULTS}
+In this section, simulation results are presented to evaluate the performance of the proposed joint spectrum allocation, trajectory optimization, and power control scheme. 
+The simulation settings are based on the works in~\cite{10233493}. 
+Specifically, SUs are PUs are randomly deployed in two seperate $500\,
+\mathrm{m}\times500\,\mathrm{m}$ cells with a C-UAV flying at a fixed altitude of $100\,\mathrm{m}$. 
+The number of SUs is 4. The transmit power of C-UAV ranges from 200mW to 300mW.
+The sensing window length for mode recognition is $L=5$. 
+The transition matrix is set as
+\begin{equation}
+\mathbf{\Pi}=
+\begin{bmatrix}
+0.85 & 0.10 & 0.05\\
+0.10 & 0.80 & 0.10\\
+0.10 & 0.10 & 0.80
+\end{bmatrix}.
+\label{eq:transition_matrix}
+\end{equation}
+
+Two baseline schemes are introduced for performance comparison. 
+\textbf{MA2C-DDPG:} MA2C and DDPG are used for spectrum allocation and trajectory optimization, with the transmit power of the C-UAV fixed at 250 mW.
+\textbf{Hybrid PPO-DDPG:} Hybrid PPO-DDPG framework without the jamming mode recognition module.
+
 
 \section{Conclusion}
 
