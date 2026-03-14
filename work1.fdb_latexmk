@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex work1"] 1773307819.61337 "work1.aux" "work1.bbl" "work1" 1773308434.51812 0
+["bibtex work1"] 1773485512.03153 "work1.aux" "work1.bbl" "work1" 1773485514.36806 0
   "./references.bib" 1768978618 769 0605b5882e9b3992cae4122264e573bf ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1764861211 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "work1.aux" 1773308433 2818 7d89010a821a7ccb3957bcfdf50dff4c "pdflatex"
+  "work1.aux" 1773485513 2818 160175414bfef06987905bb92d91c12f "pdflatex"
   (generated)
   "work1.bbl"
   "work1.blg"
   (rewritten before read)
-["pdflatex"] 1773308432.64029 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1773308434.5188 0
-  "c:/Users/503/Desktop/mywork1/work1.tex" 1773308431 23893 820fb5e3842acf8e0efef34e6274830d ""
+["pdflatex"] 1773485512.49281 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1773485514.36873 0
+  "c:/Users/503/Desktop/mywork1/work1.tex" 1773485509 28292 fbcf77a8c4123f1bb4d81cf8b8cdebd9 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1764860140 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1764860642 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1764864470 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -16,6 +16,7 @@
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmbi7t.tfm" 1764864470 2228 e564491c42a4540b5ebb710a75ff306c ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmbi8r.tfm" 1764864470 4480 10409ed8bab5aea9ec9a78028b763919 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm" 1764864470 2124 2601a75482e9426d33db523edf23570a ""
+  "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8c.tfm" 1764864470 1352 fa28a7e6d323c65ce7d13d5342ff6be2 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm" 1764864470 4408 25b74d011a4c66b7f212c0cc3c90061b ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmrc7t.tfm" 1764864470 2680 312a2d12b1f1df8ee0212e7ba1962402 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmri7t.tfm" 1764864470 2288 f478fc8fed18759effb59f3dad7f3084 ""
@@ -59,6 +60,7 @@
   "c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf" 1764864470 1372 788387fea833ef5963f4c5bffe33eb89 ""
   "c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmbi7t.vf" 1764864470 1384 6ac0f8b839230f5d9389287365b243c0 ""
   "c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf" 1764864470 1380 0ea3a3370054be6da6acd929ec569f06 ""
+  "c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmr8c.vf" 1764864470 3556 8a9a6dcbcd146ef985683f677f4758a6 ""
   "c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmrc7t.vf" 1764864470 1948 7330aeef3af211edff3b35fb2c12a0fd ""
   "c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmri7t.vf" 1764864470 1384 a9d8adaf491ce34e5fba99dc7bbe5f39 ""
   "c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1764862376 71627 94eb9990bed73c364d7f53f960cc8c5b ""
@@ -90,6 +92,7 @@
   "c:/texlive/2025/texmf-dist/tex/latex/mathtools/mathtools.sty" 1764862126 62711 3b0ed1d68b598a75677c10d16646d5e5 ""
   "c:/texlive/2025/texmf-dist/tex/latex/mathtools/mhsetup.sty" 1764862126 5582 a43dedf8e5ec418356f1e9dfe5d29fc3 ""
   "c:/texlive/2025/texmf-dist/tex/latex/psnfss/ot1ptm.fd" 1764863143 961 15056f4a61917ceed3a44e4ac11fcc52 ""
+  "c:/texlive/2025/texmf-dist/tex/latex/psnfss/ts1ptm.fd" 1764863143 619 96f56dc5d1ef1fe1121f1cfeec70ee0c ""
   "c:/texlive/2025/texmf-dist/tex/latex/tools/calc.sty" 1764864557 10374 2ffd4f27c7f90b8a300608069537743c ""
   "c:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty" 1764865008 55384 b454dec21c2d9f45ec0b793f0995b992 ""
   "c:/texlive/2025/texmf-dist/web2c/texmf.cnf" 1764858242 42213 4e2ca030e8e2640502016e9e45868dcb ""
@@ -97,9 +100,9 @@
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1764865554 3635444 ac2670da82a63c160bf918af8bbf0f9c ""
   "c:/texlive/2025/texmf.cnf" 1764865223 713 e69b156964470283e0530f5060668171 ""
   "figure/System_Model.jpg" 1768912072 46191 a3b2e72775756f5429c6528867d28197 ""
-  "work1.aux" 1773308433 2818 7d89010a821a7ccb3957bcfdf50dff4c "pdflatex"
-  "work1.bbl" 1773307820 1195 d79d7a610f068dc4dea396d8707233c5 "bibtex work1"
-  "work1.tex" 1773308431 23893 820fb5e3842acf8e0efef34e6274830d ""
+  "work1.aux" 1773485513 2818 160175414bfef06987905bb92d91c12f "pdflatex"
+  "work1.bbl" 1773485512 1195 d79d7a610f068dc4dea396d8707233c5 "bibtex work1"
+  "work1.tex" 1773485509 28292 fbcf77a8c4123f1bb4d81cf8b8cdebd9 ""
   (generated)
   "work1.aux"
   "work1.log"
