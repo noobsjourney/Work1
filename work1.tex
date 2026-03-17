@@ -1,6 +1,5 @@
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
-% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
@@ -15,17 +14,30 @@
 \title{Mode-Aware Anti-Jamming for Dynamic Spectrum Sharing UAV Networks:Joint Spectrum Allocation, Trajectory, and Power Optimization}
 
 \author{
+  \IEEEauthorblockN{Hao Zhou$^{\S}$, Fuhui Zhou$^{\S,*}$, and Qihui Wu$^{\S}$}
+  
+  \IEEEauthorblockA{
+  $^{\S}$Nanjing University of Aeronautics and Astronautics, Nanjing, China\\
+  \textrm{Email:} \textit{zhouhao1@nuaa.edu.cn, zhoufuhui@ieee.org, wuqihui2014@sina.com}
+  }
 }
-
 \maketitle
 
 \begin{abstract}
-Unmanned aerial vehicle (UAV) communication systems operating under dynamic spectrum sharing (DSS) are highly vulnerable to intentional interference in adversarial environments. In practice, jammers often adopt pattern-switching strategies, alternating among multiple jamming modes such as constant, sweep, and random interference, which introduces abrupt and non-stationary interference dynamics. Such behavior significantly degrades the quality-of-service (QoS) of UAV-assisted communications and makes rapid recovery after interference transitions particularly challenging. 
-To address this problem, this paper proposes a mode-aware anti-jamming framework for DSS-enabled UAV networks. A CNN–GRU based jamming mode recognition module is first designed to infer the jammer’s operating pattern from short-term interference observations. The inferred mode probability is then incorporated into a semantic-augmented Markov decision process (MDP). Based on this formulation, a hybrid reinforcement learning framework combining proximal policy optimization (PPO) and deep deterministic policy gradient (DDPG) is developed to jointly optimize spectrum allocation, UAV trajectory, and transmit power. 
-Simulation results demonstrate that the proposed approach achieves faster recovery after jamming mode transitions and improves both communication reliability and spectrum utilization compared with existing schemes.
+Unmanned aerial vehicle (UAV) networks operating under dynamic spectrum sharing (DSS) are vulnerable to intelligent jamming, 
+especially when adversaries adopt pattern-switching strategies that induce non-stationary interference. 
+Such dynamics significantly degrade communication reliability and hinder fast recovery after interference transitions.
+To address this issue, a mode-aware anti-jamming framework for DSS-enabled UAV networks is proposed. 
+A CNN–GRU based module is first designed to recognize jamming modes from short-term interference observations. 
+The inferred mode information is then incorporated into a semantic-augmented Markov decision process. 
+Based on this formulation, a hybrid reinforcement learning framework combining proximal policy optimization (PPO) 
+and deep deterministic policy gradient (DDPG) is developed to jointly optimize spectrum allocation, UAV trajectory, and transmit power.
+Simulation results demonstrate that the proposed approach achieves faster adaptation to jamming mode transitions 
+and significantly improves throughput and communication reliability compared with baseline schemes.
 \end{abstract}
 
 \begin{IEEEkeywords}
+Dynamic spectrum sharing, deep reinforcement learning, mode-aware anti-jamming, resource allocation
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -49,19 +61,18 @@ The learning agent is therefore expected to implicitly infer jammer behavior fro
 Under pattern-switching jamming, this implicit learning mechanism leads to an effectively non-stationary environment, where the learned policy tends to converge to conservative average-case behaviors and exhibits slow adaptation when the interference pattern changes.
 Moreover, existing designs rarely consider explicit jamming cognition or adaptive transmit power control, which further limits the system’s capability to rapidly recover link quality after sudden interference transitions.
 
-To address these challenges, this paper investigates mode-aware anti-jamming communication for DSS-enabled UAV networks under pattern-switching jamming.
-We introduce an explicit jamming cognition mechanism that enables the UAV to recognize the current interference pattern and incorporate this semantic information into the decision-making process.
-Based on the recognized jamming mode, a hybrid reinforcement learning framework is proposed to jointly optimize spectrum allocation, UAV trajectory, and transmit power, aiming to achieve fast communication recovery and reliable spectrum sharing in adversarial environments.
+In this paper, in order to address these issues, a mode-aware anti-jamming framework for DSS-enabled UAV networks is proposed. 
+A CNN–GRU based module is first developed to recognize jamming modes from short-term interference observations. 
+The inferred mode information is then incorporated into a semantic-augmented Markov decision process. 
+Based on this formulation, a hybrid reinforcement learning framework combining proximal policy optimization (PPO) and 
+deep deterministic policy gradient (DDPG) is designed to jointly optimize spectrum allocation, UAV trajectory, and transmit power.
+Simulation results demonstrate that the proposed approach achieves faster adaptation to jamming mode transitions and 
+significantly improves communication reliability and spectrum efficiency compared with benchmark schemes.
 
-The main contributions of this work are summarized as follows:
-
-• We develop a mode-aware anti-jamming framework for UAV-enabled DSS networks with pattern-switching jammers, where the UAV dynamically senses and interprets interference behaviors.
-
-• A CNN–GRU based jamming mode recognition module is designed to infer the jammer's operating pattern from short-term interference observations and provide semantic information for decision making.
-
-• We formulate a semantic-augmented Markov decision process (MDP) and propose a hybrid PPO–DDPG learning framework that jointly optimizes spectrum allocation, UAV trajectory, and transmit power.
-
-• Simulation results demonstrate that the proposed method achieves faster recovery after interference transitions, higher average throughput, and lower outage probability compared with existing approaches.
+The remainder of this paper is organized as follows. 
+The system model is presented in Section II. 
+Section III presents our proposed mode-aware anti-jamming framework. 
+Section IV presents the simulation results. Finally, the paper concludes with Section V.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{figure/System_Model.jpg}
