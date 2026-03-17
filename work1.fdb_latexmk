@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex work1"] 1773751177.51504 "work1.aux" "work1.bbl" "work1" 1773751180.24647 0
+["bibtex work1"] 1773751177.51504 "work1.aux" "work1.bbl" "work1" 1773755693.09836 0
   "./references.bib" 1768978618 769 0605b5882e9b3992cae4122264e573bf ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1764861211 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "work1.aux" 1773751179 2818 f166f99af989956024562f93ca76b684 "pdflatex"
+  "work1.aux" 1773755692 2818 f166f99af989956024562f93ca76b684 "pdflatex"
   (generated)
   "work1.bbl"
   "work1.blg"
   (rewritten before read)
-["pdflatex"] 1773751178.32437 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1773751180.24713 0
-  "c:/Users/503/Desktop/mywork1/work1.tex" 1773751174 27857 f9303198901dc5858fd67c570fba084a ""
+["pdflatex"] 1773755691.02424 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1773755693.09901 0
+  "c:/Users/503/Desktop/mywork1/work1.tex" 1773755690 27836 1f9f8a3edc414ca5d87158f7c9fad55e ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1764860140 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1764860642 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1764864470 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -107,9 +107,9 @@
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1764865554 3635444 ac2670da82a63c160bf918af8bbf0f9c ""
   "c:/texlive/2025/texmf.cnf" 1764865223 713 e69b156964470283e0530f5060668171 ""
   "figure/System_Model.jpg" 1768912072 46191 a3b2e72775756f5429c6528867d28197 ""
-  "work1.aux" 1773751179 2818 f166f99af989956024562f93ca76b684 "pdflatex"
+  "work1.aux" 1773755692 2818 f166f99af989956024562f93ca76b684 "pdflatex"
   "work1.bbl" 1773751178 1195 d79d7a610f068dc4dea396d8707233c5 "bibtex work1"
-  "work1.tex" 1773751174 27857 f9303198901dc5858fd67c570fba084a ""
+  "work1.tex" 1773755690 27836 1f9f8a3edc414ca5d87158f7c9fad55e ""
   (generated)
   "work1.aux"
   "work1.log"

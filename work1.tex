@@ -61,13 +61,14 @@ The learning agent is therefore expected to implicitly infer jammer behavior fro
 Under pattern-switching jamming, this implicit learning mechanism leads to an effectively non-stationary environment, where the learned policy tends to converge to conservative average-case behaviors and exhibits slow adaptation when the interference pattern changes.
 Moreover, existing designs rarely consider explicit jamming cognition or adaptive transmit power control, which further limits the system’s capability to rapidly recover link quality after sudden interference transitions.
 
-In this paper, in order to address these issues, a mode-aware anti-jamming framework for DSS-enabled UAV networks is proposed. 
-A CNN–GRU based module is first developed to recognize jamming modes from short-term interference observations. 
-The inferred mode information is then incorporated into a semantic-augmented Markov decision process. 
-Based on this formulation, a hybrid reinforcement learning framework combining proximal policy optimization (PPO) and 
-deep deterministic policy gradient (DDPG) is designed to jointly optimize spectrum allocation, UAV trajectory, and transmit power.
-Simulation results demonstrate that the proposed approach achieves faster adaptation to jamming mode transitions and 
-significantly improves communication reliability and spectrum efficiency compared with benchmark schemes.
+In this paper, a mode-aware anti-jamming framework is developed for DSS-enabled UAV networks under pattern-switching interference. 
+Unlike conventional approaches that rely on implicit interference learning, 
+an explicit jamming cognition mechanism is introduced to capture the dynamic interference patterns.
+By integrating the inferred jamming mode into the decision-making process, the proposed framework enables faster adaptation to non-stationary environments.
+Furthermore, a hybrid reinforcement learning framework combining PPO and DDPG is designed to address the coupled discrete–continuous optimization problem, 
+where spectrum allocation, UAV trajectory, and transmit power are jointly optimized.
+Extensive simulation results verify that the proposed framework significantly improves communication reliability and spectrum efficiency, 
+while achieving faster recovery after jamming mode transitions compared with baseline schemes.
 
 The remainder of this paper is organized as follows. 
 The system model is presented in Section II. 
@@ -440,10 +441,18 @@ Two baseline schemes are introduced for performance comparison.
 
 
 \section{Conclusion}
-This paper investigated mode-aware anti-jamming communication in dynamic spectrum sharing UAV networks under pattern-switching interference. A semantic-aware framework was developed in which the UAV first recognizes the current jamming pattern using a CNN–GRU based classifier and then incorporates the inferred mode information into the decision-making process. By formulating a semantic-augmented MDP, a hybrid PPO–DDPG reinforcement learning algorithm was proposed to jointly optimize spectrum allocation, UAV trajectory, and transmit power. 
-Simulation results demonstrated that the proposed approach can effectively adapt to dynamic interference environments, achieve faster recovery after jamming mode transitions, and significantly improve both average throughput and communication reliability compared with existing schemes. The proposed framework provides a promising solution for robust UAV communications in adversarial spectrum-sharing environments.
-Future work will investigate more complex adversarial scenarios, including multiple cooperative jammers and online adaptation of the jamming recognition module.
-
+This paper investigated mode-aware anti-jamming communication in dynamic spectrum sharing UAV networks 
+under pattern-switching interference. 
+A mode-aware anti-jamming framework was developed in which the UAV first recognizes the current jamming pattern 
+using a CNN–GRU based classifier and then incorporates the inferred mode information into the 
+decision-making process. By formulating a semantic-augmented MDP, 
+a hybrid PPO–DDPG reinforcement learning algorithm was proposed to jointly optimize spectrum allocation, 
+UAV trajectory, and transmit power. 
+Simulation results demonstrated that the proposed approach can effectively adapt to dynamic interference 
+environments, achieve faster recovery after jamming mode transitions, 
+and significantly improve both average throughput and communication reliability compared with baseline schemes. 
+The proposed framework provides a promising solution for robust UAV communications 
+in adversarial spectrum-sharing environments.
 
 \bibliographystyle{IEEEtran} 
 \bibliography{references}      
