@@ -169,13 +169,13 @@ INPUT ./figure/System_Model.jpg
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
+INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmmib10.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib7.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmmib5.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbsy10.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy7.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm
-INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmbi7t.vf

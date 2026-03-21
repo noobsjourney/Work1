@@ -41,30 +41,48 @@ Dynamic spectrum sharing, deep reinforcement learning, mode-aware anti-jamming, 
 \end{IEEEkeywords}
 
 \section{Introduction}
-Unmanned aerial vehicles (UAVs) have emerged as a promising solution for providing flexible and on-demand wireless connectivity in low-altitude networks.
-By exploiting their high mobility and line-of-sight communication links, UAV-assisted systems can effectively support emergency communications, temporary hotspots, and aerial relaying services.
-However, due to the scarcity of dedicated spectrum resources, UAV networks are often required to operate under dynamic spectrum sharing (DSS) frameworks, where secondary UAV links opportunistically access licensed spectrum while coexisting with incumbent primary users (PUs).
+Recently, unmanned aerial vehicles (UAVs) have emerged as a promising solution for providing flexible and 
+on-demand wireless connectivity in low-altitude networks. 
+Benefiting from their high mobility and favorable line-of-sight (LoS) communication links, 
+UAV-assisted systems have been widely applied in emergency communications, temporary hotspot coverage, 
+and aerial relaying~\cite{10054151,8438896,9750059}.
+However, the limited availability of dedicated spectrum resources poses a fundamental challenge to UAV communications. 
+To alleviate spectrum scarcity, dynamic spectrum sharing (DSS) has emerged as a promising paradigm, 
+enabling UAV networks to opportunistically access licensed or 
+unlicensed spectrum while coexisting with incumbent users~\cite{11081858}.
+Nevertheless, the open and dynamic nature of DSS environments makes UAV communications highly susceptible to interference, 
+particularly in the presence of dense wireless devices and potential adversarial jamming. 
+As a result, the wireless environment becomes highly dynamic and uncertain, 
+posing significant challenges for efficient and adaptive resource allocation, 
+including spectrum Allocation, UAV trajectory optimization, and transmit power control.
 
-Although DSS significantly improves spectrum utilization efficiency, it also exposes UAV communications to highly dynamic interference environments.
-In particular, adversarial jammers can intentionally disrupt wireless transmissions by injecting strong interference signals.
-In practice, such jammers rarely adopt a fixed interference strategy; instead, they frequently switch among multiple jamming patterns, such as constant, sweep, and random jamming, in order to increase uncertainty and degrade adaptive communication performance.
-This pattern-switching jamming behavior introduces abrupt and non-stationary interference dynamics, which may lead to severe quality-of-service (QoS) degradation and communication outages for UAV-assisted secondary links.
-For mission-critical UAV applications, rapidly recovering communication performance after interference transitions is often more important than merely optimizing long-term average throughput.
+The existing resource allocation approaches can be broadly categorized into two classes, namely, 
+conventional optimization-based methods and intelligent learning-based methods, particularly those based on deep reinforcement learning (DRL).  
+In~\cite{7572068}, an alternating iterative optimization framework was developed to jointly optimize transmit power and UAV trajectory, where successive convex optimization was applied to trajectory design. 
+In~\cite{8902014}, the problem was extended to spectrum sharing scenarios, where joint trajectory and transmit power optimization was addressed using block coordinate descent (BCD) combined with successive convex optimization. 
+Furthermore, more complex interference environments were considered in~\cite{9810528}, where trajectory and power control under malicious jamming was solved via an alternating optimization (AO) framework with successive convex approximation (SCA) and semidefinite relaxation (SDR). 
+Moreover, in~\cite{10176326}, the problem was further generalized to mixed-integer formulations involving joint resource allocation and UAV trajectory control, which was tackled by decomposing it into subproblems and solving via alternating optimization.  
+Despite these advances, conventional optimization-based methods rely on accurate system modeling and suffer from high computational complexity, which limits their applicability in dynamic and uncertain wireless environments.
 
-To improve spectrum efficiency and communication reliability, extensive research has investigated joint spectrum allocation and UAV trajectory optimization in DSS-enabled UAV networks.
-By leveraging the UAV's mobility and flexible spectrum access capability, learning-based approaches can dynamically adapt resource allocation and flight control in complex environments.
-In particular, reinforcement learning (RL) has been widely applied to address the coupled discrete–continuous optimization problem arising from spectrum assignment and UAV movement.
-For example, recent works combine actor–critic learning with deep deterministic policy gradient (DDPG) to jointly optimize spectrum allocation and UAV trajectory in dynamic spectrum sharing networks.
+To overcome the limitations of conventional optimization-based methods, DRL-based approaches have gained increasing attention in UAV-enabled communication networks.
+In~\cite{9826431}, a clustering-aided reinforcement learning approach was proposed for joint user association, UAV trajectory design, and power control. 
+In~\cite{10419848}, a DRL-based trajectory design scheme was developed for UAV communication systems against malicious jamming. 
+Moreover, in~\cite{10233493}, an online-offline MA2C-DDPG framework was proposed for dynamic spectrum sharing UAV networks, 
+where spectrum allocation and UAV trajectory were jointly optimized. 
+This direction was further advanced in~\cite{10506094}, where an intelligent learning framework from external interaction to internal inference was developed for spectrum sharing and UAV trajectory optimization. 
+In addition, in~\cite{10536060}, a multi-agent DRL-based scheme was proposed for joint trajectory control, resource allocation, and user association in multi-fixed-wing UAV networks. 
 
-However, most existing methods treat interference as an exogenous disturbance and directly incorporate raw interference measurements into the state space.
-The learning agent is therefore expected to implicitly infer jammer behavior from long-term reward feedback.
-Under pattern-switching jamming, this implicit learning mechanism leads to an effectively non-stationary environment, where the learned policy tends to converge to conservative average-case behaviors and exhibits slow adaptation when the interference pattern changes.
-Moreover, existing designs rarely consider explicit jamming cognition or adaptive transmit power control, which further limits the system’s capability to rapidly recover link quality after sudden interference transitions.
+However, most existing DRL-based methods characterize interference only through observable states, 
+such as channel conditions or received interference power, without explicitly modeling the underlying jammer behavior. 
+For example, in~\cite{10623083}, channel prediction was incorporated to improve resource allocation in dynamic spectrum-sharing networks, 
+while in~\cite{9992013}, anti-jamming strategies were designed based on power and mobility control. 
+Nevertheless, pattern-switching jamming, where interference modes change abruptly over time, 
+has rarely been explicitly considered, leading to slow adaptation in highly non-stationary environments.  
 
 In this paper, a mode-aware anti-jamming framework is developed for DSS-enabled UAV networks under pattern-switching interference. 
 Unlike conventional approaches that rely on implicit interference learning, 
 an explicit jamming cognition mechanism is introduced to capture the dynamic interference patterns.
-By integrating the inferred jamming mode into the decision-making process, the proposed framework enables faster adaptation to non-stationary environments.
+By integrating the inferred jamming mode into the  zhuadecision-making process, the proposed framework enables faster adaptation to non-stationary environments.
 Furthermore, a hybrid reinforcement learning framework combining PPO and DDPG is designed to address the coupled discrete–continuous optimization problem, 
 where spectrum allocation, UAV trajectory, and transmit power are jointly optimized.
 Extensive simulation results verify that the proposed framework significantly improves communication reliability and spectrum efficiency, 
