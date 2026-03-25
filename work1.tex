@@ -96,7 +96,7 @@ Section III presents our proposed mode-aware anti-jamming framework.
 Section IV presents the simulation results. Finally, the paper concludes with Section V.
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\columnwidth]{figure/System_Model.jpg}
+  \includegraphics[width=\columnwidth]{figure/system-model-crop.pdf}
   \caption{Dynamic spectrum sharing UAV network under pattern-switching jamming, 
   where the C-UAV performs jamming mode awareness and jointly optimizes spectrum allocation, 
   trajectory, and transmit power to ensure reliable communication.}
@@ -413,7 +413,14 @@ Specifically, PPO optimizes the clipped surrogate objective
 \end{equation}
 where $r_n(\theta)=\frac{\pi_\theta(\mathbf{a}_d[n]\mid\mathbf{s}[n])}
 {\pi_{\theta_{\mathrm{old}}}(\mathbf{a}_d[n]\mid\mathbf{s}[n])}$ is the probability ratio between the new and old policies,
-$\epsilon$ is the clipping parameter, and $\hat{A}_n$ denotes the advantage estimate.
+$\epsilon$ is the clipping parameter, 
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figure/framework-crop.pdf}
+    \caption{Illustration of the proposed mode-aware anti-jamming framework.}
+    \label{fig:framework}
+\end{figure*}
+and $\hat{A}_n$ denotes the advantage estimate.
 To reduce variance and improve sample efficiency, the advantage is computed using Generalized Advantage Estimation (GAE),
 \begin{equation}
 \hat{A}_n=\sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{n+l},\quad

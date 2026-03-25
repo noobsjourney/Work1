@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex work1"] 1774346553.47047 "work1.aux" "work1.bbl" "work1" 1774346555.97955 0
+["bibtex work1"] 1774409546.60689 "work1.aux" "work1.bbl" "work1" 1774409549.40337 0
   "./references.bib" 1774250498 9364 8575fec784b0c1ebeb1ab6fe9d91c38a ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1764861211 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "work1.aux" 1774346554 3396 d74ae95ec98e7f45c9aeef6df0d69cfe "pdflatex"
+  "work1.aux" 1774409548 3609 e1d2093caf4dbfdbf0ef288f781e5ba8 "pdflatex"
   (generated)
   "work1.bbl"
   "work1.blg"
   (rewritten before read)
-["pdflatex"] 1774346553.94811 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1774346555.98024 0
-  "c:/Users/503/Desktop/mywork1/work1.tex" 1774346549 29186 e64354aac982d938b24c65788ce5acd0 ""
+["pdflatex"] 1774409547.16126 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1774409549.40416 0
+  "c:/Users/503/Desktop/mywork1/work1.tex" 1774409542 29410 52103cd833cde52e54bb9b9c48864c8a ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1764860140 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1764860642 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1764864470 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -106,10 +106,11 @@
   "c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1764865255 5587484 30eee748fa419a911c40b0c750dd21ba ""
   "c:/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1764865554 3635444 ac2670da82a63c160bf918af8bbf0f9c ""
   "c:/texlive/2025/texmf.cnf" 1764865223 713 e69b156964470283e0530f5060668171 ""
-  "figure/System_Model.jpg" 1768912072 46191 a3b2e72775756f5429c6528867d28197 ""
-  "work1.aux" 1774346554 3396 d74ae95ec98e7f45c9aeef6df0d69cfe "pdflatex"
-  "work1.bbl" 1774346553 4741 95ca631f209213b7bd8d740f83f83a6f "bibtex work1"
-  "work1.tex" 1774346549 29186 e64354aac982d938b24c65788ce5acd0 ""
+  "figure/framework-crop.pdf" 1774409516 250756 0a4a2bacea916f71cc305f1b8fc39ae0 ""
+  "figure/system-model-crop.pdf" 1774409425 42837 10193ce98bc0b7a24dc27ecc8ffebd87 ""
+  "work1.aux" 1774409548 3609 e1d2093caf4dbfdbf0ef288f781e5ba8 "pdflatex"
+  "work1.bbl" 1774409547 4741 95ca631f209213b7bd8d740f83f83a6f "bibtex work1"
+  "work1.tex" 1774409542 29410 52103cd833cde52e54bb9b9c48864c8a ""
   (generated)
   "work1.aux"
   "work1.log"
