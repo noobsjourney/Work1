@@ -106,7 +106,7 @@ Section IV presents the simulation results. Finally, the paper concludes with Se
 \subsection{Scenario Description}
 
 We consider a UAV-enabled dynamic spectrum sharing (DSS) network under intentional pattern-switching jamming,    % 概要
-as illustrated in Fig. 1. The network consists of a primary network and a cognitive UAV-assisted secondary network, 
+as illustrated in Fig.~\ref{fig:System_Model}. The network consists of a primary network and a cognitive UAV-assisted secondary network, 
 which coexist over a set of licensed spectrum bands. % 共同存在与一组授权频段上
 
 The primary network includes a primary base station and $J$ primary users (PUs).  % 场景描述
@@ -306,7 +306,7 @@ Constraint~\eqref{eq:P1_heading} enforces feasible UAV mobility, while
 constraint~\eqref{eq:P1_power} restricts the transmit power of the C-UAV within 
 practical limits.
 
-\section{Our Proposed Mode-Aware Anti-Jamming Framework}
+\section{MODE-AWARE HYBRID PPO-DDPG FRAMEWORK FOR ANTI-JAMMING UAV COMMUNICATIONS}
 \subsection{Jamming Mode Recognition}
 The jammer switches among finite modes $z[n] \in \mathcal{Z}$ following the Markov model in~(6).
 The C-UAV performs spectrum sensing and collects the per-slot interference-energy vector
@@ -387,7 +387,7 @@ R^{p}_{j}[n]-R^{\min}_{j}, & 0 \le R^{p}_{j}[n] < R^{\min}_{j},
 where $R^{p}_{j}[n]$ is the achievable rate of the $j$-th PU and $R^{\min}_{j}$ is its minimum rate requirement.
 \subsection{Hybrid PPO-DDPG Framework}
 Problem~(10) involves discrete spectrum allocation, continuous joint control of UAV mobility
-and transmit power. Thus, we employ a hybrid solver, where PPO is adopted for the discrete spectrum
+and transmit power. Thus, we employ a hybrid solver, as shown in Fig.~\ref{fig:framework}, where PPO is adopted for the discrete spectrum
 decision $\mathbf{a}_d[n]$ and DDPG is used for the continuous control vector $\mathbf{a}_c[n]$,
 both conditioned on the semantic-augmented state $\mathbf{s}[n]$.
 
@@ -417,7 +417,7 @@ $\epsilon$ is the clipping parameter,
 \begin{figure*}[t]
     \centering
     \includegraphics[width=\textwidth]{figure/framework-crop.pdf}
-    \caption{Illustration of the proposed mode-aware anti-jamming framework.}
+    \caption{The mode-aware hybrid PPO-DDPG framework for joint spectrum allocation, UAV trajectory, and power control.}
     \label{fig:framework}
 \end{figure*}
 and $\hat{A}_n$ denotes the advantage estimate.
@@ -442,6 +442,7 @@ and the critic is trained by minimizing the temporal-difference loss
 \begin{equation}
 L_c(\omega)=\mathbb{E}\Big[\big(Q_{\omega}(\mathbf{s}[n],\mathbf{a}_c[n]) - y[n]\big)^2\Big].
 \end{equation}
+
 The actor is then updated to maximize the critic-evaluated Q-value, while the corresponding target networks
 are updated via Polyak averaging. At each time slot, PPO outputs the discrete spectrum allocation $\mathbf{a}_d[n]$
 (on-policy), and DDPG outputs the continuous control action $\mathbf{a}_c[n]$ (off-policy) based on $\mathbf{s}[n]$.

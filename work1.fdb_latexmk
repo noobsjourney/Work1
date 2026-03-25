@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex work1"] 1774409546.60689 "work1.aux" "work1.bbl" "work1" 1774409549.40337 0
+["bibtex work1"] 1774410601.06957 "work1.aux" "work1.bbl" "work1" 1774410603.53747 0
   "./references.bib" 1774250498 9364 8575fec784b0c1ebeb1ab6fe9d91c38a ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1764861211 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "work1.aux" 1774409548 3609 e1d2093caf4dbfdbf0ef288f781e5ba8 "pdflatex"
+  "work1.aux" 1774410602 3678 26bc0c989f9b1a341624cfab2d4053da "pdflatex"
   (generated)
   "work1.bbl"
   "work1.blg"
   (rewritten before read)
-["pdflatex"] 1774409547.16126 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1774409549.40416 0
-  "c:/Users/503/Desktop/mywork1/work1.tex" 1774409542 29410 52103cd833cde52e54bb9b9c48864c8a ""
+["pdflatex"] 1774410601.54401 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1774410603.53818 0
+  "c:/Users/503/Desktop/mywork1/work1.tex" 1774410598 29539 ba5c68d23f1b13f4fac630d77e816393 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1764860140 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1764860642 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1764864470 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -108,9 +108,9 @@
   "c:/texlive/2025/texmf.cnf" 1764865223 713 e69b156964470283e0530f5060668171 ""
   "figure/framework-crop.pdf" 1774409516 250756 0a4a2bacea916f71cc305f1b8fc39ae0 ""
   "figure/system-model-crop.pdf" 1774409425 42837 10193ce98bc0b7a24dc27ecc8ffebd87 ""
-  "work1.aux" 1774409548 3609 e1d2093caf4dbfdbf0ef288f781e5ba8 "pdflatex"
-  "work1.bbl" 1774409547 4741 95ca631f209213b7bd8d740f83f83a6f "bibtex work1"
-  "work1.tex" 1774409542 29410 52103cd833cde52e54bb9b9c48864c8a ""
+  "work1.aux" 1774410602 3678 26bc0c989f9b1a341624cfab2d4053da "pdflatex"
+  "work1.bbl" 1774410601 4741 95ca631f209213b7bd8d740f83f83a6f "bibtex work1"
+  "work1.tex" 1774410598 29539 ba5c68d23f1b13f4fac630d77e816393 ""
   (generated)
   "work1.aux"
   "work1.log"
