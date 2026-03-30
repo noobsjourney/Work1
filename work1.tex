@@ -468,19 +468,47 @@ Two baseline schemes are introduced for performance comparison.
 \textbf{MA2C-DDPG:} MA2C and DDPG are used for spectrum allocation and trajectory optimization, with the transmit power of the C-UAV fixed at 250 mW.
 \textbf{Hybrid PPO-DDPG:} Hybrid PPO-DDPG framework without the jamming mode recognition module.
 
+As shown in Fig.~\ref{fig:exp1}, the convergence of the proposed scheme is presented with respect to the training episodes. All three schemes exhibit an increasing trend and eventually converge as training proceeds. 
+Significant reward fluctuations appear in the early stage due to random exploration and jammer mode switching, while the curves become stable after around 400 episodes. 
+The proposed scheme converges faster and achieves the highest reward, because the inferred jammer-mode information enhances the state representation under non-stationary interference.
+The Hybrid PPO-DDPG baseline performs worse than MA2C-DDPG, indicating that algorithmic complexity alone cannot guarantee performance gains without effective mode-aware state augmentation.
+
+Fig.~\ref{fig:exp2} shows the recovery comparisons of the proposed scheme with baseline schemes.
+
+Fig.~\ref{fig:expx3} shows the overall performance comparisons of the proposed scheme with baseline schemes.
+
 
 \section{Conclusion}
 This paper investigated mode-aware anti-jamming communication in dynamic spectrum sharing UAV networks 
 under pattern-switching interference. 
 A mode-aware anti-jamming framework was developed in which the UAV first recognizes the current jamming pattern 
-using a CNN–GRU based classifier and then incorporates the inferred mode information into the 
-decision-making process. By formulating a semantic-augmented MDP, 
+using a CNN–GRU based classifier and then incorporates the inferred mode information
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{exp/exp1_convergence.png}
+  \caption{Convergence comparisons of our proposed scheme with baseline schemes.}
+  \label{fig:exp1}
+\end{figure}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{exp/exp2_recovery.png}
+  \caption{Recovery comparisons of our proposed scheme with baseline schemes.}
+  \label{fig:exp2}
+\end{figure}
+into the decision-making process. By formulating a semantic-augmented MDP, 
 a hybrid PPO–DDPG reinforcement learning algorithm was proposed to jointly optimize spectrum allocation, 
 UAV trajectory, and transmit power. 
 Simulation results demonstrated that the proposed approach can effectively adapt to dynamic interference 
 environments, achieve faster recovery after jamming mode transitions, 
 and significantly improve both average throughput and communication reliability compared with baseline schemes. 
-The proposed framework provides a promising solution for robust UAV communications 
+The proposed framework provides a 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{exp/exp3_overall.png}
+  \caption{Overall comparisons of our proposed scheme with baseline schemes.}
+  \label{fig:expx3}
+\end{figure}
+promising solution for robust UAV communications 
 in adversarial spectrum-sharing environments.
 
 \bibliographystyle{IEEEtran} 

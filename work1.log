@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  25 MAR 2026 11:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  30 MAR 2026 17:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -342,7 +342,23 @@ File: figure/framework-crop.pdf Graphic file (type pdf)
 <use figure/framework-crop.pdf>
 Package pdftex.def Info: figure/framework-crop.pdf  used on input line 419.
 (pdftex.def)             Requested size: 516.0pt x 282.73853pt.
- [4] [5 <./figure/framework-crop.pdf>] (./work1.bbl)
+ [4] [5 <./figure/framework-crop.pdf>]
+<exp/exp1_convergence.png, id=192, 448.074pt x 289.08pt>
+File: exp/exp1_convergence.png Graphic file (type png)
+<use exp/exp1_convergence.png>
+Package pdftex.def Info: exp/exp1_convergence.png  used on input line 488.
+(pdftex.def)             Requested size: 252.0pt x 162.58063pt.
+<exp/exp2_recovery.png, id=194, 462.528pt x 289.08pt>
+File: exp/exp2_recovery.png Graphic file (type png)
+<use exp/exp2_recovery.png>
+Package pdftex.def Info: exp/exp2_recovery.png  used on input line 494.
+(pdftex.def)             Requested size: 252.0pt x 157.50357pt.
+<exp/exp3_overall.png, id=195, 505.89pt x 260.172pt>
+File: exp/exp3_overall.png Graphic file (type png)
+<use exp/exp3_overall.png>
+Package pdftex.def Info: exp/exp3_overall.png  used on input line 507.
+(pdftex.def)             Requested size: 252.0pt x 129.60133pt.
+ (./work1.bbl [6 <./exp/exp1_convergence.png> <./exp/exp2_recovery.png> <./exp/exp3_overall.png>])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -354,7 +370,7 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[6
+[7
 
 ] (./work1.aux)
  ***********
@@ -363,18 +379,18 @@ L3 programming layer <2025-11-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4918 strings out of 467537
- 78117 string characters out of 5423704
- 513464 words of memory out of 5000000
- 33767 multiletter control sequences out of 15000+600000
+ 4942 strings out of 467537
+ 78747 string characters out of 5423704
+ 513530 words of memory out of 5000000
+ 33791 multiletter control sequences out of 15000+600000
  668630 words of font info for 123 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,13n,65p,390b,346s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on work1.pdf (6 pages, 567715 bytes).
+Output written on work1.pdf (7 pages, 929377 bytes).
 PDF statistics:
- 287 PDF objects out of 1000 (max. 8388607)
- 126 compressed objects within 2 object streams
+ 299 PDF objects out of 1000 (max. 8388607)
+ 131 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
