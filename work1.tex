@@ -468,19 +468,26 @@ Two baseline schemes are introduced for performance comparison.
 \textbf{MA2C-DDPG:} MA2C and DDPG are used for spectrum allocation and trajectory optimization, with the transmit power of the C-UAV fixed at 250 mW.
 \textbf{Hybrid PPO-DDPG:} Hybrid PPO-DDPG framework without the jamming mode recognition module.
 
-As shown in Fig.~\ref{fig:exp1}, the convergence of the proposed scheme is presented with respect to the training episodes. All three schemes exhibit an increasing trend and eventually converge as training proceeds. 
-Significant reward fluctuations appear in the early stage due to random exploration and jammer mode switching, while the curves become stable after around 400 episodes. 
-The proposed scheme converges faster and achieves the highest reward, because the inferred jammer-mode information enhances the state representation under non-stationary interference.
-The Hybrid PPO-DDPG baseline performs worse than MA2C-DDPG, indicating that algorithmic complexity alone cannot guarantee performance gains without effective mode-aware state augmentation.
+As shown in Fig.~\ref{fig:exp1}, the convergence comparison of the proposed scheme with the baseline schemes is presented over the training episodes. 
+It is seen that all three schemes exhibit an overall increasing trend and gradually converge, 
+while noticeable reward fluctuations appear in the first 150--200 episodes due to random exploration and jammer mode switching. 
+After around 400 episodes, the training curves become relatively stable, indicating that effective anti-jamming policies have been learned. 
+Moreover, the proposed scheme converges faster and reaches the highest reward among all compared methods, 
+since the introduced mode-aware state representation reduces the ambiguity caused by non-stationary interference and makes policy learning more efficient. 
+In contrast, Hybrid PPO-DDPG performs worse than MA2C-DDPG, showing that increasing algorithmic complexity alone is insufficient when the interference dynamics are not effectively captured.
 
-Fig.~\ref{fig:exp2} shows the recovery comparisons of the proposed scheme with baseline schemes.
+Fig.~\ref{fig:exp2} shows the average instantaneous SU sum rate under a representative jammer mode-switching sequence, 
+where the rate drop and recovery time around each transition point are further used to quantify the transient adaptation capability. 
+It is observed that the proposed scheme maintains the highest sum-rate level over most time slots and suffers less performance degradation after jammer mode transitions, 
+while recovering more quickly than the benchmark schemes. This is because the proposed framework can infer the underlying jammer pattern from short-term observations, 
+allowing the agent to adjust its spectrum-access behavior promptly when the interference mode changes. 
+Therefore, the proposed scheme exhibits stronger robustness and faster adaptation in pattern-switching jamming environments.
 
-Fig.~\ref{fig:expx3} shows the overall performance comparisons of the proposed scheme with baseline schemes.
-The proposed scheme achieves the highest average SU sum rate and the lowest outage probability.
-This is because the proposed framework can better optimize spectrum allocation, UAV control, and transmit power under dynamic interference. 
-Moreover, the gain over Hybrid PPO-DDPG demonstrates the importance of jammer-mode information. 
-In addition, MA2C-DDPG is inferior to the proposed scheme because it does not exploit mode-aware state augmentation.
-
+Fig.~\ref{fig:exp3} shows the overall performance comparison of the proposed scheme with the baseline schemes in terms of average SU sum rate and outage probability. 
+It is seen that the proposed scheme achieves the highest average SU sum rate and the lowest outage probability among all compared methods. 
+This indicates that the proposed mode-aware framework can make more effective long-term decisions under dynamic interference, 
+thereby improving spectral efficiency while maintaining more reliable communication links. Therefore, compared with Hybrid PPO-DDPG and MA2C-DDPG, 
+the proposed scheme achieves a better throughput--reliability tradeoff in DSS-enabled UAV networks.
 
 \section{Conclusion}
 This paper investigated mode-aware anti-jamming communication in dynamic spectrum sharing UAV networks 
@@ -489,14 +496,14 @@ A mode-aware anti-jamming framework was developed in which the UAV first recogni
 using a CNN–GRU based classifier and then incorporates the inferred mode information
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\columnwidth]{exp/exp1_convergence.png}
+  \includegraphics[width=\columnwidth]{exp/exp1_convergence.pdf}
   \caption{Convergence comparisons of our proposed scheme with baseline schemes.}
   \label{fig:exp1}
 \end{figure}
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\columnwidth]{exp/exp2_recovery.png}
-  \caption{Recovery comparisons of our proposed scheme with baseline schemes.}
+  \includegraphics[width=\columnwidth]{exp/exp2_recovery.pdf}
+  \caption{Recovery comparisons of our proposed scheme with baseline schemes under jammer mode transitions.}
   \label{fig:exp2}
 \end{figure}
 into the decision-making process. By formulating a semantic-augmented MDP, 
@@ -508,9 +515,9 @@ and significantly improve both average throughput and communication reliability 
 The proposed framework provides a 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\columnwidth]{exp/exp3_overall.png}
-  \caption{Overall comparisons of our proposed scheme with baseline schemes.}
-  \label{fig:expx3}
+  \includegraphics[width=\columnwidth]{exp/exp3_overall.pdf}
+  \caption{Overall throughput and reliability comparisons of our proposed scheme with baseline schemes.}
+  \label{fig:exp3}
 \end{figure}
 promising solution for robust UAV communications 
 in adversarial spectrum-sharing environments.

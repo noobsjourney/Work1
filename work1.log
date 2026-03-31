@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  30 MAR 2026 21:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  31 MAR 2026 17:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -343,22 +343,22 @@ File: figure/framework-crop.pdf Graphic file (type pdf)
 Package pdftex.def Info: figure/framework-crop.pdf  used on input line 419.
 (pdftex.def)             Requested size: 516.0pt x 282.73853pt.
  [4] [5 <./figure/framework-crop.pdf>]
-<exp/exp1_convergence.png, id=192, 448.074pt x 289.08pt>
-File: exp/exp1_convergence.png Graphic file (type png)
-<use exp/exp1_convergence.png>
-Package pdftex.def Info: exp/exp1_convergence.png  used on input line 492.
+<exp/exp1_convergence.pdf, id=192, 448.07399pt x 289.08pt>
+File: exp/exp1_convergence.pdf Graphic file (type pdf)
+<use exp/exp1_convergence.pdf>
+Package pdftex.def Info: exp/exp1_convergence.pdf  used on input line 499.
 (pdftex.def)             Requested size: 252.0pt x 162.58063pt.
-<exp/exp2_recovery.png, id=194, 462.528pt x 289.08pt>
-File: exp/exp2_recovery.png Graphic file (type png)
-<use exp/exp2_recovery.png>
-Package pdftex.def Info: exp/exp2_recovery.png  used on input line 498.
-(pdftex.def)             Requested size: 252.0pt x 157.50357pt.
-<exp/exp3_overall.png, id=195, 505.89pt x 260.172pt>
-File: exp/exp3_overall.png Graphic file (type png)
-<use exp/exp3_overall.png>
-Package pdftex.def Info: exp/exp3_overall.png  used on input line 511.
-(pdftex.def)             Requested size: 252.0pt x 129.60133pt.
- (./work1.bbl [6 <./exp/exp1_convergence.png> <./exp/exp2_recovery.png> <./exp/exp3_overall.png>])
+<exp/exp2_recovery.pdf, id=193, 505.89pt x 317.98799pt>
+File: exp/exp2_recovery.pdf Graphic file (type pdf)
+<use exp/exp2_recovery.pdf>
+Package pdftex.def Info: exp/exp2_recovery.pdf  used on input line 505.
+(pdftex.def)             Requested size: 252.0pt x 158.40164pt.
+<exp/exp3_overall.pdf, id=194, 505.89pt x 289.08pt>
+File: exp/exp3_overall.pdf Graphic file (type pdf)
+<use exp/exp3_overall.pdf>
+Package pdftex.def Info: exp/exp3_overall.pdf  used on input line 518.
+(pdftex.def)             Requested size: 252.0pt x 144.0015pt.
+ (./work1.bbl [6 <./exp/exp1_convergence.pdf> <./exp/exp2_recovery.pdf>])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -372,7 +372,7 @@ Before submitting the final camera ready copy, remember to:
 
 [7
 
-] (./work1.aux)
+ <./exp/exp3_overall.pdf>] (./work1.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-14>
@@ -380,17 +380,17 @@ L3 programming layer <2025-11-14>
  ) 
 Here is how much of TeX's memory you used:
  4942 strings out of 467537
- 78747 string characters out of 5423704
+ 78818 string characters out of 5423704
  513530 words of memory out of 5000000
  33791 multiletter control sequences out of 15000+600000
  668630 words of font info for 123 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  57i,13n,65p,390b,346s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on work1.pdf (7 pages, 929711 bytes).
+Output written on work1.pdf (7 pages, 708138 bytes).
 PDF statistics:
- 299 PDF objects out of 1000 (max. 8388607)
- 131 compressed objects within 2 object streams
+ 319 PDF objects out of 1000 (max. 8388607)
+ 145 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
