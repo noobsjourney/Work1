@@ -1,6 +1,7 @@
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
 \usepackage{cite}
+\usepackage{caption}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
@@ -97,168 +98,93 @@ Section IV presents the simulation results. Finally, the paper concludes with Se
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{figure/system-model-crop.pdf}
-  \caption{Dynamic spectrum sharing UAV network under pattern-switching jamming, 
-  where the C-UAV performs jamming mode awareness and jointly optimizes spectrum allocation, 
-  trajectory, and transmit power to ensure reliable communication.}
+  \caption{The DSS-enabled UAV network under pattern-switching jamming.}
   \label{fig:System_Model}
 \end{figure}
 \section{System Model}
 \subsection{Scenario Description}
+We consider a UAV-enabled dynamic spectrum sharing (DSS) network under intentional pattern-switching jamming, as illustrated in Fig.~\ref{fig:System_Model}. 
+The network consists of a primary network with one primary base station (PBS) and $J$ primary users (PUs), and a cognitive UAV-assisted secondary network serving $K$ ground secondary users (SUs) over $M$ licensed sub-bands. 
+Each PU occupies one orthogonal licensed sub-band, while the C-UAV opportunistically accesses the spectrum to provide downlink transmission for the SUs under PU protection constraints. 
+Meanwhile, a jamming UAV (J-UAV) interferes with the secondary transmission by switching among different jamming patterns over time.
 
-We consider a UAV-enabled dynamic spectrum sharing (DSS) network under intentional pattern-switching jamming,    % 概要
-as illustrated in Fig.~\ref{fig:System_Model}. The network consists of a primary network and a cognitive UAV-assisted secondary network, 
-which coexist over a set of licensed spectrum bands. % 共同存在与一组授权频段上
-
-The primary network includes a primary base station and $J$ primary users (PUs).  % 场景描述
-The PUs are indexed by $j \in \mathcal{J} \triangleq \{1,2,\ldots,J\}$.
-In order to serve more secondary users (SUs) and provide better services, 
-a wideband spectrum is divided into $M$ sub-carrier spectrum bands.
-The spectrum bands are indexed by $m \in \mathcal{M} \triangleq \{1,2,\ldots,M\}$.
-To eliminate mutual interference among PUs, each PU is assigned an exclusive licensed spectrum band.
-The secondary network comprises a cognitive UAV serving $K$ ground SUs.
-The SUs are indexed by $k \in \mathcal{K} \triangleq \{1,2,\ldots,K\}$.
-The C-UAV operates as an aerial secondary base station, providing downlink communications to SUs by 
-opportunistically accessing the licensed spectrum 
-while ensuring that the interference inflicted on the primary network remains within acceptable limits. % 保证主用户网络的一个性能
-
-A three-dimensional Cartesian coordinate system is adopted. % 位置模型
-The horizontal locations of the PBS, the $j$-th PU, the $k$-th SU, 
-the C-UAV and the J-UAV at time slot $n$ are denoted by
-$\mathbf{w}_b=(x_b, y_b)$, $\mathbf{w}_{p,j}=(x_{p,j}, y_{p,j})$, 
-$\mathbf{w}_{s,k}=(x_{s,k}, y_{s,k})$, 
-$\mathbf{q}_c=(x_{c}, y_{c})$ and $\mathbf{q}_{jam}=(x_{jam}, y_{jam})$ respectively.
-These UAVs fly at a fixed altitude $H_c$.
-The total communication duration $T$ is divided into $N$ equal-length time slots, each with duration $\Delta t = T/N$.
-Due to the short duration of each slot, the C-UAV is assumed to be quasi-static within one slot. 
-Let $n \in \mathcal{N} \triangleq \{1,2,\ldots,N\}$ denote the set of time slots. 
-The dynamic positions of the SUs can be formulated as
+A three-dimensional Cartesian coordinate system is considered, where the UAVs fly at a fixed altitude $H_c$. 
+The horizontal locations of the PBS, the $j$-th PU, the $k$-th SU, and the C-UAV at time slot $n$ are denoted by $\mathbf{w}_b$, $\mathbf{w}_{p,j}$, $\mathbf{w}_{s,k}$, and $\mathbf{q}_c[n]$, respectively. 
+The total communication duration $T$ is divided into $N$ equal-length time slots with duration $\Delta t=T/N$. 
+The ground SUs move according to slot-wise kinematic updates, while the horizontal position of the C-UAV evolves as
 \begin{equation}
 \begin{aligned}
-x_{s,k}[n+1] &= x_{s,k}[n] + v_s \cos\bigl(\phi_{s,k}[n]\bigr), \\
-y_{s,k}[n+1] &= y_{s,k}[n] + v_s \sin\bigl(\phi_{s,k}[n]\bigr),
-\end{aligned}
-\label{eq:SU_Motion}
-\end{equation}
-where $\phi_{s,k}[n] \in [-\pi,\pi]$ denotes the direction of the $k$-th SU at time slot $n$.
-The SUs move at a fixed speed $v_{s}$.
-Similarly, the dynamic position of the C-UAV can be formulated as
-\begin{equation}
-\begin{aligned}
-x_{c}[n+1] &= x_{c}[n] + v_c \cos\bigl(\phi_{c}[n]\bigr), \\
-y_{c}[n+1] &= y_{c}[n] + v_c \sin\bigl(\phi_{c}[n]\bigr),
+x_c[n+1] &= x_c[n] + v_c \cos\bigl(\phi_c[n]\bigr),\\
+y_c[n+1] &= y_c[n] + v_c \sin\bigl(\phi_c[n]\bigr),
 \end{aligned}
 \label{eq:UAV_Motion}
 \end{equation}
-where $v_c$ is the constant flight speed, and $\phi_{c}[n] \in [-\pi,\pi]$ denotes the direction of the C-UAV.
-The distance between the C-UAV and the $k$-th SU, and that between the PBS and the $j$-th PU at time slot $n$ are respectively given as,
+where $v_c$ and $\phi_c[n]$ denote the flight speed and heading angle of the C-UAV, respectively. 
+Accordingly, the distance between the C-UAV and the $k$-th SU at time slot $n$ is
 \begin{equation}
-\begin{aligned}
-d_{c,k}[n] &= \sqrt{\bigl\lVert \mathbf{q}_c[n] - \mathbf{w}_{s,k}[n] \bigr\rVert^2 + H_c^2}, \\
-d_{p,j}[n] &= \sqrt{\bigl\lVert \mathbf{w}_b[n] - \mathbf{w}_{p,j}[n] \bigr\rVert^2},
-\end{aligned}
-\label{eq:distances}
+d_{c,k}[n] = \sqrt{\bigl\lVert \mathbf{q}_c[n]-\mathbf{w}_{s,k}[n] \bigr\rVert^2 + H_c^2}.
+\label{eq:distance_ck}
 \end{equation}
 
-The wireless channel between the UAV and the ground users is dominated by the line-of-sight (LoS) link. % 信道模型
-Let $\beta_{\mathrm{ref}}$ represent the channel power gain at the reference distance of $1$~m.
-Thus, the channel power gain from the C-UAV to the $k$-th SU can be expressed as
+The air-to-ground channel between the C-UAV and the SUs is dominated by line-of-sight (LoS) propagation. 
+Let $\beta_{\mathrm{ref}}$ denote the channel power gain at the reference distance of $1$~m. 
+Then, the channel power gain from the C-UAV to the $k$-th SU is given by
 \begin{equation}
-h_{C,k,n}^{\mathrm{LoS}} = \beta_{\mathrm{ref}} d_{c,k}[n]^{-2},
+h_{C,k,n}^{\mathrm{LoS}}=\beta_{\mathrm{ref}} d_{c,k}[n]^{-2}.
 \label{eq:los_channel}
 \end{equation}
-where $d_{c,k}[n]$ denotes the distance between the C-UAV and the $k$-th SU
-at time slot $n$. The channel model between the PBS and the ground users is different from that
-between the UAV and the ground users.It is required to consider both the distance-dependent path loss with exponent
-$\varphi \geq 2$ and small-scale Rayleigh fading. 
-Thus, the channel power gains from the PBS to the $j$-th PU can be given as
+For the terrestrial links, distance-dependent path loss and Rayleigh fading are considered.
+
+Unlike conventional fixed or random jamming models, the J-UAV adopts a pattern-switching strategy. 
+Let $z[n]\in\mathcal{Z}\triangleq\{\text{Constant},\text{Sweep},\text{Random}\}$ denote the jamming mode at time slot $n$, corresponding to constant jamming, sweep jamming, and random jamming, respectively. 
+The jamming mode evolves as a first-order Markov chain, i.e.,
 \begin{equation}
-h_{P,j,n}^{\mathrm{NLoS}} = \beta_{\mathrm{ref}} d_{p,j}[n]^{-\varphi} \zeta_j,
-\label{eq:pbs_pu_channel}
+\Pr\!\left(z[n+1]=z' \mid z[n]=z\right)=\Pi_{z,z'}, \quad z,z'\in\mathcal{Z},
+\label{eq:markov_jamming}
 \end{equation}
-where $d_{p,j}[n]$ is the distance between the PBS and the $j$-th PU at time slot $n$.
-The random variable $\zeta_j$ follows an exponential distribution with unit mean,
-which accounts for the Rayleigh fading.
+where $\boldsymbol{\Pi}$ is the mode transition probability matrix. 
+Since the transition probabilities are unknown and the instantaneous jamming mode cannot be directly observed by the C-UAV, the resulting interference is time-varying and non-stationary.
 
-Unlike conventional fixed or random jamming models,             % 干扰模型
-the J-UAV is assumed to adopt a pattern-switching strategy. 
-Let $z[n] \in \mathcal{Z} \triangleq \{\text{Constant}, \text{Sweep}, \text{Random}\}$
-denote the jamming mode at time slot $n$, corresponding to constant jamming,
-sweep jamming, and random jamming, respectively.
-The jamming mode evolves over time according to a finite-state stochastic process.
-In particular, the mode transition is modeled as a first-order Markov chain, i.e.,
-\begin{equation}\label{eq:markov_jamming}
-\begin{aligned}
-\Pr\!\left(z[n+1] = z' \mid z[n] = z\right)
-&= \Pi_{z,z'}, \quad z,z' \in \mathcal{Z}.
-\end{aligned}
+To characterize spectrum occupancy, let $\rho_{k,n}[m]\in\{0,1\}$ and $\rho_{J,n}[m]\in\{0,1\}$ denote the sub-band usage indicators of the $k$-th SU and the J-UAV, respectively. 
+Specifically, $\rho_{k,n}[m]=1$ indicates that sub-band $m$ is assigned to the $k$-th SU at time slot $n$, while $\rho_{J,n}[m]=1$ means that the same sub-band is jammed at slot $n$. 
+Based on the sub-band availability and the time-varying jamming condition, the C-UAV dynamically adjusts spectrum allocation to restore communication quality after jamming pattern changes while protecting the primary network.
+
+Accordingly, the SINR of the $k$-th SU on sub-band $m$ at time slot $n$ is expressed as
+\begin{equation}
+\gamma_{m,k,n}^{s}=
+\frac{\rho_{k,n}[m] P_C[n] h_{C,k,n}^{\mathrm{LoS}}}
+{\sigma^2 + P_B h_{P,k,n}^{\mathrm{NLoS}} + \rho_{J,n}[m] P_J h_{J,k,n}^{\mathrm{LoS}}},
+\label{eq:sinr_su}
 \end{equation}
-where $\boldsymbol{\Pi}$ denotes the mode transition probability matrix.
-The transition probabilities are not known to the C-UAV, 
-and the instantaneous jamming mode cannot be directly observed.
-The pattern-switching behavior of the jammer directly translates
-into time-varying and non-stationary interference across the spectrum.
+where $P_B$ and $P_J$ denote the transmit powers of the PBS and the J-UAV, respectively, $P_C[n]\in[P_C^{\min},P_C^{\max}]$ is the transmit power of the C-UAV at time slot $n$, and $\sigma^2$ is the noise power. 
+The corresponding achievable rate is
+\begin{equation}
+R_{m,k,n}^{s}=B\log_2\!\left(1+\gamma_{m,k,n}^{s}\right),
+\label{eq:rate_su}
+\end{equation}
+where $B$ is the bandwidth of each sub-band. 
+The achievable PU rate is defined similarly and is required to satisfy a minimum-rate constraint.
 
-Considering the sub-carrier allocation, the binary variables % 频谱分配模型
-$\rho_{k,n}[m]$ and $\rho_{J,n}[m]$ are introduced to characterize
-the spectrum usage of the SUs and the J-UAV, respectively.Specifically, 
-$\rho_{k,n}[m] = 1$ indicates that the $m$-th sub-carrier is
-assigned to the $k$-th SU at time slot $n$, and $\rho_{k,n}[m] = 0$ otherwise.
-Each PU operates on a preassigned orthogonal sub-carrier with a
-fixed transmit power. 
-The J-UAV dynamically occupies sub-carriers according to its current jamming
-mode, which is captured by the jamming indicator $\rho_{J,n}[m]$.
-When $\rho_{J,n}[m] = 1$, the $m$-th sub-carrier is subject to
-intentional interference from the jammer at time slot $n$.
-Based on the sub-carrier availability and the time-varying jamming condition, 
-the C-UAV aims to dynamically adapt the spectrum allocation for the SUs, 
-such that the communication quality can be rapidly restored after jamming pattern changes, 
-while opportunistically accessing the licensed spectrum and guaranteeing the quality-of-service requirements 
-of the primary network.
-
-The SINR of the $k$-th SU and the $j$-th PU in the $m$-th sub-band can be % SINR && Rate
-respectively expressed as
-\begin{subequations}\label{eq:sinr}
-\begin{align}
-\gamma_{m,k,n}^{s}&=\frac{\rho_{k,n}[m] P_C[n] h_{C,k,n}^{\mathrm{LoS}}}{\sigma^2 + P_B h_{P,k,n}^{\mathrm{NLoS}} + \rho_{J,n}[m] P_J h_{J,k,n}^{\mathrm{LoS}}}, \label{eq:sinr_su} \\
-\gamma_{m,j,n}^{p}&=\frac{P_B h_{P,j,n}^{\mathrm{NLoS}}}{\sigma^2 + \sum_{k=1}^{K} \rho_{k,n}[m] P_C[n] h_{C,j,n}^{\mathrm{LoS}} + \rho_{J,n}[m] P_J h_{J,j,n}^{\mathrm{LoS}}}, \label{eq:sinr_pu}
-\end{align}
-\end{subequations}
-where $P_B$ and $P_J$ denote the transmit power of the PBS and the J-UAV, respectively.
-$P_C[n] \in [P_C^{\min}, P_C^{\max}]$ denotes the transmit power of the C-UAV at time slot $n$.
-Moreover, $\sigma^2$ is the noise power.
-Then, the achievable data transmission rate of the $k$-th SU and the $j$-th PU
-can be respectively expressed as  
-\begin{subequations}\label{eq:rate}
-\begin{align}
-R_{m,k,n}^{s}&= B \log_2\!\left(1 + \gamma_{m,k,n}^{s}\right), \label{eq:rate_su} \\
-R_{m,j,n}^{p}&= B \log_2\!\left(1 + \gamma_{m,j,n}^{p}\right), \label{eq:rate_pu}
-\end{align}
-\end{subequations}
-where $B$ denotes the bandwidth for each sub-band.
-
-To capture communication reliability under pattern-switching jamming, we introduce a QoS threshold $R_{\mathrm{th}}$.
-An outage event is declared when the achievable rate of a SU falls below $R_{\mathrm{th}}$.
+To capture communication reliability under pattern-switching jamming, an outage event is declared when the achievable SU rate falls below a QoS threshold $R_{\mathrm{th}}$. 
 Accordingly, the outage indicator is defined as
 \begin{equation}
-\mathbb I^{\mathrm{out}}_{k,n} \triangleq \mathbf 1\!\left\{R_{k,n}^{s} < R_{\mathrm{th}}\right\},
-\quad \forall k\in\mathcal K,\ \forall n\in\mathcal N,
+\mathbb{I}_{k,n}^{\mathrm{out}} \triangleq \mathbf{1}\!\left\{R_{k,n}^{s}<R_{\mathrm{th}}\right\}, 
+\quad \forall k\in\mathcal{K},\ \forall n\in\mathcal{N},
+\label{eq:outage_indicator}
 \end{equation}
-where $\mathbf 1\{\cdot\}$ equals 1 if the condition holds and 0 otherwise.
-This definition penalizes each outage time slot; thus, longer outage durations yield larger cumulative penalties,
-which encourages fast recovery after jamming pattern transitions.
+where $\mathbf{1}\{\cdot\}$ equals $1$ if the condition holds and $0$ otherwise. 
+This definition penalizes each outage slot and thus encourages fast recovery after jamming mode transitions.
 
 \subsection{Problem Formulation}
 In this paper, we address a joint spectrum allocation, UAV trajectory control, 
-and transmit power adaptation problem in a dynamic spectrum sharing UAV network 
-under pattern-switching jamming, aiming to achieve fast recovery and reliable 
-communication for secondary users while satisfying the primary user protection 
-constraints. 
+and transmit power adaptation problem in a dynamic spectrum sharing UAV network under pattern-switching jamming, 
+aiming to achieve fast recovery and reliable communication for secondary users while satisfying the primary user protection constraints. 
 Accordingly, the optimization problem is formulated as follows
 \begin{subequations}\label{eq:P1}
 \begin{align}
 \textbf{P1:}\quad
 & \max_{\boldsymbol{\rho},\,\boldsymbol{\phi},\,\mathbf{P}} \quad
-\frac{1}{N} \sum_{n=1}^{N}\sum_{k=1}^{K}\sum_{m=1}^{M} R^{\mathrm{s}}_{m,k,n}
+\frac{1}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}\sum_{m=1}^{M} R^{\mathrm{s}}_{m,k,n}
 -\frac{\lambda_{\mathrm{out}}}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}\mathbb{I}^{\mathrm{out}}_{k,n}
 \label{eq:P1_obj} \\
 \text{s.t.}\ \textbf{C1:}\quad
@@ -270,7 +196,7 @@ Accordingly, the optimization problem is formulated as follows
 \quad \forall k\in\mathcal{K},\ \forall m\in\mathcal{M},\ \forall n\in\mathcal{N}
 \label{eq:P1_binary}\\
 \textbf{C3:}\quad
-& \sum_{k=1}^{K} \rho_{k,n}[m] \le 1,
+& \sum_{k=1}^{K}\rho_{k,n}[m]\le 1,
 \quad \forall m\in\mathcal{M},\ \forall n\in\mathcal{N}
 \label{eq:P1_orthogonal}\\
 \textbf{C4:}\quad
@@ -284,55 +210,30 @@ Accordingly, the optimization problem is formulated as follows
 \end{align}
 \end{subequations}
 
-To jointly account for throughput performance and communication reliability, 
-a reliability-aware objective function is adopted. Specifically, the achievable 
-rate of the secondary users is maximized, while a penalty term is introduced to 
-capture QoS outages. This outage penalty discourages prolonged service interruptions 
-caused by dynamic jamming and implicitly promotes fast recovery of communication 
-quality after jamming pattern transitions.
-In problem~(P1), $R^{\min}_j$ denotes the minimum transmission rate requirement of 
-the $j$-th PU, and 
-$\boldsymbol{\rho}=\{\rho_{k,n}[m]\}_{k\in\mathcal K,m\in\mathcal M,n\in\mathcal N}$ 
-denotes the spectrum allocation policy for the SUs. 
-The variable $\boldsymbol{\phi}=\{\phi[n]\}_{n\in\mathcal N}$ denotes the UAV heading 
-angle control sequence, while 
-$\mathbf{P}=\{P_C[n]\}_{n\in\mathcal N}$ denotes the transmit power adaptation 
-policy of the cognitive UAV.
-Constraint~\eqref{eq:P1_PU} guarantees the
-QoS requirements of the PUs in the dynamic 
-spectrum sharing environment. Constraints~\eqref{eq:P1_binary} and~\eqref{eq:P1_orthogonal} 
-ensure orthogonal sub-carrier allocation among SUs to avoid intra-secondary interference. 
-Constraint~\eqref{eq:P1_heading} enforces feasible UAV mobility, while 
-constraint~\eqref{eq:P1_power} restricts the transmit power of the C-UAV within 
-practical limits.
+The objective jointly accounts for throughput and communication reliability by maximizing the achievable rate of the SUs while penalizing outage events. 
+Here, $\lambda_{\mathrm{out}}$ controls the tradeoff between rate maximization and outage suppression, so that prolonged service interruption under dynamic jamming is discouraged. 
+In \eqref{eq:P1}, $\boldsymbol{\rho}$, $\boldsymbol{\phi}$, and $\mathbf{P}$ denote the sub-band allocation, UAV heading control, and C-UAV transmit power policies, respectively. 
+Constraint~\eqref{eq:P1_PU} guarantees PU protection, constraints~\eqref{eq:P1_binary} and~\eqref{eq:P1_orthogonal} enforce feasible orthogonal spectrum allocation among SUs, and constraints~\eqref{eq:P1_heading} and~\eqref{eq:P1_power} ensure feasible UAV maneuvering and transmit power adaptation.
 
 \section{MODE-AWARE HYBRID PPO-DDPG FRAMEWORK FOR ANTI-JAMMING UAV COMMUNICATIONS}
 \subsection{Jamming Mode Recognition}
-The jammer switches among finite modes $z[n] \in \mathcal{Z}$ following the Markov model in~(6).
-The C-UAV performs spectrum sensing and collects the per-slot interference-energy vector
+The jammer switches among finite modes $z[n]\in\mathcal{Z}$ following the Markov model in~\eqref{eq:markov_jamming}. 
+At each time slot, the C-UAV performs spectrum sensing and collects the interference-energy vector
 \begin{equation}
-\mathbf{I}[n] = [I_1[n], \ldots, I_M[n]] \in \mathbb{R}^{M},
+\mathbf{I}[n]=[I_1[n],\ldots,I_M[n]]\in\mathbb{R}^{M},
 \end{equation}
-and forms a length-$L$ short window
+from which a length-$L$ observation window is formed as
 \begin{equation}
-\mathcal{I}[n] = \{\mathbf{I}[n-L+1], \ldots, \mathbf{I}[n]\} \in \mathbb{R}^{L \times M}.
+\mathcal{I}[n]=\{\mathbf{I}[n-L+1],\ldots,\mathbf{I}[n]\}\in\mathbb{R}^{L\times M}.
 \end{equation}
-
 A lightweight recognizer $f_\theta(\cdot)$ maps the input $\mathcal{I}[n]$ to a mode probability vector
 \begin{equation}
-\boldsymbol{\pi}[n] = f_\theta(\mathcal{I}[n]) \in \mathbb{R}^{|\mathcal{Z}|}, 
-\quad \sum_{c=1}^{|\mathcal{Z}|} \pi_c[n] = 1,
+\boldsymbol{\pi}[n]=f_\theta(\mathcal{I}[n])\in\mathbb{R}^{|\mathcal{Z}|}, 
+\quad \sum_{c=1}^{|\mathcal{Z}|}\pi_c[n]=1,
 \end{equation}
-which provides semantic information about the current jamming behavior.
-We adopt a CNN--GRU classifier, where a 1D CNN encodes the spectral characteristics of each $\mathbf{I}[\cdot]$,
-and a GRU captures short-term temporal dynamics over $L$ time slots.
-The model is trained offline using the cross-entropy loss
-\begin{equation}
-\mathcal{L}_{\mathrm{cls}}(\theta)
-= -\sum_{c=1}^{|\mathcal{Z}|} z_c[n]\log\big(\pi_c[n]\big),
-\end{equation}
-where $z_c[n]$ denotes the one-hot encoded ground-truth jamming mode at time slot $n$.
-During online operation, the model is used solely for inference to output $\boldsymbol{\pi}[n]$.
+which provides a semantic description of the current jamming behavior. 
+We adopt a CNN--GRU classifier, where a 1D CNN extracts spectral features and a GRU captures short-term temporal dynamics. 
+The model is trained offline and used online only for inference.
 \subsection{Semantic-Augmented MDP Formulation}
 Following the MDP formulation in the reference work\cite{10233493}, we incorporate the mode probability vector
 $\boldsymbol{\pi}[n]$ as a semantic descriptor of the interference environment to facilitate
@@ -358,6 +259,12 @@ for all $K$ SUs at slot $n$, i.e.,
 \begin{equation}
 \mathbf{a}_d[n] = \big(a_1[n],\,a_2[n],\,\ldots,\,a_K[n]\big),
 \end{equation}
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=\textwidth]{figure/framework-crop.pdf}
+    \caption{The mode-aware hybrid PPO-DDPG framework for joint spectrum allocation, UAV trajectory, and power control.}
+    \label{fig:framework}
+\end{figure*}
 where $a_k[n]\in\{1,2,\ldots,M\}$ denotes the selected subcarrier index for the
 $k$-th SU. Equivalently, $\mathbf{a}_d[n]$ can be mapped to the binary allocation
 variables $\{\rho_{k,n}[m]\}$ satisfying $\sum_{m=1}^{M}\rho_{k,n}[m]=1$ for each $k$.
@@ -414,14 +321,15 @@ Specifically, PPO optimizes the clipped surrogate objective
 where $r_n(\theta)=\frac{\pi_\theta(\mathbf{a}_d[n]\mid\mathbf{s}[n])}
 {\pi_{\theta_{\mathrm{old}}}(\mathbf{a}_d[n]\mid\mathbf{s}[n])}$ is the probability ratio between the new and old policies,
 $\epsilon$ is the clipping parameter, 
-\begin{figure*}[t]
-    \centering
-    \includegraphics[width=\textwidth]{figure/framework-crop.pdf}
-    \caption{The mode-aware hybrid PPO-DDPG framework for joint spectrum allocation, UAV trajectory, and power control.}
-    \label{fig:framework}
-\end{figure*}
 and $\hat{A}_n$ denotes the advantage estimate.
-To reduce variance and improve sample efficiency, the advantage is computed using Generalized Advantage Estimation (GAE),
+To reduce variance and
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{exp/exp1_convergence.pdf}
+  \caption{Convergence comparisons of our proposed scheme with baseline schemes.}
+  \label{fig:exp1}
+\end{figure}
+improve sample efficiency, the advantage is computed using Generalized Advantage Estimation (GAE),
 \begin{equation}
 \hat{A}_n=\sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{n+l},\quad
 \delta_n=r[n] + \gamma V(\mathbf{s}[n+1]) - V(\mathbf{s}[n]),
@@ -451,7 +359,20 @@ In this section, simulation results are presented to evaluate the performance of
 The simulation settings are based on the works in~\cite{10233493}. 
 Specifically, SUs are PUs are randomly deployed in two seperate $500\,
 \mathrm{m}\times500\,\mathrm{m}$ cells with a C-UAV flying at a fixed altitude of $100\,\mathrm{m}$. 
-The number of SUs is 4. The transmit power of C-UAV ranges from 200mW to 300mW.
+The number of SUs is 4. The transmit power of C-UAV ranges 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{exp/exp2_recovery.pdf}
+  \caption{Recovery comparisons of our proposed scheme with baseline schemes under jammer mode transitions.}
+  \label{fig:exp2}
+\end{figure}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{exp/exp3_overall.pdf}
+  \caption{Overall throughput and reliability comparisons of our proposed scheme with baseline schemes.}
+  \label{fig:exp3}
+\end{figure}
+from 200mW to 300mW.
 The sensing window length for mode recognition is $L=5$. 
 The transition matrix is set as
 \begin{equation}
@@ -473,15 +394,23 @@ It is seen that all three schemes exhibit an overall increasing trend and gradua
 while noticeable reward fluctuations appear in the first 150--200 episodes due to random exploration and jammer mode switching. 
 After around 400 episodes, the training curves become relatively stable, indicating that effective anti-jamming policies have been learned. 
 Moreover, the proposed scheme converges faster and reaches the highest reward among all compared methods, 
-since the introduced mode-aware state representation reduces the ambiguity caused by non-stationary interference and makes policy learning more efficient. 
+since the introduced mode-aware state representation 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{exp/exp4_switching_robustness.pdf}
+  \caption{Robustness comparisons of our proposed scheme with baseline schemes.}
+  \label{fig:exp4}
+\end{figure}
+reduces the ambiguity caused by non-stationary interference and makes policy learning more efficient. 
 In contrast, Hybrid PPO-DDPG performs worse than MA2C-DDPG, showing that increasing algorithmic complexity alone is insufficient when the interference dynamics are not effectively captured.
 
 Fig.~\ref{fig:exp2} shows the average instantaneous SU sum rate under a representative jammer mode-switching sequence, 
-where the rate drop and recovery time around each transition point are further used to quantify the transient adaptation capability. 
-It is observed that the proposed scheme maintains the highest sum-rate level over most time slots and suffers less performance degradation after jammer mode transitions, 
-while recovering more quickly than the benchmark schemes. This is because the proposed framework can infer the underlying jammer pattern from short-term observations, 
-allowing the agent to adjust its spectrum-access behavior promptly when the interference mode changes. 
-Therefore, the proposed scheme exhibits stronger robustness and faster adaptation in pattern-switching jamming environments.
+where the solid curves denote the mean performance over multiple test episodes and the shaded regions represent one standard deviation. 
+It is observed that the proposed scheme maintains the highest sum-rate level over most time slots and 
+exhibits smaller performance degradation with faster recovery around the jammer mode transition points than the benchmark schemes. 
+This is because the proposed framework can infer the underlying jammer pattern from short-term observations, 
+allowing the agent to adjust its spectrum-access behavior more promptly when the interference mode changes. 
+Therefore, the proposed scheme achieves both better transient robustness and stronger adaptability under pattern-switching jamming.
 
 Fig.~\ref{fig:exp3} shows the overall performance comparison of the proposed scheme with the baseline schemes in terms of average SU sum rate and outage probability. 
 It is seen that the proposed scheme achieves the highest average SU sum rate and the lowest outage probability among all compared methods. 
@@ -489,46 +418,25 @@ This indicates that the proposed mode-aware framework can make more effective lo
 thereby improving spectral efficiency while maintaining more reliable communication links. Therefore, compared with Hybrid PPO-DDPG and MA2C-DDPG, 
 the proposed scheme achieves a better throughput--reliability tradeoff in DSS-enabled UAV networks.
 
-Fig.6 shows the robustness comparison of different schemes under low, medium, and high jammer mode-switching rates. 
-It is seen that the performance of all schemes degrades as the switching rate increases, 
-while the proposed scheme consistently maintains the highest average SU sum rate and the lowest outage probability. 
-Moreover, the performance degradation of the proposed scheme is smaller than that of the benchmark schemes, 
-indicating that its advantage becomes more evident in highly non-stationary interference environments. 
-This is because the proposed framework can better exploit jammer-mode information to track the changing interference patterns.
-Therefore, the proposed mode-aware scheme exhibits stronger robustness against frequent jammer mode transitions.
+Fig.~\ref{fig:exp4} shows the performance comparison of different schemes under low, medium, and high jammer mode-switching rates. 
+It is seen that the proposed scheme consistently achieves the highest average SU sum rate and the lowest outage probability across all switching settings, 
+while its performance varies only slightly as the transition statistics change. 
+This indicates that the proposed framework is less sensitive to the jammer mode-switching rate and 
+can maintain stable decision quality under different non-stationary interference conditions. 
+Therefore, the proposed mode-aware scheme exhibits stronger robustness than the benchmark schemes under varying jammer transition dynamics.
 
 \section{Conclusion}
 This paper investigated mode-aware anti-jamming communication in dynamic spectrum sharing UAV networks 
 under pattern-switching interference. 
 A mode-aware anti-jamming framework was developed in which the UAV first recognizes the current jamming pattern 
 using a CNN–GRU based classifier and then incorporates the inferred mode information
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{exp/exp1_convergence.pdf}
-  \caption{Convergence comparisons of our proposed scheme with baseline schemes.}
-  \label{fig:exp1}
-\end{figure}
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{exp/exp2_recovery.pdf}
-  \caption{Recovery comparisons of our proposed scheme with baseline schemes under jammer mode transitions.}
-  \label{fig:exp2}
-\end{figure}
 into the decision-making process. By formulating a semantic-augmented MDP, 
 a hybrid PPO–DDPG reinforcement learning algorithm was proposed to jointly optimize spectrum allocation, 
 UAV trajectory, and transmit power. 
 Simulation results demonstrated that the proposed approach can effectively adapt to dynamic interference 
 environments, achieve faster recovery after jamming mode transitions, 
 and significantly improve both average throughput and communication reliability compared with baseline schemes. 
-The proposed framework provides a 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{exp/exp3_overall.pdf}
-  \caption{Overall throughput and reliability comparisons of our proposed scheme with baseline schemes.}
-  \label{fig:exp3}
-\end{figure}
-promising solution for robust UAV communications 
-in adversarial spectrum-sharing environments.
+The proposed framework provides a promising solution for robust UAV communications in adversarial spectrum-sharing environments.
 
 \bibliographystyle{IEEEtran} 
 \bibliography{references}      

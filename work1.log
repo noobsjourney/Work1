@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  31 MAR 2026 22:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  2 APR 2026 17:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -110,6 +110,33 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
 LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 332.
 Package: cite 2015/02/27  v 5.5
+) (c:/texlive/2025/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+ (c:/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+ (c:/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks18
+)
+\caption@tempdima=\dimen172
+\captionmargin=\dimen173
+\caption@leftmargin=\dimen174
+\caption@rightmargin=\dimen175
+\caption@width=\dimen176
+\caption@indent=\dimen177
+\caption@parindent=\dimen178
+\caption@hangindent=\dimen179
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+Package caption Info: \@makecaption = \long macro:#1#2->\ifx \@captype \@IEEEtablestring \footnotesize \bgroup \par \centering \@IEEEtabletopskipstrut {\normalfont \footnotesize #1}\\{\normalfont \footnotesize \scshape #2}\par \addvspace {0.5\baselineskip }\egroup \@IEEEtablecaptionsepspace \else \@IEEEfigurecaptionsepspace \setbox \@tempboxa \hbox {\normalfont \footnotesize {#1.}\nobreakspace \nobreakspace #2}\ifdim \wd \@tempboxa >\hsize \setbox \@tempboxa \hbox {\normalfont \footnotesize {#1.}\nobreakspace \nobreakspace }\parbox [t]{\hsize }{\normalfont \footnotesize \noindent \unhbox \@tempboxa #2}\else \ifCLASSOPTIONconference \hbox to\hsize {\normalfont \footnotesize \hfil \box \@tempboxa \hfil }\else \hbox to\hsize {\normalfont \footnotesize \box \@tempboxa \hfil }\fi \fi \fi  on input line 1175.
+)
+
+Package caption Warning: Unknown document class (or package),
+(caption)                standard defaults will be used.
+See the caption package documentation for explanation.
+
+\c@caption@flags=\count290
+\c@continuedfloat=\count291
 ) (c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2025/07/09 v2.17z AMS math features
 \@mathmargin=\skip52
@@ -119,22 +146,22 @@ For additional information on amsmath, use the `?' option.
 Package: amstext 2024/11/17 v2.01 AMS text
  (c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks18
-\ex@=\dimen172
+\@emptytoks=\toks19
+\ex@=\dimen180
 )) (c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen173
+\pmbraise@=\dimen181
 ) (c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count290
+\inf@bad=\count292
 LaTeX Info: Redefining \frac on input line 233.
-\uproot@=\count291
-\leftroot@=\count292
+\uproot@=\count293
+\leftroot@=\count294
 LaTeX Info: Redefining \overline on input line 398.
 LaTeX Info: Redefining \colon on input line 409.
-\classnum@=\count293
-\DOTSCASE@=\count294
+\classnum@=\count295
+\DOTSCASE@=\count296
 LaTeX Info: Redefining \ldots on input line 495.
 LaTeX Info: Redefining \dots on input line 498.
 LaTeX Info: Redefining \cdots on input line 619.
@@ -144,34 +171,34 @@ LaTeX Info: Redefining \big on input line 721.
 LaTeX Info: Redefining \Big on input line 722.
 LaTeX Info: Redefining \bigg on input line 723.
 LaTeX Info: Redefining \Bigg on input line 724.
-\big@size=\dimen174
+\big@size=\dimen182
 LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
-\macc@depth=\count295
+\macc@depth=\count297
 LaTeX Info: Redefining \bmod on input line 904.
 LaTeX Info: Redefining \pmod on input line 909.
 LaTeX Info: Redefining \smash on input line 939.
 LaTeX Info: Redefining \relbar on input line 969.
 LaTeX Info: Redefining \Relbar on input line 970.
-\c@MaxMatrixCols=\count296
+\c@MaxMatrixCols=\count298
 \dotsspace@=\muskip17
-\c@parentequation=\count297
-\dspbrk@lvl=\count298
-\tag@help=\toks19
-\row@=\count299
-\column@=\count300
-\maxfields@=\count301
-\andhelp@=\toks20
-\eqnshift@=\dimen175
-\alignsep@=\dimen176
-\tagshift@=\dimen177
-\tagwidth@=\dimen178
-\totwidth@=\dimen179
-\lineht@=\dimen180
-\@envbody=\toks21
+\c@parentequation=\count299
+\dspbrk@lvl=\count300
+\tag@help=\toks20
+\row@=\count301
+\column@=\count302
+\maxfields@=\count303
+\andhelp@=\toks21
+\eqnshift@=\dimen183
+\alignsep@=\dimen184
+\tagshift@=\dimen185
+\tagwidth@=\dimen186
+\totwidth@=\dimen187
+\lineht@=\dimen188
+\@envbody=\toks22
 \multlinegap=\skip53
 \multlinetaggap=\skip54
-\mathdisplay@stack=\toks22
+\mathdisplay@stack=\toks23
 LaTeX Info: Redefining \[ on input line 2950.
 LaTeX Info: Redefining \] on input line 2951.
 ) (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
@@ -187,14 +214,11 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
  (c:/texlive/2025/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
-) (c:/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
-\KV@toks@=\toks23
 )
-\c@ALC@unique=\count302
-\c@ALC@line=\count303
-\c@ALC@rem=\count304
-\c@ALC@depth=\count305
+\c@ALC@unique=\count304
+\c@ALC@line=\count305
+\c@ALC@rem=\count306
+\c@ALC@depth=\count307
 \ALC@tlm=\skip55
 \algorithmicindent=\skip56
 ) (c:/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
@@ -210,8 +234,8 @@ Package graphics Info: Driver file: pdftex.def on input line 106.
  (c:/texlive/2025/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen181
-\Gin@req@width=\dimen182
+\Gin@req@height=\dimen189
+\Gin@req@width=\dimen190
 ) (c:/texlive/2025/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2024/04/24 v2.1b Standard LaTeX package
 ) (c:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
@@ -234,64 +258,66 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
 Package: mathtools 2024/10/04 v1.31 mathematical typesetting tools
  (c:/texlive/2025/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2025/03/01 v4.3b Infix arithmetic (KKT,FJ)
-\calc@Acount=\count306
-\calc@Bcount=\count307
-\calc@Adimen=\dimen183
-\calc@Bdimen=\dimen184
+\calc@Acount=\count308
+\calc@Bcount=\count309
+\calc@Adimen=\dimen191
+\calc@Bdimen=\dimen192
 \calc@Askip=\skip57
 \calc@Bskip=\skip58
 LaTeX Info: Redefining \setlength on input line 86.
 LaTeX Info: Redefining \addtolength on input line 87.
-\calc@Ccount=\count308
+\calc@Ccount=\count310
 \calc@Cskip=\skip59
 ) (c:/texlive/2025/texmf-dist/tex/latex/mathtools/mhsetup.sty
 Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
-\g_MT_multlinerow_int=\count309
-\l_MT_multwidth_dim=\dimen185
+\g_MT_multlinerow_int=\count311
+\l_MT_multwidth_dim=\dimen193
 \origjot=\skip60
-\l_MT_shortvdotswithinadjustabove_dim=\dimen186
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen187
-\l_MT_above_intertext_sep=\dimen188
-\l_MT_below_intertext_sep=\dimen189
-\l_MT_above_shortintertext_sep=\dimen190
-\l_MT_below_shortintertext_sep=\dimen191
+\l_MT_shortvdotswithinadjustabove_dim=\dimen194
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen195
+\l_MT_above_intertext_sep=\dimen196
+\l_MT_below_intertext_sep=\dimen197
+\l_MT_above_shortintertext_sep=\dimen198
+\l_MT_below_shortintertext_sep=\dimen199
 \xmathstrut@box=\box57
-\xmathstrut@dim=\dimen192
+\xmathstrut@dim=\dimen256
 ) (c:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count310
+\l__color_backend_stack_int=\count312
 ) (./work1.aux)
 \openout1 = `work1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
 
 -- Lines per column: 56 (exact).
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 (c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count311
-\scratchdimen=\dimen193
+\scratchcounter=\count313
+\scratchdimen=\dimen257
 \scratchbox=\box58
-\nofMPsegments=\count312
-\nofMParguments=\count313
+\nofMPsegments=\count314
+\nofMParguments=\count315
 \everyMPshowfont=\toks24
-\MPscratchCnt=\count314
-\MPscratchDim=\dimen194
-\MPnumerator=\count315
-\makeMPintoPDFobject=\count316
+\MPscratchCnt=\count316
+\MPscratchDim=\dimen258
+\MPnumerator=\count317
+\makeMPintoPDFobject=\count318
 \everyMPtoPDFconversion=\toks25
 ) (c:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -299,16 +325,16 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (c:/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Font Info:    Calculating math sizes for size <11> on input line 24.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 24.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 25.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 25.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 24.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 25.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 4621) in paragraph at lines 59--67
+Underfull \hbox (badness 4621) in paragraph at lines 60--68
 []\OT1/ptm/m/n/10 The ex-ist-ing re-source al-lo-ca-tion ap-proaches can be
  []
 
@@ -319,46 +345,51 @@ Underfull \hbox (badness 4621) in paragraph at lines 59--67
 <figure/system-model-crop.pdf, id=13, 539.01375pt x 367.3725pt>
 File: figure/system-model-crop.pdf Graphic file (type pdf)
 <use figure/system-model-crop.pdf>
-Package pdftex.def Info: figure/system-model-crop.pdf  used on input line 99.
+Package pdftex.def Info: figure/system-model-crop.pdf  used on input line 100.
 (pdftex.def)             Requested size: 252.0pt x 171.75697pt.
- [2 <./figure/system-model-crop.pdf>]
-Overfull \hbox (4.16455pt too wide) detected at line 224
-[]
+
+Underfull \hbox (badness 2126) in paragraph at lines 101--101
+[]\OT1/ptm/m/n/10 Fig. 1: |The DSS-enabled UAV net-work un-der pattern-
  []
 
-
-Underfull \hbox (badness 6252) in paragraph at lines 239--242
+[2 <./figure/system-model-crop.pdf>]
+Underfull \hbox (badness 6252) in paragraph at lines 168--170
 []\OT1/ptm/m/n/10 To cap-ture com-mu-ni-ca-tion re-li-a-bil-ity un-der pattern-
  []
 
 
-Overfull \hbox (3.58813pt too wide) detected at line 284
+Overfull \hbox (3.58813pt too wide) detected at line 210
 []
  []
 
-[3]
-<figure/framework-crop.pdf, id=62, 994.71625pt x 545.03625pt>
+<figure/framework-crop.pdf, id=55, 994.71625pt x 545.03625pt>
 File: figure/framework-crop.pdf Graphic file (type pdf)
 <use figure/framework-crop.pdf>
-Package pdftex.def Info: figure/framework-crop.pdf  used on input line 419.
+Package pdftex.def Info: figure/framework-crop.pdf  used on input line 264.
 (pdftex.def)             Requested size: 516.0pt x 282.73853pt.
- [4] [5 <./figure/framework-crop.pdf>]
-<exp/exp1_convergence.pdf, id=192, 448.07399pt x 289.08pt>
+[3]
+<exp/exp1_convergence.pdf, id=63, 448.07399pt x 289.08pt>
 File: exp/exp1_convergence.pdf Graphic file (type pdf)
 <use exp/exp1_convergence.pdf>
-Package pdftex.def Info: exp/exp1_convergence.pdf  used on input line 507.
+Package pdftex.def Info: exp/exp1_convergence.pdf  used on input line 328.
 (pdftex.def)             Requested size: 252.0pt x 162.58063pt.
-<exp/exp2_recovery.pdf, id=193, 505.89pt x 317.98799pt>
+ [4 <./figure/framework-crop.pdf>]
+<exp/exp2_recovery.pdf, id=190, 505.89pt x 317.98799pt>
 File: exp/exp2_recovery.pdf Graphic file (type pdf)
 <use exp/exp2_recovery.pdf>
-Package pdftex.def Info: exp/exp2_recovery.pdf  used on input line 513.
+Package pdftex.def Info: exp/exp2_recovery.pdf  used on input line 365.
 (pdftex.def)             Requested size: 252.0pt x 158.40164pt.
-<exp/exp3_overall.pdf, id=194, 505.89pt x 289.08pt>
+<exp/exp3_overall.pdf, id=191, 505.89pt x 289.08pt>
 File: exp/exp3_overall.pdf Graphic file (type pdf)
 <use exp/exp3_overall.pdf>
-Package pdftex.def Info: exp/exp3_overall.pdf  used on input line 526.
+Package pdftex.def Info: exp/exp3_overall.pdf  used on input line 371.
 (pdftex.def)             Requested size: 252.0pt x 144.0015pt.
- (./work1.bbl [6 <./exp/exp1_convergence.pdf> <./exp/exp2_recovery.pdf>])
+<exp/exp4_switching_robustness.pdf, id=192, 527.55467pt x 284.8049pt>
+File: exp/exp4_switching_robustness.pdf Graphic file (type pdf)
+<use exp/exp4_switching_robustness.pdf>
+Package pdftex.def Info: exp/exp4_switching_robustness.pdf  used on input line 400.
+(pdftex.def)             Requested size: 252.0pt x 136.04422pt.
+ [5 <./exp/exp1_convergence.pdf> <./exp/exp2_recovery.pdf> <./exp/exp3_overall.pdf>] (./work1.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -370,27 +401,25 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[7
-
- <./exp/exp3_overall.pdf>] (./work1.aux)
+[6 <./exp/exp4_switching_robustness.pdf>] (./work1.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-14>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4942 strings out of 467537
- 78818 string characters out of 5423704
- 513530 words of memory out of 5000000
- 33791 multiletter control sequences out of 15000+600000
+ 6295 strings out of 467537
+ 105042 string characters out of 5423704
+ 528730 words of memory out of 5000000
+ 35139 multiletter control sequences out of 15000+600000
  668630 words of font info for 123 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,13n,65p,390b,346s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,13n,65p,384b,346s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on work1.pdf (7 pages, 708607 bytes).
+Output written on work1.pdf (6 pages, 739052 bytes).
 PDF statistics:
- 319 PDF objects out of 1000 (max. 8388607)
- 145 compressed objects within 2 object streams
+ 329 PDF objects out of 1000 (max. 8388607)
+ 146 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

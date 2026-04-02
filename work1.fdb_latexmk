@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex work1"] 1774967423.5151 "work1.aux" "work1.bbl" "work1" 1774967426.54551 0
+["bibtex work1"] 1775121126.21061 "work1.aux" "work1.bbl" "work1" 1775121240.44492 0
   "./references.bib" 1774250498 9364 8575fec784b0c1ebeb1ab6fe9d91c38a ""
   "c:/texlive/2025/texmf-dist/bibtex/bst/ieeetran/IEEEtran.bst" 1764861211 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "work1.aux" 1774967425 4370 ff286c130e95212336c17357e78c3029 "pdflatex"
+  "work1.aux" 1775121239 4248 a8bcc864af3650df4241f765ce879dff "pdflatex"
   (generated)
   "work1.bbl"
   "work1.blg"
   (rewritten before read)
-["pdflatex"] 1774967424.48688 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1774967426.54619 0
-  "c:/Users/503/Desktop/mywork1/work1.tex" 1774967422 33465 3d85e88e687d10390f279a853ba80ec4 ""
+["pdflatex"] 1775121238.13732 "c:/Users/503/Desktop/mywork1/work1.tex" "work1.pdf" "work1" 1775121240.447 0
+  "c:/Users/503/Desktop/mywork1/work1.tex" 1775121237 29214 f8959b858f8f717f0758e7a0ece7cb1f ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1764860140 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1764860642 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1764864470 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -84,6 +84,8 @@
   "c:/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty" 1764858426 2444 9983e1d0683f102e3b190c64a49313aa ""
   "c:/texlive/2025/texmf-dist/tex/latex/base/ifthen.sty" 1764861565 5525 1593ca62a2554dd7423fc8a4e5a82125 ""
   "c:/texlive/2025/texmf-dist/tex/latex/base/textcomp.sty" 1764861565 2846 e26604d3d895e65d874c07f30c291f3f ""
+  "c:/texlive/2025/texmf-dist/tex/latex/caption/caption.sty" 1764859298 56128 c2ccf1a29d78c33bc553880402e4fb9a ""
+  "c:/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty" 1764859298 72619 ee90b6612147680fd73c3b1406a74245 ""
   "c:/texlive/2025/texmf-dist/tex/latex/cite/cite.sty" 1764859475 26218 19edeff8cdc2bcb704e8051dc55eb5a7 ""
   "c:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1764860308 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "c:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg" 1764860895 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
@@ -109,11 +111,12 @@
   "exp/exp1_convergence.pdf" 1774882604 68931 373c658d299bb9224ed9a96aa4061494 ""
   "exp/exp2_recovery.pdf" 1774950579 41519 7fd3b77c9f0d749239962ac3d136906c ""
   "exp/exp3_overall.pdf" 1774937488 32344 d1a60e95ec9f5aa54e15196441b47448 ""
+  "exp/exp4_switching_robustness.pdf" 1775006582 38122 414d69e18a65a75728d36c535382ff9d ""
   "figure/framework-crop.pdf" 1774409516 250756 0a4a2bacea916f71cc305f1b8fc39ae0 ""
   "figure/system-model-crop.pdf" 1774409425 42837 10193ce98bc0b7a24dc27ecc8ffebd87 ""
-  "work1.aux" 1774967425 4370 ff286c130e95212336c17357e78c3029 "pdflatex"
-  "work1.bbl" 1774967424 4741 95ca631f209213b7bd8d740f83f83a6f "bibtex work1"
-  "work1.tex" 1774967422 33465 3d85e88e687d10390f279a853ba80ec4 ""
+  "work1.aux" 1775121239 4248 a8bcc864af3650df4241f765ce879dff "pdflatex"
+  "work1.bbl" 1775121126 4741 95ca631f209213b7bd8d740f83f83a6f "bibtex work1"
+  "work1.tex" 1775121237 29214 f8959b858f8f717f0758e7a0ece7cb1f ""
   (generated)
   "work1.aux"
   "work1.log"
