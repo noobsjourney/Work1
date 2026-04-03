@@ -218,21 +218,19 @@ Constraint~\eqref{eq:P1_PU} guarantees PU protection, constraints~\eqref{eq:P1_b
 \section{MODE-AWARE HYBRID PPO-DDPG FRAMEWORK FOR ANTI-JAMMING UAV COMMUNICATIONS}
 \subsection{Jamming Mode Recognition}
 The jammer switches among finite modes $z[n]\in\mathcal{Z}$ following the Markov model in~\eqref{eq:markov_jamming}. 
-At each time slot, the C-UAV performs spectrum sensing and collects the interference-energy vector
-\begin{equation}
-\mathbf{I}[n]=[I_1[n],\ldots,I_M[n]]\in\mathbb{R}^{M},
-\end{equation}
-from which a length-$L$ observation window is formed as
+At each time slot, the C-UAV performs spectrum sensing and collects the interference-energy observation 
+$\mathbf{I}[n]\in\mathbb{R}^{M}$ over the $M$ sub-bands. 
+Based on the most recent $L$ slots, a length-$L$ sensing window is constructed as
 \begin{equation}
 \mathcal{I}[n]=\{\mathbf{I}[n-L+1],\ldots,\mathbf{I}[n]\}\in\mathbb{R}^{L\times M}.
 \end{equation}
-A lightweight recognizer $f_\theta(\cdot)$ maps the input $\mathcal{I}[n]$ to a mode probability vector
+A lightweight recognizer $f_\theta(\cdot)$ maps $\mathcal{I}[n]$ to a mode probability vector
 \begin{equation}
 \boldsymbol{\pi}[n]=f_\theta(\mathcal{I}[n])\in\mathbb{R}^{|\mathcal{Z}|}, 
 \quad \sum_{c=1}^{|\mathcal{Z}|}\pi_c[n]=1,
 \end{equation}
 which provides a semantic description of the current jamming behavior. 
-We adopt a CNN--GRU classifier, where a 1D CNN extracts spectral features and a GRU captures short-term temporal dynamics. 
+A CNN--GRU classifier is adopted, where a 1D CNN extracts spectral features and a GRU captures short-term temporal dynamics. 
 The model is trained offline and used online only for inference.
 \subsection{Semantic-Augmented MDP Formulation}
 Following the MDP formulation in the reference work\cite{10233493}, we incorporate the mode probability vector
@@ -249,33 +247,25 @@ $\mathbf{q}_c[n-1]$ denotes the previous UAV position at slot $n-1$,
 $\mathbf{g}[n]$ denotes channel and geometry-related features for rate evaluation, 
 and $\boldsymbol{\pi}[n]$ encodes the high-level semantic belief of the current jamming behavior. 
 
-\textbf{Action:} The action consists of a discrete spectrum decision and a continuous
-control vector,
+\textbf{\textit{Action:}} The action consists of a discrete sub-band allocation decision and a continuous control vector,
 \begin{equation}
-\mathbf{a}[n] = \big(\mathbf{a}_d[n],\, \mathbf{a}_c[n]\big),
+\mathbf{a}[n]=\big(\mathbf{a}_d[n],\,\mathbf{a}_c[n]\big),
 \end{equation}
-The discrete action $\mathbf{a}_d[n]$ represents a joint subcarrier allocation
-for all $K$ SUs at slot $n$, i.e.,
+where $\mathbf{a}_d[n]$ denotes the joint sub-band allocation for all $K$ SUs at slot $n$, which is equivalently represented by the binary allocation variables $\{\rho_{k,n}[m]\}$ in the optimization problem. 
+The continuous action is defined as
 \begin{equation}
-\mathbf{a}_d[n] = \big(a_1[n],\,a_2[n],\,\ldots,\,a_K[n]\big),
+\mathbf{a}_c[n]=\big(\phi_c[n],\,P_C[n]\big),
 \end{equation}
+where $\phi_c[n]\in[-\pi,\pi]$ and $P_C[n]\in[P_C^{\min},\,P_C^{\max}]$ denote the UAV heading angle and transmit power, respectively.
 \begin{figure*}[t]
-    \centering
-    \includegraphics[width=\textwidth]{figure/framework-crop.pdf}
-    \caption{The mode-aware hybrid PPO-DDPG framework for joint spectrum allocation, UAV trajectory, and power control.}
-    \label{fig:framework}
+   \centering 
+   \includegraphics[width=\textwidth]{figure/framework-crop.pdf}
+   \caption{The mode-aware hybrid {PPO-DDPG} framework for joint spectrum allocation, UAV trajectory, and power control.} 
+   \label{fig:framework} 
 \end{figure*}
-where $a_k[n]\in\{1,2,\ldots,M\}$ denotes the selected subcarrier index for the
-$k$-th SU. Equivalently, $\mathbf{a}_d[n]$ can be mapped to the binary allocation
-variables $\{\rho_{k,n}[m]\}$ satisfying $\sum_{m=1}^{M}\rho_{k,n}[m]=1$ for each $k$.
-The continuous action $\mathbf{a}_c[n]$ is defined as
-\begin{equation}
-\mathbf{a}_c[n] = \big(\phi_c[n],\, P_C[n]\big),
-\end{equation}
-where $\phi_c[n]\in[-\pi,\pi]$ and $P_C[n]\in[P_C^{\min},\,P_C^{\max}]$.
 
 \textbf{\textit{Reward:}}
-Consistent with~(10), we adopt a reliability-aware reward that jointly captures
+Consistent with~(8), we adopt a reliability-aware reward that jointly captures
 the secondary throughput, outage reliability, and PU protection, defined as
 \begin{equation}
 r[n]
@@ -293,49 +283,36 @@ R^{p}_{j}[n]-R^{\min}_{j}, & 0 \le R^{p}_{j}[n] < R^{\min}_{j},
 \end{equation}
 where $R^{p}_{j}[n]$ is the achievable rate of the $j$-th PU and $R^{\min}_{j}$ is its minimum rate requirement.
 \subsection{Hybrid PPO-DDPG Framework}
-Problem~(10) involves discrete spectrum allocation, continuous joint control of UAV mobility
+Problem~(8) involves discrete spectrum allocation, continuous joint control of UAV mobility
 and transmit power. Thus, we employ a hybrid solver, as shown in Fig.~\ref{fig:framework}, where PPO is adopted for the discrete spectrum
 decision $\mathbf{a}_d[n]$ and DDPG is used for the continuous control vector $\mathbf{a}_c[n]$,
 both conditioned on the semantic-augmented state $\mathbf{s}[n]$.
 
 \textbf{\textit{PPO for Spectrum Allocation:}}
-Let $\pi_\theta(\mathbf{a}_d|\mathbf{s})$ denote the stochastic policy for spectrum allocation
-parameterized by $\theta$, where $\mathbf{a}_d[n]$ is the discrete joint subcarrier allocation decision
-at time slot $n$.
-Different from the multi-agent A2C design in~\cite{10233493}, we adopt a centralized PPO-based spectrum allocator.
-To avoid the exponential growth of the joint discrete action space, the policy is implemented in a factorized
-multi-discrete form as
+Let $\pi_\theta(\mathbf{a}_d|\mathbf{s})$ denote the stochastic policy for spectrum allocation parameterized by $\theta$, where $\mathbf{a}_d[n]$ is the discrete joint sub-band allocation decision at time slot $n$. 
+Different from the multi-agent A2C design in~\cite{10233493}, we adopt a centralized PPO-based spectrum allocator. 
+To avoid the exponential growth of the joint discrete action space, the policy is implemented in a factorized multi-discrete form as
 \begin{equation}
 \pi_\theta(\mathbf{a}_d|\mathbf{s})=\prod_{k=1}^{K}\pi_\theta^{(k)}\big(a_k|\mathbf{s}\big),
 \end{equation}
-where each $\pi_\theta^{(k)}(\cdot|\mathbf{s})$ is a categorical distribution over the $M$ candidate subcarriers.
-To satisfy the orthogonal subcarrier constraint, action masking is adopted during action selection
-to prevent infeasible allocations and ensure that each subcarrier is assigned to at most one SU per slot.
-The objective of PPO is to maximize the expected discounted return while preventing excessively large policy updates.
-Specifically, PPO optimizes the clipped surrogate objective
+where each $\pi_\theta^{(k)}(\cdot|\mathbf{s})$ is a categorical distribution over the $M$ candidate sub-bands. 
+To satisfy the orthogonal sub-band constraint, action masking is adopted during action selection to prevent infeasible allocations and ensure that each sub-band is assigned to at most one SU per slot. 
+PPO then updates the discrete allocation policy by maximizing the expected return while preventing excessively large policy changes. Specifically, the clipped surrogate objective is given by
 \begin{equation}
 \begin{aligned}
-\mathcal{L}^{\mathrm{CLIP}}(\theta)&= \mathbb{E}_n \Big[\min\Big\{r_n(\theta)\hat{A}_n, \\&\qquad\operatorname{clip}\!\left(r_n(\theta),\,1-\epsilon,\,1+\epsilon\right)\hat{A}_n\Big\}\Big],
+\mathcal{L}^{\mathrm{CLIP}}(\theta)&= \mathbb{E}_n \Big[\min\Big\{r_n(\theta)\hat{A}_n, \\
+&\qquad \operatorname{clip}\!\left(r_n(\theta),\,1-\epsilon,\,1+\epsilon\right)\hat{A}_n\Big\}\Big],
 \end{aligned}
 \end{equation}
 where $r_n(\theta)=\frac{\pi_\theta(\mathbf{a}_d[n]\mid\mathbf{s}[n])}
-{\pi_{\theta_{\mathrm{old}}}(\mathbf{a}_d[n]\mid\mathbf{s}[n])}$ is the probability ratio between the new and old policies,
-$\epsilon$ is the clipping parameter, 
-and $\hat{A}_n$ denotes the advantage estimate.
-To reduce variance and
+{\pi_{\theta_{\mathrm{old}}}(\mathbf{a}_d[n]\mid\mathbf{s}[n])}$ is the probability ratio between the new and old policies, $\epsilon$ is the clipping parameter, and $\hat{A}_n$ denotes the advantage estimate. 
+In our implementation, the advantage is estimated to improve training stability and sample efficiency.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{exp/exp1_convergence.pdf}
   \caption{Convergence comparisons of our proposed scheme with baseline schemes.}
   \label{fig:exp1}
 \end{figure}
-improve sample efficiency, the advantage is computed using Generalized Advantage Estimation (GAE),
-\begin{equation}
-\hat{A}_n=\sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{n+l},\quad
-\delta_n=r[n] + \gamma V(\mathbf{s}[n+1]) - V(\mathbf{s}[n]),
-\end{equation}
-where $V(\cdot)$ is the value function, $\gamma$ is the discount factor, and $\lambda$
-controls the bias--variance tradeoff.
 
 \textbf{\textit{DDPG for Trajectory/Power Control:}}
 Given the semantic-augmented state $\mathbf{s}[n]$, we employ DDPG to learn the continuous control policy
@@ -387,29 +364,28 @@ The transition matrix is set as
 
 Two baseline schemes are introduced for performance comparison. 
 \textbf{MA2C-DDPG:} MA2C and DDPG are used for spectrum allocation and trajectory optimization, with the transmit power of the C-UAV fixed at 250 mW.
-\textbf{Hybrid PPO-DDPG:} Hybrid PPO-DDPG framework without the jamming mode recognition module.
+\textbf{Hybrid PPO-DDPG:} Hybrid PPO-DDPG framework is adopted without the jamming mode recognition module.
 
-As shown in Fig.~\ref{fig:exp1}, the convergence comparison of the proposed scheme with the baseline schemes is presented over the training episodes. 
+As shown in Fig.~\ref{fig:exp1}, the convergence of the proposed scheme is presented with respect to training episodes. 
 It is seen that all three schemes exhibit an overall increasing trend and gradually converge, 
 while noticeable reward fluctuations appear in the first 150--200 episodes due to random exploration and jammer mode switching. 
 After around 400 episodes, the training curves become relatively stable, indicating that effective anti-jamming policies have been learned. 
 Moreover, the proposed scheme converges faster and reaches the highest reward among all compared methods, 
-since the introduced mode-aware state representation 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\columnwidth]{exp/exp4_switching_robustness.pdf}
-  \caption{Robustness comparisons of our proposed scheme with baseline schemes.}
-  \label{fig:exp4}
-\end{figure}
-reduces the ambiguity caused by non-stationary interference and makes policy learning more efficient. 
+since the introduced mode-aware state representation reduces the ambiguity caused by non-stationary interference and makes policy learning more efficient. 
 In contrast, Hybrid PPO-DDPG performs worse than MA2C-DDPG, showing that increasing algorithmic complexity alone is insufficient when the interference dynamics are not effectively captured.
 
 Fig.~\ref{fig:exp2} shows the average instantaneous SU sum rate under a representative jammer mode-switching sequence, 
-where the solid curves denote the mean performance over multiple test episodes and the shaded regions represent one standard deviation. 
-It is observed that the proposed scheme maintains the highest sum-rate level over most time slots and 
-exhibits smaller performance degradation with faster recovery around the jammer mode transition points than the benchmark schemes. 
+where the solid curves denote the mean performance over multiple test episodes and the shaded regions represent one standard deviation.
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{exp/exp4_switching_robustness.pdf}
+  \caption{Robustness comparisons of our proposed scheme with baseline schemes under different jammer transition settings}
+  \label{fig:exp4}
+\end{figure} 
+It is observed that the proposed scheme maintains the highest sum-rate level over most time slots.
+Moreover, around the jammer mode transition points, it exhibits smaller performance degradation and recovers more quickly than the baseline schemes.
 This is because the proposed framework can infer the underlying jammer pattern from short-term observations, 
-allowing the agent to adjust its spectrum-access behavior more promptly when the interference mode changes. 
+allowing the agent to adjust its behavior more promptly when the interference mode changes. 
 Therefore, the proposed scheme achieves both better transient robustness and stronger adaptability under pattern-switching jamming.
 
 Fig.~\ref{fig:exp3} shows the overall performance comparison of the proposed scheme with the baseline schemes in terms of average SU sum rate and outage probability. 
@@ -418,12 +394,15 @@ This indicates that the proposed mode-aware framework can make more effective lo
 thereby improving spectral efficiency while maintaining more reliable communication links. Therefore, compared with Hybrid PPO-DDPG and MA2C-DDPG, 
 the proposed scheme achieves a better throughput--reliability tradeoff in DSS-enabled UAV networks.
 
-Fig.~\ref{fig:exp4} shows the performance comparison of different schemes under low, medium, and high jammer mode-switching rates. 
-It is seen that the proposed scheme consistently achieves the highest average SU sum rate and the lowest outage probability across all switching settings, 
-while its performance varies only slightly as the transition statistics change. 
-This indicates that the proposed framework is less sensitive to the jammer mode-switching rate and 
-can maintain stable decision quality under different non-stationary interference conditions. 
-Therefore, the proposed mode-aware scheme exhibits stronger robustness than the benchmark schemes under varying jammer transition dynamics.
+The performance comparison under different jammer transition settings is shown in Fig.~\ref{fig:exp4}, 
+where each scheme is trained and tested under the corresponding transition matrix.
+It is observed that the performance does not vary monotonically from Low to High, 
+indicating that the impact of jammer transition statistics is determined not only by the switching frequency, 
+but also by the resulting temporal structure and dwell-time distribution of different jamming modes. 
+In particular, MA2C-DDPG exhibits a different trend from the proposed scheme and Hybrid PPO-DDPG, 
+which suggests that different learning frameworks respond differently to the underlying jammer dynamics. 
+Nevertheless, the proposed scheme maintains competitive throughput and reliability across all considered settings, 
+demonstrating stronger adaptability to different jammer transition environments.
 
 \section{Conclusion}
 This paper investigated mode-aware anti-jamming communication in dynamic spectrum sharing UAV networks 
