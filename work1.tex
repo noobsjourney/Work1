@@ -306,7 +306,7 @@ PPO then updates the discrete allocation policy by maximizing the expected retur
 \end{equation}
 where $r_n(\theta)=\frac{\pi_\theta(\mathbf{a}_d[n]\mid\mathbf{s}[n])}
 {\pi_{\theta_{\mathrm{old}}}(\mathbf{a}_d[n]\mid\mathbf{s}[n])}$ is the probability ratio between the new and old policies, $\epsilon$ is the clipping parameter, and $\hat{A}_n$ denotes the advantage estimate. 
-In our implementation, the advantage is estimated to improve training stability and sample efficiency.
+In particular, generalized advantage estimation (GAE) is adopted to compute $\hat{A}_n$, thereby improving training stability and sample efficiency.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{exp/exp1_convergence.pdf}
@@ -352,15 +352,11 @@ The number of SUs is 4. The transmit power of C-UAV ranges
 from 200mW to 300mW.
 The sensing window length for mode recognition is $L=5$. 
 The transition matrix is set as
-\begin{equation}
-\mathbf{\Pi}=
-\begin{bmatrix}
+$\boldsymbol{\Pi}=\begin{bmatrix}
 0.85 & 0.10 & 0.05\\
 0.10 & 0.80 & 0.10\\
 0.10 & 0.10 & 0.80
-\end{bmatrix}.
-\label{eq:transition_matrix}
-\end{equation}
+\end{bmatrix}$.
 
 Two baseline schemes are introduced for performance comparison. 
 \textbf{MA2C-DDPG:} MA2C and DDPG are used for spectrum allocation and trajectory optimization, with the transmit power of the C-UAV fixed at 250 mW.
