@@ -109,7 +109,7 @@ Each PU occupies one orthogonal licensed sub-band, while the C-UAV opportunistic
 Meanwhile, a jamming UAV (J-UAV) interferes with the secondary transmission by switching among different jamming patterns over time.
 
 A three-dimensional Cartesian coordinate system is considered, where the UAVs fly at a fixed altitude $H_c$. 
-The horizontal locations of the PBS, the $j$-th PU, the $k$-th SU, and the C-UAV at time slot $n$ are denoted by $\mathbf{w}_b$, $\mathbf{w}_{p,j}$, $\mathbf{w}_{s,k}$, and $\mathbf{q}_c[n]$, respectively. 
+The horizontal locations of the PBS, the $j$-th PU, the $k$-th SU, and the C-UAV at time slot $n$ are denoted by $\mathbf{w}_b$, $\mathbf{w}_{p,j}$, $\mathbf{w}_{s,k}$, and $\mathbf{q}_c[n]\triangleq(x_c[n],y_c[n])$, respectively. 
 The total communication duration $T$ is divided into $N$ equal-length time slots with duration $\Delta t=T/N$. 
 The ground SUs move according to slot-wise kinematic updates, while the horizontal position of the C-UAV evolves as
 \begin{equation}
@@ -156,7 +156,9 @@ Accordingly, the SINR of the $k$-th SU on sub-band $m$ at time slot $n$ is expre
 {\sigma^2 + P_B h_{P,k,n}^{\mathrm{NLoS}} + \rho_{J,n}[m] P_J h_{J,k,n}^{\mathrm{LoS}}},
 \label{eq:sinr_su}
 \end{equation}
-where $P_B$ and $P_J$ denote the transmit powers of the PBS and the J-UAV, respectively, $P_C[n]\in[P_C^{\min},P_C^{\max}]$ is the transmit power of the C-UAV at time slot $n$, and $\sigma^2$ is the noise power. 
+where $h_{P,k,n}^{\mathrm{NLoS}}$ and $h_{J,k,n}^{\mathrm{LoS}}$ denote the channel power gains from the PBS and the J-UAV to the $k$-th SU at time slot $n$, 
+respectively, $P_B$ and $P_J$ are the transmit powers of the PBS and the J-UAV, $P_C[n]\in[P_C^{\min},P_C^{\max}]$ is the transmit power of the C-UAV at time slot $n$, 
+and $\sigma^2$ is the noise power.
 The corresponding achievable rate is
 \begin{equation}
 R_{m,k,n}^{s}=B\log_2\!\left(1+\gamma_{m,k,n}^{s}\right),
@@ -165,7 +167,8 @@ R_{m,k,n}^{s}=B\log_2\!\left(1+\gamma_{m,k,n}^{s}\right),
 where $B$ is the bandwidth of each sub-band. 
 The achievable PU rate is defined similarly and is required to satisfy a minimum-rate constraint.
 
-To capture communication reliability under pattern-switching jamming, an outage event is declared when the achievable SU rate falls below a QoS threshold $R_{\mathrm{th}}$. 
+To capture communication reliability under pattern-switching jamming, let $R_{k,n}^{s}$ denote the aggregated achievable rate of the $k$-th SU at time slot $n$. 
+An outage event is declared when $R_{k,n}^{s}$ falls below a QoS threshold $R_{\mathrm{th}}$. 
 Accordingly, the outage indicator is defined as
 \begin{equation}
 \mathbb{I}_{k,n}^{\mathrm{out}} \triangleq \mathbf{1}\!\left\{R_{k,n}^{s}<R_{\mathrm{th}}\right\}, 
@@ -265,25 +268,17 @@ where $\phi_c[n]\in[-\pi,\pi]$ and $P_C[n]\in[P_C^{\min},\,P_C^{\max}]$ denote t
 \end{figure*}
 
 \textbf{\textit{Reward:}}
-Consistent with~(8), we adopt a reliability-aware reward that jointly captures
-the secondary throughput, outage reliability, and PU protection, defined as
+Consistent with~\eqref{eq:P1}, we adopt a reliability-aware reward that jointly captures the secondary throughput, outage reliability, and PU protection, defined as
 \begin{equation}
 r[n]
 =\alpha \sum_{k=1}^{K} R^{s}_{k}[n] + \beta \sum_{j=1}^{J} \delta_j[n] - \gamma \sum_{k=1}^{K}\mathbb{I}\!\left(R^{s}_{k}[n] < R_{\mathrm{th}}\right),
 \label{eq:reward}
 \end{equation}
-where $\alpha,\beta,\gamma>0$ are constant coefficients, 
-$\delta_j[n]$ is a penalty term when the interference to the PUs exceeds the tolerated threshold and formulated as
-\begin{equation}
-\delta_j[n]=
-\begin{cases}
-0, & R^{p}_{j}[n] \ge R^{\min}_{j},\\
-R^{p}_{j}[n]-R^{\min}_{j}, & 0 \le R^{p}_{j}[n] < R^{\min}_{j},
-\end{cases}
-\end{equation}
-where $R^{p}_{j}[n]$ is the achievable rate of the $j$-th PU and $R^{\min}_{j}$ is its minimum rate requirement.
+where $\alpha$, $\beta$, and $\gamma$ are positive weighting coefficients, and $\delta_j[n]\le 0$ denotes a penalty term activated when the achievable rate of the $j$-th PU falls below its minimum requirement $R_j^{\min}$. 
+Accordingly, the reward encourages high secondary throughput while discouraging SU outages and violations of the PU protection constraint.
+
 \subsection{Hybrid PPO-DDPG Framework}
-Problem~(8) involves discrete spectrum allocation, continuous joint control of UAV mobility
+Problem~\eqref{eq:P1} involves discrete spectrum allocation, continuous joint control of UAV mobility
 and transmit power. Thus, we employ a hybrid solver, as shown in Fig.~\ref{fig:framework}, where PPO is adopted for the discrete spectrum
 decision $\mathbf{a}_d[n]$ and DDPG is used for the continuous control vector $\mathbf{a}_c[n]$,
 both conditioned on the semantic-augmented state $\mathbf{s}[n]$.
@@ -295,7 +290,7 @@ To avoid the exponential growth of the joint discrete action space, the policy i
 \begin{equation}
 \pi_\theta(\mathbf{a}_d|\mathbf{s})=\prod_{k=1}^{K}\pi_\theta^{(k)}\big(a_k|\mathbf{s}\big),
 \end{equation}
-where each $\pi_\theta^{(k)}(\cdot|\mathbf{s})$ is a categorical distribution over the $M$ candidate sub-bands. 
+where each $\pi_\theta^{(k)}(\cdot|\mathbf{s})$ is a categorical distribution over the $M$ candidate sub-bands, $a_k$ denotes the selected sub-band for the $k$-th SU. 
 To satisfy the orthogonal sub-band constraint, action masking is adopted during action selection to prevent infeasible allocations and ensure that each sub-band is assigned to at most one SU per slot. 
 PPO then updates the discrete allocation policy by maximizing the expected return while preventing excessively large policy changes. Specifically, the clipped surrogate objective is given by
 \begin{equation}
@@ -315,7 +310,7 @@ In particular, generalized advantage estimation (GAE) is adopted to compute $\ha
 \end{figure}
 
 \textbf{\textit{DDPG for Trajectory/Power Control:}}
-Given the semantic-augmented state $\mathbf{s}[n]$, we employ DDPG to learn the continuous control policy
+Given the semantic-augmented state $\mathbf{s}[n]$, we employ DDPG with an actor network $\mu_{\varphi}(\mathbf{s})$ to learn the continuous control policy.
 in an off-policy manner. Specifically, the transition tuple $(\mathbf{s}[n],\mathbf{a}_c[n],r[n],\mathbf{s}[n+1])$
 is stored in a replay buffer, and mini-batches are uniformly sampled to update the critic network
 $Q_{\omega}(\mathbf{s},\mathbf{a}_c)$.
@@ -329,7 +324,9 @@ L_c(\omega)=\mathbb{E}\Big[\big(Q_{\omega}(\mathbf{s}[n],\mathbf{a}_c[n]) - y[n]
 \end{equation}
 
 The actor is then updated to maximize the critic-evaluated Q-value, while the corresponding target networks
-are updated via Polyak averaging. At each time slot, PPO outputs the discrete spectrum allocation $\mathbf{a}_d[n]$
+are updated via Polyak averaging. 
+
+At each time slot, PPO outputs the discrete spectrum allocation $\mathbf{a}_d[n]$
 (on-policy), and DDPG outputs the continuous control action $\mathbf{a}_c[n]$ (off-policy) based on $\mathbf{s}[n]$.
 \section{SIMULATION RESULTS}
 In this section, simulation results are presented to evaluate the performance of the proposed joint spectrum allocation, trajectory optimization, and power control scheme. 
