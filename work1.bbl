@@ -29,6 +29,9 @@ T.~Kimura and M.~Ogura, ``Distributed collaborative {3D}-deployment of {UAV} bas
 \bibitem{9750059}
 X.~Liu, Y.~Yu, F.~Li, and T.~S. Durrani, ``Throughput maximization for {RIS-UAV} relaying communications,'' \emph{IEEE Transactions on Intelligent Transportation Systems}, vol.~23, no.~10, pp. 19\,569--19\,574, 2022.
 
+\bibitem{11418311}
+R.~Ding, F.~Zhou, M.~Giordani, Q.~Wu, and M.~Zorzi, ``Toward {6G}: Spectrum management in low-altitude aerial information networks,'' \emph{IEEE Network}, pp. 1--9, 2026.
+
 \bibitem{11081858}
 Nidhi, A.~Mihovska, and R.~Prasad, ``Spectrum sharing and dynamic spectrum management techniques in 5{G} and beyond networks: A survey,'' \emph{Journal of Mobile Multimedia}, vol.~17, no. 1-3, pp. 65--78, 2021.
 
@@ -49,9 +52,6 @@ S.~Zhou, Y.~Cheng, X.~Lei, Q.~Peng, J.~Wang, and S.~Li, ``Resource allocation in
 
 \bibitem{10419848}
 J.~Jiao, C.~Liu, J.~He, and M.~Peng, ``Deep reinforcement learning assisted trajectory design for {UAV} communication systems against malicious jamming,'' in \emph{2023 IEEE 23rd International Conference on Communication Technology (ICCT)}, 2023, pp. 979--984.
-
-\bibitem{10233493}
-R.~Ding, F.~Zhou, Y.~Qu, C.~Dong, Q.~Wu, and T.~Q.~S. Quek, ``Novel online-offline {MA2C-DDPG} for efficient spectrum allocation and trajectory optimization in dynamic spectrum sharing {UAV} networks,'' in \emph{2023 IEEE/CIC International Conference on Communications in China (ICCC)}, 2023, pp. 1--6.
 
 \bibitem{10506094}
 R.~Ding, F.~Zhou, Q.~Wu, and D.~W.~K. Ng, ``From external interaction to internal inference: An intelligent learning framework for spectrum sharing and {UAV} trajectory optimization,'' \emph{IEEE Transactions on Wireless Communications}, vol.~23, no.~9, pp. 12\,099--12\,114, 2024.

@@ -165,11 +165,13 @@ INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmrc7t.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
-INPUT ./figure/system-model-crop.pdf
-INPUT ./figure/system-model-crop.pdf
-INPUT ./figure/system-model-crop.pdf
-INPUT ./figure/system-model-crop.pdf
-INPUT ./figure/system-model-crop.pdf
+INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
+INPUT ./figure/system-model_revise-crop.pdf
+INPUT ./figure/system-model_revise-crop.pdf
+INPUT ./figure/system-model_revise-crop.pdf
+INPUT ./figure/system-model_revise-crop.pdf
+INPUT ./figure/system-model_revise-crop.pdf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
@@ -184,8 +186,6 @@ INPUT ./figure/framework-crop.pdf
 INPUT ./figure/framework-crop.pdf
 INPUT ./figure/framework-crop.pdf
 INPUT ./figure/framework-crop.pdf
-INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
-INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/adobe/times/ptmbi7t.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/adobe/times/ptmbi8r.tfm
 INPUT ./exp/exp1_convergence.pdf

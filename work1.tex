@@ -15,11 +15,11 @@
 \title{Mode-Aware Anti-Jamming for Dynamic Spectrum Sharing UAV Networks:Joint Spectrum Allocation, Trajectory, and Power Optimization}
 
 \author{
-  \IEEEauthorblockN{Hao Zhou$^{\S}$, Fuhui Zhou$^{\S,*}$, and Qihui Wu$^{\S}$}
-  
+  \IEEEauthorblockN{Hao Zhou$^{\S}$, Rui Ding$^{\S}$, Hang Yang$^{\S}$, Yihe Diao$^{\S}$, Fuhui Zhou$^{\S,*}$, and Qihui Wu$^{\S}$}
   \IEEEauthorblockA{
   $^{\S}$Nanjing University of Aeronautics and Astronautics, Nanjing, China\\
-  \textrm{Email:} \textit{zhouhao1@nuaa.edu.cn, zhoufuhui@ieee.org, wuqihui2014@sina.com}
+  \textrm{Email:} \textit{zhouhao1@nuaa.edu.cn, rui\_ding@nuaa.edu.cn, yanghang\_1012@163.com,}\\
+  \textit{diaoyihe@nuaa.edu.cn,, zhoufuhui@ieee.org, wuqihui2014@sina.com}
   }
 }
 \maketitle
@@ -29,11 +29,11 @@ Unmanned aerial vehicle (UAV) networks operating under dynamic spectrum sharing 
 especially when adversaries adopt pattern-switching strategies that induce non-stationary interference. 
 Such dynamics significantly degrade communication reliability and hinder fast recovery after interference transitions.
 To address this issue, a mode-aware anti-jamming framework for DSS-enabled UAV networks is proposed. 
-A CNN–GRU based module is first designed to recognize jamming modes from short-term interference observations. 
+A CNN-GRU based module is first designed to recognize jamming modes from short-term interference observations. 
 The inferred mode information is then incorporated into a semantic-augmented Markov decision process. 
-Based on this formulation, a hybrid reinforcement learning framework combining proximal policy optimization (PPO) 
-and deep deterministic policy gradient (DDPG) is developed to jointly optimize spectrum allocation, UAV trajectory, and transmit power.
-Simulation results demonstrate that the proposed approach achieves faster adaptation to jamming mode transitions 
+Based on this formulation, a hybrid reinforcement learning framework combining proximal policy optimization
+and deep deterministic policy gradient is developed to jointly optimize spectrum allocation, UAV trajectory, and transmit power.
+Simulation results demonstrate that the proposed scheme achieves faster adaptation to jamming mode transitions 
 and significantly improves throughput and communication reliability compared with baseline schemes.
 \end{abstract}
 
@@ -46,28 +46,28 @@ Recently, unmanned aerial vehicles (UAVs) have emerged as a promising solution f
 on-demand wireless connectivity in low-altitude networks. 
 Benefiting from their high mobility and favorable line-of-sight (LoS) communication links, 
 UAV-assisted systems have been widely applied in emergency communications, temporary hotspot coverage, 
-and aerial relaying~\cite{10054151,9155283,9750059}.
-However, the limited availability of dedicated spectrum resources poses a fundamental challenge to UAV communications. 
-To alleviate spectrum scarcity, dynamic spectrum sharing (DSS) has emerged as a promising paradigm, 
-enabling UAV networks to opportunistically access licensed or 
-unlicensed spectrum while coexisting with incumbent users~\cite{11081858}.
+and aerial relaying~\cite{10054151,9155283,9750059}. 
+Meanwhile, the rapid growth of UAV-enabled services has significantly increased spectrum demand in low-altitude networks. 
+Since the spectrum exclusively allocated to UAV communications is inherently limited, efficient spectrum access has become essential~\cite{11418311}.
+To alleviate the spectrum scarcity problem, dynamic spectrum sharing (DSS) has emerged as a promising paradigm, 
+enabling UAV networks to opportunistically access licensed spectrum while coexisting with incumbent users.~\cite{11081858}. 
 Nevertheless, the open and dynamic nature of DSS environments makes UAV communications highly susceptible to interference, 
 particularly in the presence of dense wireless devices and potential adversarial jamming. 
 As a result, the wireless environment becomes highly dynamic and uncertain, 
 posing significant challenges for efficient and adaptive resource allocation, 
 including spectrum allocation, UAV trajectory optimization, and transmit power control.
 
-The existing resource allocation approaches can be broadly categorized into two classes, namely, 
+The existing resource allocation methods can be broadly categorized into two classes, namely, 
 conventional optimization-based methods and intelligent learning-based methods, particularly those based on deep reinforcement learning (DRL).  
-In~\cite{7572068}, an alternating iterative optimization framework was developed to jointly optimize transmit power and UAV trajectory, where successive convex optimization was applied to trajectory design. 
-In~\cite{8902014}, the problem was extended to spectrum sharing scenarios, where joint trajectory and transmit power optimization was addressed using block coordinate descent (BCD) combined with successive convex optimization. 
+For example, the authors in~\cite{7572068} proposed an alternating iterative optimization framework to jointly optimize transmit power and UAV trajectory, where successive convex optimization was applied to trajectory design. 
+Similarly, in~\cite{8902014}, the problem was extended to spectrum sharing scenarios, where joint trajectory and transmit power optimization was addressed using block coordinate descent (BCD) combined with successive convex optimization. 
 Furthermore, more complex interference environments were considered in~\cite{9810528}, where trajectory and power control under malicious jamming was solved via an alternating optimization (AO) framework with successive convex approximation (SCA) and semidefinite relaxation (SDR). 
 Moreover, in~\cite{10176326}, the problem was further generalized to mixed-integer formulations involving joint resource allocation and UAV trajectory control, which was tackled by decomposing it into subproblems and solving via alternating optimization.  
-Despite their effectiveness, conventional optimization-based methods often lead to nonlinear and 
+Despite their effectiveness, conventional optimization-based methods typically lead to nonlinear and 
 non-convex problems due to coupled variables and sensitivity to initial conditions, making them difficult to solve efficiently and prone to suboptimal solutions.
 
-To overcome the limitations of conventional optimization-based methods, DRL-based approaches have gained increasing attention.
-In~\cite{9826431}, a clustering-aided reinforcement learning approach was proposed for joint user association, UAV trajectory design, and power control. 
+To overcome the limitations of conventional optimization-based methods, DRL-based methods have gained increasing attention.
+In~\cite{9826431}, a clustering-aided reinforcement learning method was proposed for joint user association, UAV trajectory design, and power control. 
 In~\cite{10419848}, a DRL-based trajectory design scheme was developed for UAV communication systems against malicious jamming. 
 Moreover, in~\cite{10233493}, an online-offline MA2C-DDPG framework was proposed for dynamic spectrum sharing UAV networks, 
 where spectrum allocation and UAV trajectory were jointly optimized. 
@@ -81,12 +81,11 @@ while in~\cite{9992013}, anti-jamming strategies were designed based on power an
 Nevertheless, pattern-switching jamming, where interference modes change abruptly over time, 
 has rarely been explicitly considered, leading to slow adaptation in highly non-stationary environments.  
 
-In this paper, a mode-aware anti-jamming framework is developed for DSS-enabled UAV networks under pattern-switching interference. 
-Unlike conventional approaches that rely on implicit interference learning, 
-A CNN–GRU based module is first introduced to recognize jamming modes from short-term interference observations and 
+In this paper, a mode-aware anti-jamming framework is proposed for DSS-enabled UAV networks under pattern-switching interference. 
+Specifically, a CNN-GRU based module is first introduced to recognize jamming modes from short-term interference observations and 
 capture the dynamic interference patterns.
 By integrating the inferred jamming mode into the Markov decision process, the proposed framework enables faster adaptation to non-stationary environments.
-Furthermore, a hybrid reinforcement learning framework combining PPO and DDPG is designed to address the coupled discrete–continuous optimization problem, 
+Moreover, a hybrid PPO-DDPG reinforcement learning framework is designed to address the coupled discrete–continuous optimization problem, 
 where spectrum allocation, UAV trajectory, and transmit power are jointly optimized.
 Extensive simulation results verify that the proposed framework significantly improves communication reliability and spectrum efficiency, 
 while achieving faster recovery after jamming mode transitions compared with baseline schemes.
@@ -97,7 +96,7 @@ Section III presents our proposed mode-aware anti-jamming framework.
 Section IV presents the simulation results. Finally, the paper concludes with Section V.
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\columnwidth]{figure/system-model-crop.pdf}
+  \includegraphics[width=\columnwidth]{figure/system-model_revise-crop.pdf}
   \caption{The DSS-enabled UAV network under pattern-switching jamming.}
   \label{fig:System_Model}
 \end{figure}
@@ -120,7 +119,7 @@ y_c[n+1] &= y_c[n] + v_c \sin\bigl(\phi_c[n]\bigr),
 \label{eq:UAV_Motion}
 \end{equation}
 where $v_c$ and $\phi_c[n]$ denote the flight speed and heading angle of the C-UAV, respectively. 
-Accordingly, the distance between the C-UAV and the $k$-th SU at time slot $n$ is
+Accordingly, the distance between the C-UAV and the $k$-th SU at time slot $n$ can be given as
 \begin{equation}
 d_{c,k}[n] = \sqrt{\bigl\lVert \mathbf{q}_c[n]-\mathbf{w}_{s,k}[n] \bigr\rVert^2 + H_c^2}.
 \label{eq:distance_ck}
@@ -135,7 +134,7 @@ h_{C,k,n}^{\mathrm{LoS}}=\beta_{\mathrm{ref}} d_{c,k}[n]^{-2}.
 \end{equation}
 For the terrestrial links, distance-dependent path loss and Rayleigh fading are considered.
 
-Unlike conventional fixed or random jamming models, the J-UAV adopts a pattern-switching strategy. 
+Different from the conventional fixed or random jamming models, the J-UAV adopts a pattern-switching strategy. 
 Let $z[n]\in\mathcal{Z}\triangleq\{\text{Constant},\text{Sweep},\text{Random}\}$ denote the jamming mode at time slot $n$, corresponding to constant jamming, sweep jamming, and random jamming, respectively. 
 The jamming mode evolves as a first-order Markov chain, i.e.,
 \begin{equation}
@@ -179,46 +178,47 @@ where $\mathbf{1}\{\cdot\}$ equals $1$ if the condition holds and $0$ otherwise.
 This definition penalizes each outage slot and thus encourages fast recovery after jamming mode transitions.
 
 \subsection{Problem Formulation}
-In this paper, we address a joint spectrum allocation, UAV trajectory control, 
-and transmit power adaptation problem in a dynamic spectrum sharing UAV network under pattern-switching jamming, 
+In this paper, we address a joint spectrum allocation, UAV trajectory optimization, 
+and transmit power control problem in a dynamic spectrum sharing UAV network under pattern-switching jamming, 
 aiming to achieve fast recovery and reliable communication for secondary users while satisfying the primary user protection constraints. 
-Accordingly, the optimization problem is formulated as follows
+Accordingly, the optimization problem is formulated as 
 \begin{subequations}\label{eq:P1}
 \begin{align}
 \textbf{P1:}\quad
 & \max_{\boldsymbol{\rho},\,\boldsymbol{\phi},\,\mathbf{P}} \quad
 \frac{1}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}\sum_{m=1}^{M} R^{\mathrm{s}}_{m,k,n}
--\frac{\lambda_{\mathrm{out}}}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}\mathbb{I}^{\mathrm{out}}_{k,n}
+-\frac{\lambda_{\mathrm{out}}}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}\mathbb{I}^{\mathrm{out}}_{k,n},
 \label{eq:P1_obj} \\
 \text{s.t.}\ \textbf{C1:}\quad
 & \sum_{m=1}^{M} R_{m,j,n}^{p} \ge R^{\min}_{j},
-\quad \forall j\in\mathcal{J},\ \forall n\in\mathcal{N}
+\quad \forall j\in\mathcal{J},\ \forall n\in\mathcal{N},
 \label{eq:P1_PU}\\
 \textbf{C2:}\quad
 & \rho_{k,n}[m]\in\{0,1\},
-\quad \forall k\in\mathcal{K},\ \forall m\in\mathcal{M},\ \forall n\in\mathcal{N}
+\quad \forall k\in\mathcal{K},\ \forall m\in\mathcal{M},\ \forall n\in\mathcal{N},
 \label{eq:P1_binary}\\
 \textbf{C3:}\quad
 & \sum_{k=1}^{K}\rho_{k,n}[m]\le 1,
-\quad \forall m\in\mathcal{M},\ \forall n\in\mathcal{N}
+\quad \forall m\in\mathcal{M},\ \forall n\in\mathcal{N},
 \label{eq:P1_orthogonal}\\
 \textbf{C4:}\quad
 & |\phi_c[n]| \le \pi,
-\quad \forall n\in\mathcal{N}
+\quad \forall n\in\mathcal{N},
 \label{eq:P1_heading}\\
 \textbf{C5:}\quad
 & P_C^{\min} \le P_C[n] \le P_C^{\max},
-\quad \forall n\in\mathcal{N}
+\quad \forall n\in\mathcal{N},
 \label{eq:P1_power}
 \end{align}
 \end{subequations}
 
 The objective jointly accounts for throughput and communication reliability by maximizing the achievable rate of the SUs while penalizing outage events. 
-Here, $\lambda_{\mathrm{out}}$ controls the tradeoff between rate maximization and outage suppression, so that prolonged service interruption under dynamic jamming is discouraged. 
-In \eqref{eq:P1}, $\boldsymbol{\rho}$, $\boldsymbol{\phi}$, and $\mathbf{P}$ denote the sub-band allocation, UAV heading control, and C-UAV transmit power policies, respectively. 
-Constraint~\eqref{eq:P1_PU} guarantees PU protection, constraints~\eqref{eq:P1_binary} and~\eqref{eq:P1_orthogonal} enforce feasible orthogonal spectrum allocation among SUs, and constraints~\eqref{eq:P1_heading} and~\eqref{eq:P1_power} ensure feasible UAV maneuvering and transmit power adaptation.
+Specifically, $\lambda_{\mathrm{out}}$ controls the tradeoff between rate maximization and outage suppression.
+$\boldsymbol{\rho}$, $\boldsymbol{\phi}$, and $\mathbf{P}$ denote the sub-band allocation, UAV heading control, and C-UAV transmit power policies, respectively. 
+Constraint~\eqref{eq:P1_PU} guarantees PU protection. Constraints~\eqref{eq:P1_binary} and~\eqref{eq:P1_orthogonal} enforce feasible orthogonal spectrum allocation among SUs. 
+Constraints~\eqref{eq:P1_heading} and~\eqref{eq:P1_power} ensure feasible UAV maneuvering and transmit power adaptation.
 
-\section{MODE-AWARE HYBRID PPO-DDPG FRAMEWORK FOR ANTI-JAMMING UAV COMMUNICATIONS}
+\section{OUR PROPOSED FRAMEWORK FOR JOINT SPECTRUM ALLOCATION, TRAJECTORY, AND POWER OPTIMIZATION}
 \subsection{Jamming Mode Recognition}
 The jammer switches among finite modes $z[n]\in\mathcal{Z}$ following the Markov model in~\eqref{eq:markov_jamming}. 
 At each time slot, the C-UAV performs spectrum sensing and collects the interference-energy observation 
@@ -229,14 +229,15 @@ Based on the most recent $L$ slots, a length-$L$ sensing window is constructed a
 \end{equation}
 A lightweight recognizer $f_\theta(\cdot)$ maps $\mathcal{I}[n]$ to a mode probability vector
 \begin{equation}
-\boldsymbol{\pi}[n]=f_\theta(\mathcal{I}[n])\in\mathbb{R}^{|\mathcal{Z}|}, 
-\quad \sum_{c=1}^{|\mathcal{Z}|}\pi_c[n]=1,
+\boldsymbol{\pi}[n]=f_\theta(\mathcal{I}[n])\in\mathbb{R}^{|\mathcal{Z}|}. 
 \end{equation}
 which provides a semantic description of the current jamming behavior. 
-A CNN--GRU classifier is adopted, where a 1D CNN extracts spectral features and a GRU captures short-term temporal dynamics. 
+
+A CNN--GRU classifier is adopted, where a 1D CNN extracts local spectral features from the sensing window and a GRU captures short-term temporal correlations across consecutive slots. 
+Accordingly, the recognizer can jointly exploit frequency-domain and temporal features to infer the jammer mode more effectively.
 The model is trained offline and used online only for inference.
 \subsection{Semantic-Augmented MDP Formulation}
-Following the MDP formulation in the reference work\cite{10233493}, we incorporate the mode probability vector
+Following the MDP formulation in the reference work\cite{10506094}, we incorporate the mode probability vector
 $\boldsymbol{\pi}[n]$ as a semantic descriptor of the interference environment to facilitate
 fast adaptation under mode-switching jamming. 
 
@@ -245,27 +246,27 @@ The system state at slot $n$ is defined as
 \begin{equation}
 \mathbf{s}[n] = \big(\mathbf{a}[n-1],\, \mathbf{q}_c[n-1],\, \mathbf{g}[n],\, \boldsymbol{\pi}[n] \big),
 \end{equation}
-where $\mathbf{a}[n-1]$ denotes the previous action at slot $n-1$, 
-$\mathbf{q}_c[n-1]$ denotes the previous UAV position at slot $n-1$, 
-$\mathbf{g}[n]$ denotes channel and geometry-related features for rate evaluation, 
-and $\boldsymbol{\pi}[n]$ encodes the high-level semantic belief of the current jamming behavior. 
+where $\mathbf{a}[n-1]$ and $\mathbf{q}_c[n-1]$ denote the previous action and UAV position at slot $n-1$, 
+respectively, $\mathbf{g}[n]$ denotes channel and geometry-related features for rate evaluation, 
+and $\boldsymbol{\pi}[n]$ represents the high-level semantic belief of the current jamming behavior.
 
-\textbf{\textit{Action:}} The action consists of a discrete sub-band allocation decision and a continuous control vector,
+\textbf{\textit{Action:}} The action consists of a discrete sub-band allocation decision and a continuous control vector, which is given by
 \begin{equation}
 \mathbf{a}[n]=\big(\mathbf{a}_d[n],\,\mathbf{a}_c[n]\big),
 \end{equation}
 where $\mathbf{a}_d[n]$ denotes the joint sub-band allocation for all $K$ SUs at slot $n$, which is equivalently represented by the binary allocation variables $\{\rho_{k,n}[m]\}$ in the optimization problem. 
 The continuous action is defined as
+\begin{figure*}[t]
+   \centering 
+   \includegraphics[width=\textwidth]{figure/framework-crop.pdf}
+   \caption{The mode-aware hybrid {PPO-DDPG} framework for joint spectrum allocation, trajectory, and power optimization.} 
+   \label{fig:framework} 
+\end{figure*}
 \begin{equation}
 \mathbf{a}_c[n]=\big(\phi_c[n],\,P_C[n]\big),
 \end{equation}
 where $\phi_c[n]\in[-\pi,\pi]$ and $P_C[n]\in[P_C^{\min},\,P_C^{\max}]$ denote the UAV heading angle and transmit power, respectively.
-\begin{figure*}[t]
-   \centering 
-   \includegraphics[width=\textwidth]{figure/framework-crop.pdf}
-   \caption{The mode-aware hybrid {PPO-DDPG} framework for joint spectrum allocation, UAV trajectory, and power control.} 
-   \label{fig:framework} 
-\end{figure*}
+
 
 \textbf{\textit{Reward:}}
 Consistent with~\eqref{eq:P1}, we adopt a reliability-aware reward that jointly captures the secondary throughput, outage reliability, and PU protection, defined as
@@ -278,14 +279,14 @@ where $\alpha$, $\beta$, and $\gamma$ are positive weighting coefficients, and $
 Accordingly, the reward encourages high secondary throughput while discouraging SU outages and violations of the PU protection constraint.
 
 \subsection{Hybrid PPO-DDPG Framework}
-Problem~\eqref{eq:P1} involves discrete spectrum allocation, continuous joint control of UAV mobility
-and transmit power. Thus, we employ a hybrid solver, as shown in Fig.~\ref{fig:framework}, where PPO is adopted for the discrete spectrum
+Problem $\mathbf{P1}$ involves discrete spectrum allocation, continuous joint control of UAV mobility
+and transmit power. Therefore, we employ a hybrid PPO-DDPG framework, as shown in Fig.~\ref{fig:framework}, where PPO is adopted for the discrete spectrum
 decision $\mathbf{a}_d[n]$ and DDPG is used for the continuous control vector $\mathbf{a}_c[n]$,
 both conditioned on the semantic-augmented state $\mathbf{s}[n]$.
 
 \textbf{\textit{PPO for Spectrum Allocation:}}
-Let $\pi_\theta(\mathbf{a}_d|\mathbf{s})$ denote the stochastic policy for spectrum allocation parameterized by $\theta$, where $\mathbf{a}_d[n]$ is the discrete joint sub-band allocation decision at time slot $n$. 
-Different from the multi-agent A2C design in~\cite{10233493}, we adopt a centralized PPO-based spectrum allocator. 
+Let $\pi_\theta(\mathbf{a}_d|\mathbf{s})$ denotes the stochastic policy for spectrum allocation parameterized by $\theta$, where $\mathbf{a}_d[n]$ is the discrete joint sub-band allocation decision at time slot $n$. 
+Different from the multi-agent A2C design in~\cite{10506094}, we adopt a centralized PPO-based spectrum allocator. 
 To avoid the exponential growth of the joint discrete action space, the policy is implemented in a factorized multi-discrete form as
 \begin{equation}
 \pi_\theta(\mathbf{a}_d|\mathbf{s})=\prod_{k=1}^{K}\pi_\theta^{(k)}\big(a_k|\mathbf{s}\big),
@@ -309,7 +310,7 @@ In particular, generalized advantage estimation (GAE) is adopted to compute $\ha
   \label{fig:exp1}
 \end{figure}
 
-\textbf{\textit{DDPG for Trajectory/Power Control:}}
+\textbf{\textit{DDPG for Trajectory and Power Optimization:}}
 Given the semantic-augmented state $\mathbf{s}[n]$, we employ DDPG with an actor network $\mu_{\varphi}(\mathbf{s})$ to learn the continuous control policy.
 in an off-policy manner. Specifically, the transition tuple $(\mathbf{s}[n],\mathbf{a}_c[n],r[n],\mathbf{s}[n+1])$
 is stored in a replay buffer, and mini-batches are uniformly sampled to update the critic network
@@ -329,8 +330,8 @@ are updated via Polyak averaging.
 At each time slot, PPO outputs the discrete spectrum allocation $\mathbf{a}_d[n]$
 (on-policy), and DDPG outputs the continuous control action $\mathbf{a}_c[n]$ (off-policy) based on $\mathbf{s}[n]$.
 \section{SIMULATION RESULTS}
-In this section, simulation results are presented to evaluate the performance of the proposed joint spectrum allocation, trajectory optimization, and power control scheme. 
-The simulation settings are based on the works in~\cite{10233493}. 
+In this section, simulation results are presented to evaluate the performance of the proposed mode-aware anti-jamming framework. 
+The simulation settings are based on the works in~\cite{10506094}. 
 Specifically, SUs are PUs are randomly deployed in two seperate $500\,
 \mathrm{m}\times500\,\mathrm{m}$ cells with a C-UAV flying at a fixed altitude of $100\,\mathrm{m}$. 
 The number of SUs is 4. The transmit power of C-UAV ranges 
@@ -346,7 +347,7 @@ The number of SUs is 4. The transmit power of C-UAV ranges
   \caption{Overall throughput and reliability comparisons of our proposed scheme with baseline schemes.}
   \label{fig:exp3}
 \end{figure}
-from 200mW to 300mW.
+from 200 mW to 300 mW.
 The sensing window length for mode recognition is $L=5$. 
 The transition matrix is set as
 $\boldsymbol{\Pi}=\begin{bmatrix}
@@ -372,7 +373,7 @@ where the solid curves denote the mean performance over multiple test episodes a
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{exp/exp4_switching_robustness.pdf}
-  \caption{Robustness comparisons of our proposed scheme with baseline schemes under different jammer transition settings}
+  \caption{Robustness comparisons of our proposed scheme with baseline schemes under different jammer transition settings.}
   \label{fig:exp4}
 \end{figure} 
 It is observed that the proposed scheme maintains the highest sum-rate level over most time slots.
@@ -400,7 +401,7 @@ demonstrating stronger adaptability to different jammer transition environments.
 \section{Conclusion}
 This paper investigated mode-aware anti-jamming communication in dynamic spectrum sharing UAV networks 
 under pattern-switching interference. 
-A mode-aware anti-jamming framework was developed in which the UAV first recognizes the current jamming pattern 
+A mode-aware anti-jamming framework was proposed in which the UAV first recognizes the current jamming pattern 
 using a CNN–GRU based classifier and then incorporates the inferred mode information
 into the decision-making process. By formulating a semantic-augmented MDP, 
 a hybrid PPO–DDPG reinforcement learning algorithm was proposed to jointly optimize spectrum allocation, 

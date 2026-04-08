@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  4 APR 2026 10:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.5)  8 APR 2026 22:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -334,65 +334,59 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 25.
  (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 4621) in paragraph at lines 60--68
-[]\OT1/ptm/m/n/10 The ex-ist-ing re-source al-lo-ca-tion ap-proaches can be
- []
+
+LaTeX Warning: Citation `10233493' on page 1 undefined on input line 72.
 
 [1{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
 
 ]
-<figure/system-model-crop.pdf, id=13, 539.01375pt x 367.3725pt>
-File: figure/system-model-crop.pdf Graphic file (type pdf)
-<use figure/system-model-crop.pdf>
-Package pdftex.def Info: figure/system-model-crop.pdf  used on input line 100.
+<figure/system-model_revise-crop.pdf, id=13, 539.01375pt x 367.3725pt>
+File: figure/system-model_revise-crop.pdf Graphic file (type pdf)
+<use figure/system-model_revise-crop.pdf>
+Package pdftex.def Info: figure/system-model_revise-crop.pdf  used on input line 99.
 (pdftex.def)             Requested size: 252.0pt x 171.75697pt.
 
-Underfull \hbox (badness 2126) in paragraph at lines 101--101
+Underfull \hbox (badness 2126) in paragraph at lines 100--100
 []\OT1/ptm/m/n/10 Fig. 1: |The DSS-enabled UAV net-work un-der pattern-
  []
 
-[2 <./figure/system-model-crop.pdf>]
-Underfull \hbox (badness 6252) in paragraph at lines 170--173
+[2 <./figure/system-model_revise-crop.pdf>]
+Underfull \hbox (badness 6252) in paragraph at lines 169--172
 []\OT1/ptm/m/n/10 To cap-ture com-mu-ni-ca-tion re-li-a-bil-ity un-der pattern-
  []
 
 
-Overfull \hbox (3.58813pt too wide) detected at line 213
+Overfull \hbox (6.36592pt too wide) detected at line 212
 []
  []
 
-<figure/framework-crop.pdf, id=55, 994.71625pt x 545.03625pt>
+<figure/framework-crop.pdf, id=52, 994.71625pt x 545.03625pt>
 File: figure/framework-crop.pdf Graphic file (type pdf)
 <use figure/framework-crop.pdf>
-Package pdftex.def Info: figure/framework-crop.pdf  used on input line 265.
+Package pdftex.def Info: figure/framework-crop.pdf  used on input line 261.
 (pdftex.def)             Requested size: 516.0pt x 282.73853pt.
 [3]
-<exp/exp1_convergence.pdf, id=63, 448.07399pt x 289.08pt>
+<exp/exp1_convergence.pdf, id=60, 448.07399pt x 289.08pt>
 File: exp/exp1_convergence.pdf Graphic file (type pdf)
 <use exp/exp1_convergence.pdf>
-Package pdftex.def Info: exp/exp1_convergence.pdf  used on input line 307.
+Package pdftex.def Info: exp/exp1_convergence.pdf  used on input line 308.
 (pdftex.def)             Requested size: 252.0pt x 162.58063pt.
-
-Underfull \hbox (badness 2478) in paragraph at lines 312--318
-\OT1/ptm/m/n/10 augmented state $\OT1/cmr/bx/n/10 s\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ]$\OT1/ptm/m/n/10 , we em-ploy DDPG with an ac-
- []
-
-[4 <./figure/framework-crop.pdf>]
-<exp/exp2_recovery.pdf, id=190, 505.89pt x 317.98799pt>
+ [4 <./figure/framework-crop.pdf>]
+<exp/exp2_recovery.pdf, id=187, 505.89pt x 317.98799pt>
 File: exp/exp2_recovery.pdf Graphic file (type pdf)
 <use exp/exp2_recovery.pdf>
-Package pdftex.def Info: exp/exp2_recovery.pdf  used on input line 339.
+Package pdftex.def Info: exp/exp2_recovery.pdf  used on input line 340.
 (pdftex.def)             Requested size: 252.0pt x 158.40164pt.
-<exp/exp3_overall.pdf, id=191, 505.89pt x 289.08pt>
+<exp/exp3_overall.pdf, id=188, 505.89pt x 289.08pt>
 File: exp/exp3_overall.pdf Graphic file (type pdf)
 <use exp/exp3_overall.pdf>
-Package pdftex.def Info: exp/exp3_overall.pdf  used on input line 345.
+Package pdftex.def Info: exp/exp3_overall.pdf  used on input line 346.
 (pdftex.def)             Requested size: 252.0pt x 144.0015pt.
-<exp/exp4_switching_robustness.pdf, id=192, 527.55467pt x 284.8049pt>
+<exp/exp4_switching_robustness.pdf, id=189, 527.55467pt x 284.8049pt>
 File: exp/exp4_switching_robustness.pdf Graphic file (type pdf)
 <use exp/exp4_switching_robustness.pdf>
-Package pdftex.def Info: exp/exp4_switching_robustness.pdf  used on input line 374.
+Package pdftex.def Info: exp/exp4_switching_robustness.pdf  used on input line 375.
 (pdftex.def)             Requested size: 252.0pt x 136.04422pt.
  [5 <./exp/exp1_convergence.pdf> <./exp/exp2_recovery.pdf> <./exp/exp3_overall.pdf>] (./work1.bbl)
 
@@ -411,20 +405,24 @@ Before submitting the final camera ready copy, remember to:
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-11-14>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 6292 strings out of 467537
- 104966 string characters out of 5423704
+ 6294 strings out of 467537
+ 105043 string characters out of 5423704
  528730 words of memory out of 5000000
- 35136 multiletter control sequences out of 15000+600000
+ 35138 multiletter control sequences out of 15000+600000
  668630 words of font info for 123 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,13n,65p,388b,346s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,13n,65p,367b,346s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on work1.pdf (6 pages, 737145 bytes).
+Output written on work1.pdf (6 pages, 737594 bytes).
 PDF statistics:
- 329 PDF objects out of 1000 (max. 8388607)
- 146 compressed objects within 2 object streams
+ 326 PDF objects out of 1000 (max. 8388607)
+ 143 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
