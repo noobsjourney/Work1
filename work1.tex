@@ -57,22 +57,22 @@ As a result, the wireless environment becomes highly dynamic and uncertain,
 posing significant challenges for efficient and adaptive resource allocation, 
 including spectrum allocation, UAV trajectory optimization, and transmit power control.
 
-The existing resource allocation methods can be broadly categorized into two classes, namely, 
-conventional optimization-based methods and intelligent learning-based methods, particularly those based on deep reinforcement learning (DRL).  
-For example, the authors in~\cite{7572068} proposed an alternating iterative optimization framework to jointly optimize transmit power and UAV trajectory, where successive convex optimization was applied to trajectory design. 
-Similarly, in~\cite{8902014}, the problem was extended to spectrum sharing scenarios, where joint trajectory and transmit power optimization was addressed using block coordinate descent (BCD) combined with successive convex optimization. 
-Furthermore, more complex interference environments were considered in~\cite{9810528}, where trajectory and power control under malicious jamming was solved via an alternating optimization (AO) framework with successive convex approximation (SCA) and semidefinite relaxation (SDR). 
-Moreover, in~\cite{10176326}, the problem was further generalized to mixed-integer formulations involving joint resource allocation and UAV trajectory control, which was tackled by decomposing it into subproblems and solving via alternating optimization.  
-Despite their effectiveness, conventional optimization-based methods typically lead to nonlinear and 
-non-convex problems due to coupled variables and sensitivity to initial conditions, making them difficult to solve efficiently and prone to suboptimal solutions.
+The existing resource allocation methods can be broadly classified into two categories: conventional optimization-based methods and intelligent learning-based methods, especially deep reinforcement learning (DRL) methods. 
+Conventional optimization mainly relies on iterative decomposition and convex approximation to handle the coupling among communication and mobility variables. 
+For example, the authors in~\cite{7572068} studied joint transmit power and UAV trajectory optimization by combining alternating optimization with successive convex trajectory design. 
+This line of research was further extended to spectrum-sharing scenarios in~\cite{8902014}, where block coordinate descent and successive convex optimization were adopted for joint trajectory and power control. 
+Beyond spectrum sharing, more challenging adversarial interference was considered in~\cite{9810528}, where trajectory and power control under malicious jamming were addressed through alternating optimization, successive convex approximation, and semidefinite relaxation. 
+The formulation was further generalized in~\cite{10176326} to mixed-integer joint resource allocation and UAV trajectory control, which was solved by problem decomposition. 
+Despite their effectiveness, these methods usually result in highly coupled, nonlinear, and non-convex problems. 
+They are also sensitive to initialization and algorithm design, which limits computational efficiency and often leads to suboptimal solutions.
 
-To overcome the limitations of conventional optimization-based methods, DRL-based methods have gained increasing attention.
-In~\cite{9826431}, a clustering-aided reinforcement learning method was proposed for joint user association, UAV trajectory design, and power control. 
-In~\cite{10419848}, a DRL-based trajectory design scheme was developed for UAV communication systems against malicious jamming. 
-Moreover, in~\cite{10233493}, an online-offline MA2C-DDPG framework was proposed for dynamic spectrum sharing UAV networks, 
-where spectrum allocation and UAV trajectory were jointly optimized. 
-This direction was further advanced in~\cite{10506094}, where an intelligent learning framework from external interaction to internal inference was developed for spectrum sharing and UAV trajectory optimization. 
-In addition, in~\cite{10536060}, a multi-agent DRL-based scheme was proposed for joint trajectory control, resource allocation, and user association in multi-fixed-wing UAV networks. 
+To overcome the limitations of conventional optimization-based methods, DRL-based methods have attracted increasing attention. 
+Early studies mainly focused on adaptive resource allocation in UAV-assisted networks. 
+For example,~\cite{9826431} proposed a clustering-aided reinforcement learning method for joint user association, UAV trajectory design, and power control. 
+This line of work was extended to adversarial environments in~\cite{10419848}, where a DRL-based trajectory design scheme was developed against malicious jamming. 
+Furthermore,~\cite{10506094} introduced an intelligent learning framework from external interaction to internal inference for spectrum sharing and UAV trajectory optimization. 
+The DRL design was further generalized in~\cite{10536060} to multi-fixed-wing UAV networks with joint trajectory control, resource allocation, and user association. 
+These studies highlight the strong adaptability of DRL in dynamic UAV communication environments.
 
 However, most existing DRL-based methods characterize interference only through observable states, 
 such as channel conditions or received interference power, without explicitly modeling the underlying jammer behavior. 
@@ -111,13 +111,12 @@ A three-dimensional Cartesian coordinate system is considered, where the UAVs fl
 The horizontal locations of the PBS, the $j$-th PU, the $k$-th SU, and the C-UAV at time slot $n$ are denoted by $\mathbf{w}_b$, $\mathbf{w}_{p,j}$, $\mathbf{w}_{s,k}$, and $\mathbf{q}_c[n]\triangleq(x_c[n],y_c[n])$, respectively. 
 The total communication duration $T$ is divided into $N$ equal-length time slots with duration $\Delta t=T/N$. 
 The ground SUs move according to slot-wise kinematic updates, while the horizontal position of the C-UAV evolves as
-\begin{equation}
-\begin{aligned}
+\begin{subequations}\label{eq:UAV_Motion}
+\begin{align}
 x_c[n+1] &= x_c[n] + v_c \cos\bigl(\phi_c[n]\bigr),\\
 y_c[n+1] &= y_c[n] + v_c \sin\bigl(\phi_c[n]\bigr),
-\end{aligned}
-\label{eq:UAV_Motion}
-\end{equation}
+\end{align}
+\end{subequations}
 where $v_c$ and $\phi_c[n]$ denote the flight speed and heading angle of the C-UAV, respectively. 
 Accordingly, the distance between the C-UAV and the $k$-th SU at time slot $n$ can be given as
 \begin{equation}
@@ -129,10 +128,10 @@ The air-to-ground channel between the C-UAV and the SUs is dominated by line-of-
 Let $\beta_{\mathrm{ref}}$ denote the channel power gain at the reference distance of $1$~m. 
 Then, the channel power gain from the C-UAV to the $k$-th SU is given by
 \begin{equation}
-h_{C,k,n}^{\mathrm{LoS}}=\beta_{\mathrm{ref}} d_{c,k}[n]^{-2}.
+h_{C,k,n}^{\mathrm{LoS}}=\beta_{\mathrm{ref}} d_{c,k}[n]^{-2},
 \label{eq:los_channel}
 \end{equation}
-For the terrestrial links, distance-dependent path loss and Rayleigh fading are considered.
+for the terrestrial links, distance-dependent path loss and Rayleigh fading are considered.
 
 Different from the conventional fixed or random jamming models, the J-UAV adopts a pattern-switching strategy. 
 Let $z[n]\in\mathcal{Z}\triangleq\{\text{Constant},\text{Sweep},\text{Random}\}$ denote the jamming mode at time slot $n$, corresponding to constant jamming, sweep jamming, and random jamming, respectively. 
@@ -180,37 +179,39 @@ This definition penalizes each outage slot and thus encourages fast recovery aft
 \subsection{Problem Formulation}
 In this paper, we address a joint spectrum allocation, UAV trajectory optimization, 
 and transmit power control problem in a dynamic spectrum sharing UAV network under pattern-switching jamming, 
-aiming to achieve fast recovery and reliable communication for secondary users while satisfying the primary user protection constraints. 
+aiming to achieve fast recovery and reliable communication for SUs while satisfying the PU protection constraints. 
 Accordingly, the optimization problem is formulated as 
 \begin{subequations}\label{eq:P1}
-\begin{align}
-\textbf{P1:}\quad
-& \max_{\boldsymbol{\rho},\,\boldsymbol{\phi},\,\mathbf{P}} \quad
+\begin{IEEEeqnarray}{l}
+\text{P1:}\quad
+\max_{\boldsymbol{\rho},\,\boldsymbol{\phi},\,\mathbf{P}} \quad
 \frac{1}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}\sum_{m=1}^{M} R^{\mathrm{s}}_{m,k,n}
--\frac{\lambda_{\mathrm{out}}}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}\mathbb{I}^{\mathrm{out}}_{k,n},
-\label{eq:P1_obj} \\
-\text{s.t.}\ \textbf{C1:}\quad
-& \sum_{m=1}^{M} R_{m,j,n}^{p} \ge R^{\min}_{j},
+- \frac{\lambda_{\mathrm{out}}}{N}\sum_{n=1}^{N}\sum_{k=1}^{K}\mathbb{I}^{\mathrm{out}}_{k,n},
+\nonumber \\
+\hfill \mbox{} \label{eq:P1_obj} \\
+\text{s.t.}\ \text{C1:}\quad
+\sum_{m=1}^{M} R_{m,j,n}^{p} \ge R^{\min}_{j},
 \quad \forall j\in\mathcal{J},\ \forall n\in\mathcal{N},
-\label{eq:P1_PU}\\
-\textbf{C2:}\quad
-& \rho_{k,n}[m]\in\{0,1\},
+\label{eq:P1_PU} \\
+\text{C2:}\quad
+\rho_{k,n}[m]\in\{0,1\},
 \quad \forall k\in\mathcal{K},\ \forall m\in\mathcal{M},\ \forall n\in\mathcal{N},
-\label{eq:P1_binary}\\
-\textbf{C3:}\quad
-& \sum_{k=1}^{K}\rho_{k,n}[m]\le 1,
+\label{eq:P1_binary} \\
+\text{C3:}\quad
+\sum_{k=1}^{K}\rho_{k,n}[m]\le 1,
 \quad \forall m\in\mathcal{M},\ \forall n\in\mathcal{N},
-\label{eq:P1_orthogonal}\\
-\textbf{C4:}\quad
-& |\phi_c[n]| \le \pi,
+\label{eq:P1_orthogonal} \\
+\text{C4:}\quad
+|\phi_c[n]| \le \pi,
 \quad \forall n\in\mathcal{N},
-\label{eq:P1_heading}\\
-\textbf{C5:}\quad
-& P_C^{\min} \le P_C[n] \le P_C^{\max},
+\label{eq:P1_heading} \\
+\text{C5:}\quad
+P_C^{\min} \le P_C[n] \le P_C^{\max},
 \quad \forall n\in\mathcal{N},
 \label{eq:P1_power}
-\end{align}
+\end{IEEEeqnarray}
 \end{subequations}
+
 
 The objective jointly accounts for throughput and communication reliability by maximizing the achievable rate of the SUs while penalizing outage events. 
 Specifically, $\lambda_{\mathrm{out}}$ controls the tradeoff between rate maximization and outage suppression.
@@ -227,9 +228,10 @@ Based on the most recent $L$ slots, a length-$L$ sensing window is constructed a
 \begin{equation}
 \mathcal{I}[n]=\{\mathbf{I}[n-L+1],\ldots,\mathbf{I}[n]\}\in\mathbb{R}^{L\times M}.
 \end{equation}
+
 A lightweight recognizer $f_\theta(\cdot)$ maps $\mathcal{I}[n]$ to a mode probability vector
 \begin{equation}
-\boldsymbol{\pi}[n]=f_\theta(\mathcal{I}[n])\in\mathbb{R}^{|\mathcal{Z}|}. 
+\boldsymbol{\pi}[n]=f_\theta(\mathcal{I}[n])\in\mathbb{R}^{|\mathcal{Z}|},
 \end{equation}
 which provides a semantic description of the current jamming behavior. 
 
@@ -258,7 +260,7 @@ where $\mathbf{a}_d[n]$ denotes the joint sub-band allocation for all $K$ SUs at
 The continuous action is defined as
 \begin{figure*}[t]
    \centering 
-   \includegraphics[width=\textwidth]{figure/framework-crop.pdf}
+   \includegraphics[width=\textwidth]{figure/framework_revise-crop.pdf}
    \caption{The mode-aware hybrid {PPO-DDPG} framework for joint spectrum allocation, trajectory, and power optimization.} 
    \label{fig:framework} 
 \end{figure*}
