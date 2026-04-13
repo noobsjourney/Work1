@@ -50,14 +50,15 @@ and aerial relaying~\cite{10054151,9155283,9750059}.
 Meanwhile, the rapid growth of UAV-enabled services has significantly increased spectrum demand in low-altitude networks. 
 Since the spectrum exclusively allocated to UAV communications is inherently limited, efficient spectrum access has become essential~\cite{11418311}.
 To alleviate the spectrum scarcity problem, dynamic spectrum sharing (DSS) has emerged as a promising paradigm, 
-enabling UAV networks to opportunistically access licensed spectrum while coexisting with incumbent users.~\cite{11081858}. 
+enabling UAV networks to opportunistically access licensed spectrum while coexisting with incumbent users~\cite{11081858}. 
 Nevertheless, the open and dynamic nature of DSS environments makes UAV communications highly susceptible to interference, 
 particularly in the presence of dense wireless devices and potential adversarial jamming. 
 As a result, the wireless environment becomes highly dynamic and uncertain, 
 posing significant challenges for efficient and adaptive resource allocation, 
 including spectrum allocation, UAV trajectory optimization, and transmit power control.
 
-The existing resource allocation methods can be broadly classified into two categories: conventional optimization-based methods and intelligent learning-based methods, especially deep reinforcement learning (DRL) methods. 
+The existing resource allocation methods can be broadly classified into two categories: conventional optimization-based methods and intelligent learning-based methods, 
+especially deep reinforcement learning (DRL) methods. 
 Conventional optimization mainly relies on iterative decomposition and convex approximation to handle the coupling among communication and mobility variables. 
 For example, the authors in~\cite{7572068} studied joint transmit power and UAV trajectory optimization by combining alternating optimization with successive convex trajectory design. 
 This line of research was further extended to spectrum-sharing scenarios in~\cite{8902014}, where block coordinate descent and successive convex optimization were adopted for joint trajectory and power control. 
@@ -66,13 +67,13 @@ The formulation was further generalized in~\cite{10176326} to mixed-integer join
 Despite their effectiveness, these methods usually result in highly coupled, nonlinear, and non-convex problems. 
 They are also sensitive to initialization and algorithm design, which limits computational efficiency and often leads to suboptimal solutions.
 
-To overcome the limitations of conventional optimization-based methods, DRL-based methods have attracted increasing attention. 
+To overcome the limitations of conventional optimization-based methods, learning-based methods, especially DRL-based methods, have attracted increasing attention.
 Early studies mainly focused on adaptive resource allocation in UAV-assisted networks. 
 For example,~\cite{9826431} proposed a clustering-aided reinforcement learning method for joint user association, UAV trajectory design, and power control. 
 This line of work was extended to adversarial environments in~\cite{10419848}, where a DRL-based trajectory design scheme was developed against malicious jamming. 
 Furthermore,~\cite{10506094} introduced an intelligent learning framework from external interaction to internal inference for spectrum sharing and UAV trajectory optimization. 
 The DRL design was further generalized in~\cite{10536060} to multi-fixed-wing UAV networks with joint trajectory control, resource allocation, and user association. 
-These studies highlight the strong adaptability of DRL in dynamic UAV communication environments.
+These studies highlight the strong adaptability of learning-based methods, especially DRL, in dynamic UAV communication environments.
 
 However, most existing DRL-based methods characterize interference only through observable states, 
 such as channel conditions or received interference power, without explicitly modeling the underlying jammer behavior. 
