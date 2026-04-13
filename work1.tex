@@ -367,23 +367,25 @@ As shown in Fig.~\ref{fig:exp1}, the convergence of the proposed scheme is prese
 It is seen that all three schemes exhibit an overall increasing trend and gradually converge, 
 while noticeable reward fluctuations appear in the first 150--200 episodes due to random exploration and jammer mode switching. 
 After around 400 episodes, the training curves become relatively stable, indicating that effective anti-jamming policies have been learned. 
-Moreover, the proposed scheme converges faster and reaches the highest reward among all compared methods, 
-since the introduced mode-aware state representation reduces the ambiguity caused by non-stationary interference and makes policy learning more efficient. 
-In contrast, Hybrid PPO-DDPG performs worse than MA2C-DDPG, showing that increasing algorithmic complexity alone is insufficient when the interference dynamics are not effectively captured.
+Moreover, the proposed scheme achieves the highest reward level among all compared methods, 
+since the introduced mode-aware state representation reduces the ambiguity caused by non-stationary interference and improves the effectiveness of policy learning.
+In contrast, Hybrid PPO-DDPG performs worse than MA2C-DDPG, 
+showing that increasing algorithmic complexity alone is insufficient when the interference dynamics are not effectively captured.
 
 Fig.~\ref{fig:exp2} shows the average instantaneous SU sum rate under a representative jammer mode-switching sequence, 
-where the solid curves denote the mean performance over multiple test episodes and the shaded regions represent one standard deviation.
+where the solid curves denote the mean performance over multiple test episodes and the shaded regions represent one standard deviation. 
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{exp/exp4_switching_robustness.pdf}
   \caption{Robustness comparisons of our proposed scheme with baseline schemes under different jammer transition settings.}
   \label{fig:exp4}
 \end{figure} 
-It is observed that the proposed scheme maintains the highest sum-rate level over most time slots.
-Moreover, around the jammer mode transition points, it exhibits smaller performance degradation and recovers more quickly than the baseline schemes.
-This is because the proposed framework can infer the underlying jammer pattern from short-term observations, 
-allowing the agent to adjust its behavior more promptly when the interference mode changes. 
-Therefore, the proposed scheme achieves both better transient robustness and stronger adaptability under pattern-switching jamming.
+The two transition points correspond to the mode changes from Constant to Sweep at slot 30 and from Sweep to Random at slot 65, respectively. 
+It is observed that the proposed scheme maintains the highest sum-rate level over most time slots. 
+In particular, at the first transition point, it experiences an average rate drop of only 0.8127 Mbps and recovers within 9.76 slots on average, indicating favorable transient adaptation. 
+Similar behavior can also be observed around the second transition point. 
+This is because the proposed framework can infer the jammer pattern from short-term observations, enabling more prompt policy adjustment after interference mode changes. 
+Therefore, the proposed scheme achieves better transient robustness and adaptability under pattern-switching jamming.
 
 Fig.~\ref{fig:exp3} shows the overall performance comparison of the proposed scheme with the baseline schemes in terms of average SU sum rate and outage probability. 
 It is seen that the proposed scheme achieves the highest average SU sum rate and the lowest outage probability among all compared methods. 
