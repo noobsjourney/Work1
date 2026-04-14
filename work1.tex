@@ -346,8 +346,8 @@ The number of SUs is 4. The transmit power of C-UAV ranges
 \end{figure}
 \begin{figure}[t]
   \centering
-  \includegraphics[width=\columnwidth]{exp/exp3_overall.pdf}
-  \caption{Overall throughput and reliability comparisons of our proposed scheme with baseline schemes.}
+  \includegraphics[width=\columnwidth]{exp/exp3_overall_1-crop.pdf}
+  \caption{Overall throughput, reliability, and return comparisons of our proposed scheme with baseline schemes.}
   \label{fig:exp3}
 \end{figure}
 from 200 mW to 300 mW.
@@ -377,7 +377,7 @@ where the solid curves denote the mean performance over multiple test episodes a
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{exp/exp4_switching_robustness.pdf}
-  \caption{Robustness comparisons of our proposed scheme with baseline schemes under different jammer transition settings.}
+  \caption{Performance comparisons of our proposed scheme with baseline schemes under different jammer transition settings.}
   \label{fig:exp4}
 \end{figure} 
 The two transition points correspond to the mode changes from Constant to Sweep at slot 30 and from Sweep to Random at slot 65, respectively. 
@@ -387,21 +387,21 @@ Similar behavior can also be observed around the second transition point.
 This is because the proposed framework can infer the jammer pattern from short-term observations, enabling more prompt policy adjustment after interference mode changes. 
 Therefore, the proposed scheme achieves better transient robustness and adaptability under pattern-switching jamming.
 
-Fig.~\ref{fig:exp3} shows the overall performance comparison of the proposed scheme with the baseline schemes in terms of average SU sum rate and outage probability. 
-It is seen that the proposed scheme achieves the highest average SU sum rate and the lowest outage probability among all compared methods. 
-This indicates that the proposed mode-aware framework can make more effective long-term decisions under dynamic interference, 
-thereby improving spectral efficiency while maintaining more reliable communication links. Therefore, compared with Hybrid PPO-DDPG and MA2C-DDPG, 
-the proposed scheme achieves a better throughput--reliability tradeoff in DSS-enabled UAV networks.
+Fig.~\ref{fig:exp3} shows the overall performance comparison of the proposed scheme with the baseline schemes in terms of average SU sum rate, outage probability, and average episode return, 
+where the three metrics have been scaled for joint visualization.
+It is seen that the proposed scheme achieves the highest sum rate, the lowest outage probability, and the largest return among all schemes. 
+This indicates that the mode-aware state design enables more effective long-term decision making under dynamic interference. 
+Therefore, compared with Hybrid PPO-DDPG and MA2C-DDPG, the proposed framework achieves a better tradeoff among throughput, reliability, and overall reward in DSS-enabled UAV networks.
 
 The performance comparison under different jammer transition settings is shown in Fig.~\ref{fig:exp4}, 
-where each scheme is trained and tested under the corresponding transition matrix.
-It is observed that the performance does not vary monotonically from Low to High, 
-indicating that the impact of jammer transition statistics is determined not only by the switching frequency, 
-but also by the resulting temporal structure and dwell-time distribution of different jamming modes. 
-In particular, MA2C-DDPG exhibits a different trend from the proposed scheme and Hybrid PPO-DDPG, 
-which suggests that different learning frameworks respond differently to the underlying jammer dynamics. 
-Nevertheless, the proposed scheme maintains competitive throughput and reliability across all considered settings, 
-demonstrating stronger adaptability to different jammer transition environments.
+where each scheme is trained and tested under the corresponding transition matrix. 
+The Low, Medium, and High settings are obtained by adjusting the jammer transition matrix, 
+where smaller diagonal entries imply more frequent mode switching. 
+It is observed that the performance does not vary monotonically, 
+since different transition settings change both switching frequency and jammer-mode dwell patterns. 
+MA2C-DDPG shows a different trend, indicating that different learning frameworks respond differently to jammer dynamics. 
+Nevertheless, the proposed scheme maintains competitive throughput, reliability, and return across all settings, 
+demonstrating strong adaptability to different jammer transition environments.
 
 \section{Conclusion}
 This paper investigated mode-aware anti-jamming communication in dynamic spectrum sharing UAV networks 

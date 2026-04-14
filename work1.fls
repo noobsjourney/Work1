@@ -198,11 +198,11 @@ INPUT ./exp/exp2_recovery.pdf
 INPUT ./exp/exp2_recovery.pdf
 INPUT ./exp/exp2_recovery.pdf
 INPUT ./exp/exp2_recovery.pdf
-INPUT ./exp/exp3_overall.pdf
-INPUT ./exp/exp3_overall.pdf
-INPUT ./exp/exp3_overall.pdf
-INPUT ./exp/exp3_overall.pdf
-INPUT ./exp/exp3_overall.pdf
+INPUT ./exp/exp3_overall_1-crop.pdf
+INPUT ./exp/exp3_overall_1-crop.pdf
+INPUT ./exp/exp3_overall_1-crop.pdf
+INPUT ./exp/exp3_overall_1-crop.pdf
+INPUT ./exp/exp3_overall_1-crop.pdf
 INPUT ./exp/exp4_switching_robustness.pdf
 INPUT ./exp/exp4_switching_robustness.pdf
 INPUT ./exp/exp4_switching_robustness.pdf
