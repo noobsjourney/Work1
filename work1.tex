@@ -377,7 +377,7 @@ where the solid curves denote the mean performance over multiple test episodes a
 \begin{figure}[t]
   \centering
   \includegraphics[width=\columnwidth]{exp/exp4_switching_robustness.pdf}
-  \caption{Performance comparisons of our proposed scheme with baseline schemes under different jammer transition settings.}
+  \caption{Robustness comparisons of trained policies under different jammer transition settings.}
   \label{fig:exp4}
 \end{figure} 
 The two transition points correspond to the mode changes from Constant to Sweep at slot 30 and from Sweep to Random at slot 65, respectively. 
@@ -393,15 +393,13 @@ It is seen that the proposed scheme achieves the highest sum rate, the lowest ou
 This indicates that the mode-aware state design enables more effective long-term decision making under dynamic interference. 
 Therefore, compared with Hybrid PPO-DDPG and MA2C-DDPG, the proposed framework achieves a better tradeoff among throughput, reliability, and overall reward in DSS-enabled UAV networks.
 
-The performance comparison under different jammer transition settings is shown in Fig.~\ref{fig:exp4}, 
-where each scheme is trained and tested under the corresponding transition matrix. 
-The Low, Medium, and High settings are obtained by adjusting the jammer transition matrix, 
-where smaller diagonal entries imply more frequent mode switching. 
-It is observed that the performance does not vary monotonically, 
-since different transition settings change both switching frequency and jammer-mode dwell patterns. 
-MA2C-DDPG shows a different trend, indicating that different learning frameworks respond differently to jammer dynamics. 
-Nevertheless, the proposed scheme maintains competitive throughput, reliability, and return across all settings, 
-demonstrating strong adaptability to different jammer transition environments.
+The robustness of the trained policies under different jammer transition settings is shown in Fig.~\ref{fig:exp4}. 
+All schemes are trained under the default Medium transition matrix and then tested under Low, Medium, and High settings, 
+where smaller diagonal entries indicate more frequent mode switching. 
+It is observed that the proposed scheme consistently achieves the highest average SU sum rate and the lowest outage probability across all settings. 
+Moreover, its performance remains stable as the jammer transition setting changes, 
+indicating that the mode-aware state design can effectively adapt to different jammer dynamics. 
+Therefore, the proposed framework exhibits stronger robustness than the baseline schemes under varying pattern-switching jamming conditions.
 
 \section{Conclusion}
 This paper investigated mode-aware anti-jamming communication in dynamic spectrum sharing UAV networks 
